@@ -21,7 +21,7 @@
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}"
+        href="{{ url_for('static', filename='css/style.css', v='20260817-1') }}"
     >
 
     <link
@@ -45,6 +45,24 @@
                 <span class="logo-icon">◉</span>
                 SEMİH<span class="logo-dot">.</span>AKVARYUM
             </a>
+
+
+            <input
+                type="checkbox"
+                id="mobileNavToggle"
+                class="nav-mobile-toggle"
+                aria-hidden="true"
+            >
+
+            <label
+                for="mobileNavToggle"
+                class="nav-mobile-button"
+                aria-label="Menüyü aç veya kapat"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
 
 
             <nav class="nav-links">
@@ -139,11 +157,133 @@
 
                 {% endif %}
 
+        </div>
+
+
+        <div class="mobile-nav-panel">
+
+            <div class="mobile-nav-label">
+                MENÜ
+            </div>
+
+            <nav class="mobile-nav-links">
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="{% if request.endpoint == 'home' %}active{% endif %}"
+                >
+                    <span>01</span>
+                    <strong>Ana Sayfa</strong>
+                    <i>→</i>
+                </a>
+
+                <a
+                    href="{{ url_for('akvaryum_kur') }}"
+                    class="{% if request.endpoint == 'akvaryum_kur' %}active{% endif %}"
+                >
+                    <span>02</span>
+                    <strong>Akvaryum Kur</strong>
+                    <i>→</i>
+                </a>
+
+                <a
+                    href="{{ url_for('akvaryum_analiz') }}"
+                    class="{% if request.endpoint == 'akvaryum_analiz' %}active{% endif %}"
+                >
+                    <span>03</span>
+                    <strong>Akvaryumumu Analiz Et</strong>
+                    <i>→</i>
+                </a>
+
+                <a
+                    href="{{ url_for('canli_uyumu') }}"
+                    class="{% if request.endpoint == 'canli_uyumu' %}active{% endif %}"
+                >
+                    <span>04</span>
+                    <strong>Canlı Uyumu</strong>
+                    <i>→</i>
+                </a>
+
+                <a href="#">
+                    <span>05</span>
+                    <strong>Topluluk</strong>
+                    <i>→</i>
+                </a>
+
+                <a
+                    href="{{ url_for('aquariums') }}"
+                    class="{% if request.endpoint == 'aquariums' %}active{% endif %}"
+                >
+                    <span>06</span>
+                    <strong>Akvaryumlarım</strong>
+                    <i>→</i>
+                </a>
+
+            </nav>
+
+
+            <div class="mobile-nav-account">
+
+                {% if current_user.is_authenticated %}
+
+                    <a
+                        href="{{ url_for('aquariums') }}"
+                        class="mobile-user-card"
+                    >
+                        <span class="nav-user-avatar">
+                            {{ current_user.username[0]|upper }}
+                        </span>
+
+                        <div>
+                            <small>GİRİŞ YAPILDI</small>
+                            <strong>{{ current_user.username }}</strong>
+                        </div>
+
+                        <i>→</i>
+                    </a>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('logout') }}"
+                        class="mobile-logout-form"
+                    >
+                        <button type="submit">
+                            Çıkış Yap
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="mobile-login-button"
+                    >
+                        Giriş Yap
+                    </a>
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="mobile-register-button"
+                    >
+                        Üye Ol
+                        <span>↗</span>
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="mobile-nav-foot">
+                SEMİH.AKVARYUM · AI AQUARIUM TOOLS
             </div>
 
         </div>
 
-    </header>
+    </div>
+
+</header>
 
 
     {% with messages = get_flashed_messages(with_categories=true) %}
