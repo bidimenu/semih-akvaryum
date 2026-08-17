@@ -21,7 +21,7 @@
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css', v='20260817-1') }}"
+        href="{{ url_for('static', filename='css/style.css', v='20260817-2') }}"
     >
 
     <link
@@ -162,67 +162,22 @@
 
         <div class="mobile-nav-panel">
 
-            <div class="mobile-nav-label">
-                MENÜ
-            </div>
+<div class="mobile-nav-label">
+    DİĞER
+</div>
 
-            <nav class="mobile-nav-links">
+<nav class="mobile-nav-links mobile-nav-secondary-links">
 
-                <a
-                    href="{{ url_for('home') }}"
-                    class="{% if request.endpoint == 'home' %}active{% endif %}"
-                >
-                    <span>01</span>
-                    <strong>Ana Sayfa</strong>
-                    <i>→</i>
-                </a>
+    <a href="#">
+        <span>◌</span>
+        <strong>Topluluk</strong>
+        <i>→</i>
+    </a>
 
-                <a
-                    href="{{ url_for('akvaryum_kur') }}"
-                    class="{% if request.endpoint == 'akvaryum_kur' %}active{% endif %}"
-                >
-                    <span>02</span>
-                    <strong>Akvaryum Kur</strong>
-                    <i>→</i>
-                </a>
-
-                <a
-                    href="{{ url_for('akvaryum_analiz') }}"
-                    class="{% if request.endpoint == 'akvaryum_analiz' %}active{% endif %}"
-                >
-                    <span>03</span>
-                    <strong>Akvaryumumu Analiz Et</strong>
-                    <i>→</i>
-                </a>
-
-                <a
-                    href="{{ url_for('canli_uyumu') }}"
-                    class="{% if request.endpoint == 'canli_uyumu' %}active{% endif %}"
-                >
-                    <span>04</span>
-                    <strong>Canlı Uyumu</strong>
-                    <i>→</i>
-                </a>
-
-                <a href="#">
-                    <span>05</span>
-                    <strong>Topluluk</strong>
-                    <i>→</i>
-                </a>
-
-                <a
-                    href="{{ url_for('aquariums') }}"
-                    class="{% if request.endpoint == 'aquariums' %}active{% endif %}"
-                >
-                    <span>06</span>
-                    <strong>Akvaryumlarım</strong>
-                    <i>→</i>
-                </a>
-
-            </nav>
+</nav>
 
 
-            <div class="mobile-nav-account">
+<div class="mobile-nav-account">
 
                 {% if current_user.is_authenticated %}
 
@@ -312,6 +267,96 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+
+
+
+<nav
+    class="mobile-bottom-nav"
+    aria-label="Ana mobil navigasyon"
+>
+
+    <a
+        href="{{ url_for('home') }}"
+        class="mobile-bottom-item {% if request.endpoint == 'home' %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M3.5 10.5 12 3.8l8.5 6.7"></path>
+                <path d="M5.5 9.5v10h13v-10"></path>
+                <path d="M9.5 19.5v-5h5v5"></path>
+            </svg>
+        </span>
+
+        <strong>Ana Sayfa</strong>
+    </a>
+
+
+    <a
+        href="{{ url_for('akvaryum_kur') }}"
+        class="mobile-bottom-item {% if request.endpoint == 'akvaryum_kur' %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <rect x="4" y="5" width="16" height="14" rx="3"></rect>
+                <path d="M8 9h8"></path>
+                <path d="M12 8v6"></path>
+                <path d="M7 16c2-1.8 3.6-1.8 5 0 1.4-1.8 3-1.8 5 0"></path>
+            </svg>
+        </span>
+
+        <strong>Kur</strong>
+    </a>
+
+
+    <a
+        href="{{ url_for('akvaryum_analiz') }}"
+        class="mobile-bottom-item {% if request.endpoint == 'akvaryum_analiz' %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <circle cx="10.5" cy="10.5" r="5.5"></circle>
+                <path d="m15 15 4.5 4.5"></path>
+                <path d="M8 11.5 10 9l2 2 2-3"></path>
+            </svg>
+        </span>
+
+        <strong>Analiz</strong>
+    </a>
+
+
+    <a
+        href="{{ url_for('canli_uyumu') }}"
+        class="mobile-bottom-item {% if request.endpoint == 'canli_uyumu' %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 8.5c2.2-2.4 5.3-2.4 7.5 0"></path>
+                <path d="M12.5 15.5c2.2 2.4 5.3 2.4 7.5 0"></path>
+                <path d="m8 6 3.5 2.5L8 11"></path>
+                <path d="m16 13 4 2.5-4 2.5"></path>
+            </svg>
+        </span>
+
+        <strong>Uyumluluk</strong>
+    </a>
+
+
+    <a
+        href="{{ url_for('aquariums') }}"
+        class="mobile-bottom-item {% if request.endpoint in ['aquariums', 'aquarium_detail'] %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <rect x="3.5" y="5" width="17" height="13" rx="2.5"></rect>
+                <path d="M6.5 14.5c1.7-1.6 3.2-1.6 4.7 0 1.5-1.6 3-1.6 4.7 0"></path>
+                <circle cx="16.8" cy="9" r="1"></circle>
+            </svg>
+        </span>
+
+        <strong>Tanklarım</strong>
+    </a>
+
+</nav>
 
 
     <script
