@@ -2073,3 +2073,53 @@
     }
 
 }
+
+
+/* =====================================================
+   STYLE CARD COMPACT OVERRIDE V3
+   Görsel alanını kart içinde daha küçük tutar.
+===================================================== */
+
+.style-choice-card {
+    min-height: 158px !important;
+}
+
+.style-preview {
+    height: 76px !important;
+}
+
+.style-choice-card > div:nth-of-type(2) {
+    padding: 11px 13px 12px !important;
+}
+
+.style-choice-card small {
+    margin-top: 3px !important;
+}
+
+@media (max-width: 620px) {
+
+    .style-choice-card {
+        min-height: 148px !important;
+    }
+
+    .style-preview {
+        height: 70px !important;
+    }
+
+    .style-choice-card > div:nth-of-type(2) {
+        padding: 10px 12px 11px !important;
+    }
+
+}
+
+@media (max-width: 390px) {
+
+    .style-choice-card {
+        min-height: 142px !important;
+    }
+
+    .style-preview {
+        height: 66px !important;
+    }
+
+}
