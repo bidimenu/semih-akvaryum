@@ -1,0 +1,525 @@
+{% extends "base.html" %}
+
+{% block title %}
+Canlı Uyumu Kontrol · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/compatibility.css', v='20260816-2') }}"
+>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="compat-page">
+
+    <div class="compat-orb compat-orb-one"></div>
+    <div class="compat-orb compat-orb-two"></div>
+
+    <div class="compat-shell">
+
+
+        <header class="compat-hero">
+
+            <div>
+
+                <span class="compat-kicker">
+                    ✦ CANLI UYUM MOTORU
+                </span>
+
+                <h1>
+                    Bu canlı
+                    <span>bu tanka gerçekten uygun mu?</span>
+                </h1>
+
+                <p>
+                    Tank ölçülerini, mevcut canlılarını ve eklemek istediğin türü tek ekranda gir.
+                    AI; hacim, davranış, sürü ihtiyacı, su uyumu ve biyolojik yükü birlikte değerlendirsin.
+                </p>
+
+            </div>
+
+
+            <div class="compat-hero-card">
+
+                <span>SONUÇ</span>
+
+                <strong>
+                    Uyumlu
+                    <i>/</i>
+                    Dikkat
+                    <i>/</i>
+                    Uygun Değil
+                </strong>
+
+                <small>
+                    + skor, nedenler ve alternatifler
+                </small>
+
+            </div>
+
+        </header>
+
+
+        {% if api_error %}
+
+            <div class="compat-error">
+
+                <span>!</span>
+
+                <div>
+                    <strong>
+                        Uyumluluk kontrolü oluşturulamadı
+                    </strong>
+
+                    <p>
+                        {{ api_error }}
+                    </p>
+                </div>
+
+            </div>
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            class="compat-single-form"
+            id="compatForm"
+            novalidate
+        >
+
+            <div class="compat-single-grid">
+
+
+                <!-- TANK -->
+                <section class="compat-panel compat-panel-tank">
+
+                    <div class="compat-panel-head">
+
+                        <span class="compat-panel-index">
+                            01
+                        </span>
+
+                        <div>
+                            <small>TANK</small>
+
+                            <h2>
+                                Akvaryum bilgileri
+                            </h2>
+
+                            <p>
+                                Gerçek ölçüler özellikle taban alanı ve yüzme alanı değerlendirmesi için önemli.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="compat-dimensions">
+
+                        <label>
+                            <span>UZUNLUK *</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="length"
+                                    value="{{ form_data.get('length', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="60"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <label>
+                            <span>GENİŞLİK *</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="width"
+                                    value="{{ form_data.get('width', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="40"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <label>
+                            <span>YÜKSEKLİK *</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="height"
+                                    value="{{ form_data.get('height', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="40"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <div class="compat-volume-live">
+
+                            <span>BRÜT HACİM</span>
+
+                            <strong id="compatVolume">
+                                — L
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="compat-inline-fields">
+
+                        <label class="compat-field">
+
+                            <span>SICAKLIK</span>
+
+                            <input
+                                type="text"
+                                name="temperature"
+                                value="{{ form_data.get('temperature', '') }}"
+                                placeholder="Örn: 25°C"
+                            >
+
+                            <small>
+                                Bilmiyorsan boş bırak.
+                            </small>
+
+                        </label>
+
+
+                        <label class="compat-field">
+
+                            <span>pH</span>
+
+                            <input
+                                type="text"
+                                name="ph"
+                                value="{{ form_data.get('ph', '') }}"
+                                placeholder="Örn: 7.0"
+                            >
+
+                            <small>
+                                Ölçmediysen tahmin yazma.
+                            </small>
+
+                        </label>
+
+
+                        <label class="compat-field">
+
+                            <span>FİLTRASYON</span>
+
+                            <input
+                                type="text"
+                                name="filtration"
+                                value="{{ form_data.get('filtration', '') }}"
+                                placeholder="Örn: 600 L/h dış filtre"
+                            >
+
+                            <small>
+                                Biyolojik yük yorumunu güçlendirir.
+                            </small>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+                <!-- CURRENT LIVESTOCK -->
+                <section class="compat-panel compat-panel-current">
+
+                    <div class="compat-panel-head">
+
+                        <span class="compat-panel-index">
+                            02
+                        </span>
+
+                        <div>
+                            <small>MEVCUT DURUM</small>
+
+                            <h2>
+                                Şu an tankta kimler var?
+                            </h2>
+
+                            <p>
+                                Türleri mümkünse adetleriyle yaz. Tank boşsa “Yok” yazabilirsin.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <label class="compat-field compat-field-large">
+
+                        <span>MEVCUT CANLILAR *</span>
+
+                        <textarea
+                            name="current_livestock"
+                            rows="7"
+                            placeholder="Örn: 1 çift Apistogramma cacatuoides, 15 neon tetra, 6 otocinclus, 8 kiraz karides..."
+                            required
+                        >{{ form_data.get('current_livestock', '') }}</textarea>
+
+                    </label>
+
+
+                    <label class="compat-field compat-current-note">
+
+                        <span>TANK / BAKIM NOTU</span>
+
+                        <textarea
+                            name="water_notes"
+                            rows="3"
+                            placeholder="Örn: Yoğun bitkili, haftalık %25 su değişimi, bol saklanma alanı..."
+                        >{{ form_data.get('water_notes', '') }}</textarea>
+
+                        <small>
+                            İstersen boş bırak.
+                        </small>
+
+                    </label>
+
+                </section>
+
+
+                <!-- CANDIDATE -->
+                <section class="compat-panel compat-panel-candidate">
+
+                    <div class="compat-panel-head">
+
+                        <span class="compat-panel-index">
+                            03
+                        </span>
+
+                        <div>
+                            <small>YENİ CANLI</small>
+
+                            <h2>
+                                Kimi eklemek istiyorsun?
+                            </h2>
+
+                            <p>
+                                Türü mümkün olduğunca net yaz; adet seçimi sonucu ciddi biçimde etkileyebilir.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="compat-candidate-card">
+
+                        <label class="compat-candidate-name">
+
+                            <span>EKLEMEK İSTEDİĞİN CANLI *</span>
+
+                            <input
+                                type="text"
+                                name="candidate"
+                                value="{{ form_data.get('candidate', '') }}"
+                                placeholder="Örn: Mikrogeophagus ramirezi"
+                                required
+                            >
+
+                        </label>
+
+
+                        <label class="compat-candidate-quantity">
+
+                            <span>ADET *</span>
+
+                            <input
+                                type="number"
+                                name="candidate_quantity"
+                                value="{{ form_data.get('candidate_quantity', '') }}"
+                                min="1"
+                                max="500"
+                                step="1"
+                                placeholder="2"
+                                required
+                            >
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="compat-popular">
+
+                        <span>HIZLI ÖRNEKLER</span>
+
+                        <div>
+
+                            <button
+                                type="button"
+                                data-candidate="Ramirezi"
+                            >
+                                Ramirezi
+                            </button>
+
+                            <button
+                                type="button"
+                                data-candidate="Cardinal tetra"
+                            >
+                                Cardinal tetra
+                            </button>
+
+                            <button
+                                type="button"
+                                data-candidate="Apistogramma cacatuoides"
+                            >
+                                Kakadu
+                            </button>
+
+                            <button
+                                type="button"
+                                data-candidate="Otocinclus"
+                            >
+                                Otocinclus
+                            </button>
+
+                            <button
+                                type="button"
+                                data-candidate="Amano karides"
+                            >
+                                Amano
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="compat-field compat-notes">
+
+                        <span>EK NOT</span>
+
+                        <textarea
+                            name="notes"
+                            rows="4"
+                            maxlength="1200"
+                            placeholder="Örn: Üretim düşünmüyorum; sadece karma tankta eklemek istiyorum."
+                        >{{ form_data.get('notes', '') }}</textarea>
+
+                    </label>
+
+                </section>
+
+
+            </div>
+
+
+            <div class="compat-single-footer">
+
+                <div class="compat-final-note">
+
+                    <span>✦</span>
+
+                    <p>
+                        Sonuç yetişkin canlı davranışı üzerinden verilir.
+                        AI yalnızca litreye değil; taban alanı, agresyon, sürü ihtiyacı,
+                        su koşulları ve toplam biyolojik yüke de bakar.
+                    </p>
+
+                </div>
+
+
+                <div class="compat-submit-wrap">
+
+                    <div class="compat-submit-copy">
+
+                        <span>
+                            TÜM BİLGİLER HAZIRSA
+                        </span>
+
+                        <strong>
+                            Tek tıkla uyumu kontrol et.
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="compat-submit"
+                    >
+                        <span>✦</span>
+                        Uyumu Kontrol Et
+                        <i>↗</i>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div
+        class="compat-loading"
+        id="compatLoading"
+        aria-hidden="true"
+    >
+
+        <div class="compat-loading-icon">
+            <span>✦</span>
+        </div>
+
+        <span class="compat-kicker">
+            SEMİH.AKVARYUM AI
+        </span>
+
+        <h2>
+            Canlı uyumu kontrol ediliyor.
+        </h2>
+
+        <p id="compatLoadingText">
+            Tank hacmi ve taban alanı değerlendiriliyor...
+        </p>
+
+        <div class="compat-loading-line">
+            <span></span>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script
+    src="{{ url_for('static', filename='js/compatibility.js', v='20260816-2') }}"
+></script>
+{% endblock %}

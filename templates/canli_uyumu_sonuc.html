@@ -1,0 +1,519 @@
+{% extends "base.html" %}
+
+{% block title %}
+Canlı Uyumu Sonucu · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/compatibility.css', v='20260816-1') }}"
+>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="compat-result-page">
+
+    <div class="compat-orb compat-orb-one"></div>
+    <div class="compat-orb compat-orb-two"></div>
+
+    <div class="compat-result-shell">
+
+
+        <div class="compat-result-topbar">
+
+            <a
+                href="{{ url_for('canli_uyumu') }}"
+            >
+                ← Yeni Uyum Kontrolü
+            </a>
+
+            <span>
+                ✦ CANLI UYUM RAPORU
+            </span>
+
+        </div>
+
+
+        <header class="compat-result-hero">
+
+            <div class="compat-result-copy">
+
+                <div class="compat-verdict compat-verdict-{{ result.verdict }}">
+
+                    <span>
+                        {% if result.verdict == "uyumlu" %}
+                            ✓
+                        {% elif result.verdict == "dikkat" %}
+                            !
+                        {% else %}
+                            ×
+                        {% endif %}
+                    </span>
+
+                    <strong>
+                        {% if result.verdict == "uyumlu" %}
+                            UYUMLU
+                        {% elif result.verdict == "dikkat" %}
+                            DİKKAT
+                        {% else %}
+                            UYGUN DEĞİL
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+
+                <span class="compat-kicker">
+                    {{ result.confidence|upper }} GÜVEN
+                </span>
+
+                <h1>
+                    {{ result.headline }}
+                </h1>
+
+                <p>
+                    {{ result.summary }}
+                </p>
+
+
+                <div class="compat-result-meta">
+
+                    <div>
+                        <span>TANK</span>
+
+                        <strong>
+                            {{ form_data.length }}
+                            × {{ form_data.width }}
+                            × {{ form_data.height }} cm
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>BRÜT HACİM</span>
+
+                        <strong>
+                            {{ gross_volume }} L
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>EKLENMEK İSTENEN</span>
+
+                        <strong>
+                            {{ form_data.candidate_quantity }}
+                            × {{ form_data.candidate }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="compat-score-card">
+
+                <div
+                    class="compat-score-ring"
+                    style="--compat-score: {{ result.score }};"
+                >
+
+                    <div>
+                        <strong>
+                            {{ result.score }}
+                        </strong>
+
+                        <span>/100</span>
+                    </div>
+
+                </div>
+
+                <span>
+                    UYUM SKORU
+                </span>
+
+                <p>
+                    Tank + canlı + istenen adet
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="compat-score-breakdown">
+
+            <article>
+                <span>ALAN & HACİM</span>
+                <strong>{{ result.score_breakdown.space_volume }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.space_volume }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>DAVRANIŞ</span>
+                <strong>{{ result.score_breakdown.behavior_temperament }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.behavior_temperament }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>SU UYUMU</span>
+                <strong>{{ result.score_breakdown.water_compatibility }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.water_compatibility }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>SOSYAL İHTİYAÇ</span>
+                <strong>{{ result.score_breakdown.social_requirements }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.social_requirements }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>BİYOLOJİK YÜK</span>
+                <strong>{{ result.score_breakdown.bioload }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.bioload }}%;"></i></div>
+            </article>
+
+        </section>
+
+
+        <section class="compat-result-section">
+
+            <div class="compat-result-section-head">
+
+                <span>01</span>
+
+                <div>
+                    <small>ADAY CANLI</small>
+                    <h2>Ne eklemek istiyoruz?</h2>
+                </div>
+
+            </div>
+
+
+            <div class="compat-species-profile">
+
+                <div class="compat-species-main">
+
+                    <span>
+                        {{ result.candidate_profile.identification_confidence|upper }}
+                        TÜR TANIM GÜVENİ
+                    </span>
+
+                    <h3>
+                        {{ result.candidate_profile.common_name }}
+                    </h3>
+
+                    <em>
+                        {{ result.candidate_profile.scientific_name }}
+                    </em>
+
+                    <div class="compat-recommended-count">
+
+                        <span>ÖNERİLEN ADET / YAPI</span>
+
+                        <strong>
+                            {{ result.recommended_quantity }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="compat-species-facts">
+
+                    <article>
+                        <span>YETİŞKİN BOY</span>
+                        <strong>{{ result.candidate_profile.adult_size }}</strong>
+                    </article>
+
+                    <article>
+                        <span>DAVRANIŞ</span>
+                        <strong>{{ result.candidate_profile.temperament }}</strong>
+                    </article>
+
+                    <article>
+                        <span>SOSYAL YAPI</span>
+                        <strong>{{ result.candidate_profile.social_requirement }}</strong>
+                    </article>
+
+                    <article>
+                        <span>YÜZME BÖLGESİ</span>
+                        <strong>{{ result.candidate_profile.swimming_zone }}</strong>
+                    </article>
+
+                    <article>
+                        <span>SICAKLIK</span>
+                        <strong>{{ result.candidate_profile.preferred_temperature }}</strong>
+                    </article>
+
+                    <article>
+                        <span>pH</span>
+                        <strong>{{ result.candidate_profile.preferred_ph }}</strong>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        {% if result.conflicts %}
+
+            <section class="compat-result-section">
+
+                <div class="compat-result-section-head">
+
+                    <span>02</span>
+
+                    <div>
+                        <small>RİSKLER</small>
+                        <h2>Dikkat etmen gerekenler</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="compat-conflicts">
+
+                    {% for conflict in result.conflicts %}
+
+                        <article class="compat-conflict compat-conflict-{{ conflict.severity }}">
+
+                            <span>
+                                {{ conflict.severity|upper }}
+                            </span>
+
+                            <h3>
+                                {{ conflict.title }}
+                            </h3>
+
+                            <p>
+                                {{ conflict.detail }}
+                            </p>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <section class="compat-result-section">
+
+            <div class="compat-result-section-head">
+
+                <span>03</span>
+
+                <div>
+                    <small>5 BOYUTTA KARAR</small>
+                    <h2>Neden bu sonucu aldın?</h2>
+                </div>
+
+            </div>
+
+
+            {% set assessments = [
+                ("Alan & Hacim", result.space_assessment),
+                ("Davranış & Agresyon", result.behavior_assessment),
+                ("Su Değerleri", result.water_assessment),
+                ("Sosyal İhtiyaç", result.social_assessment),
+                ("Biyolojik Yük", result.bioload_assessment)
+            ] %}
+
+            <div class="compat-assessment-list">
+
+                {% for title, detail in assessments %}
+
+                    <article>
+
+                        <div>
+                            <span>0{{ loop.index }}</span>
+                            <strong>{{ title }}</strong>
+                        </div>
+
+                        <p>
+                            {{ detail }}
+                        </p>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <section class="compat-result-section">
+
+            <div class="compat-result-section-head">
+
+                <span>04</span>
+
+                <div>
+                    <small>UYGULAMA KARARI</small>
+                    <h2>Ne yapmalısın?</h2>
+                </div>
+
+            </div>
+
+
+            <div class="compat-decision-grid">
+
+                <article class="compat-top-recommendation">
+
+                    <span>AI KARARI</span>
+
+                    <h3>
+                        {{ result.top_recommendation }}
+                    </h3>
+
+                </article>
+
+
+                <article class="compat-conditions">
+
+                    <span>EKLEME KOŞULLARI</span>
+
+                    {% if result.conditions_to_add %}
+
+                        <div>
+                            {% for condition in result.conditions_to_add %}
+                                <p>
+                                    <span>✓</span>
+                                    {{ condition }}
+                                </p>
+                            {% endfor %}
+                        </div>
+
+                    {% else %}
+
+                        <p class="compat-no-condition">
+                            Ek bir koşul belirtilmedi.
+                        </p>
+
+                    {% endif %}
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        {% if result.alternatives %}
+
+            <section class="compat-result-section">
+
+                <div class="compat-result-section-head">
+
+                    <span>05</span>
+
+                    <div>
+                        <small>ALTERNATİFLER</small>
+                        <h2>Bu tank için başka ne düşünebilirsin?</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="compat-alternatives">
+
+                    {% for alternative in result.alternatives %}
+
+                        <article>
+
+                            <span>
+                                {{ alternative.recommended_quantity }}
+                            </span>
+
+                            <h3>
+                                {{ alternative.common_name }}
+                            </h3>
+
+                            <em>
+                                {{ alternative.scientific_name }}
+                            </em>
+
+                            <p>
+                                {{ alternative.reason }}
+                            </p>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        {% if result.unknowns %}
+
+            <section class="compat-unknowns">
+
+                <span class="compat-kicker">
+                    BELİRSİZ KALANLAR
+                </span>
+
+                <h2>
+                    Daha net sonuç için eksik bilgiler
+                </h2>
+
+                <div>
+                    {% for unknown in result.unknowns %}
+                        <span>
+                            ? {{ unknown }}
+                        </span>
+                    {% endfor %}
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <footer class="compat-result-footer">
+
+            <div>
+
+                <span class="compat-kicker">
+                    UYUM KONTROLÜ TAMAMLANDI
+                </span>
+
+                <h2>
+                    Başka bir canlıyı kontrol et.
+                </h2>
+
+                <p>
+                    {{ result.disclaimer }}
+                </p>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('canli_uyumu') }}"
+            >
+                Yeni Kontrol
+                <span>↗</span>
+            </a>
+
+        </footer>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

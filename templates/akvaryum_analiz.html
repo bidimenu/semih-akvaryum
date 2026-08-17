@@ -1,0 +1,659 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akvaryumumu Analiz Et · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/analysis.css', v='20260816-1') }}"
+>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="analysis-page">
+
+    <div class="analysis-orb analysis-orb-one"></div>
+    <div class="analysis-orb analysis-orb-two"></div>
+
+    <div class="analysis-shell">
+
+
+        <header class="analysis-hero">
+
+            <div>
+
+                <span class="analysis-kicker">
+                    ✦ GEMINI VISION ANALYSIS
+                </span>
+
+                <h1>
+                    Tankını göster.
+                    <span>Detaylarını birlikte okuyalım.</span>
+                </h1>
+
+                <p>
+                    Fotoğrafını ve mevcut kurulum bilgilerini ver.
+                    AI canlı uyumundan filtrasyona, bitki–ışık dengesinden
+                    bakım rutinine kadar tankını tek raporda değerlendirsin.
+                </p>
+
+            </div>
+
+
+            <div class="analysis-hero-score">
+
+                <div class="analysis-mini-ring">
+                    <span>?</span>
+                </div>
+
+                <div>
+                    <span>ÇIKTI</span>
+                    <strong>Akvaryum Skoru</strong>
+                    <small>+ öncelikli aksiyon planı</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        {% if api_error %}
+
+            <div class="analysis-error">
+                <span>!</span>
+
+                <div>
+                    <strong>Analiz oluşturulamadı</strong>
+                    <p>{{ api_error }}</p>
+                </div>
+            </div>
+
+        {% endif %}
+
+
+        <div class="analysis-builder">
+
+            <aside class="analysis-progress">
+
+                <div class="analysis-progress-head">
+                    <span>ANALİZ AKIŞI</span>
+                    <strong id="analysisStepText">01 / 03</strong>
+                </div>
+
+                <button
+                    type="button"
+                    class="analysis-step-nav active"
+                    data-analysis-step-nav="1"
+                >
+                    <span>01</span>
+
+                    <div>
+                        <strong>Tankını Göster</strong>
+                        <small>Fotoğraf + ölçüler</small>
+                    </div>
+                </button>
+
+                <button
+                    type="button"
+                    class="analysis-step-nav"
+                    data-analysis-step-nav="2"
+                >
+                    <span>02</span>
+
+                    <div>
+                        <strong>İçerik & Sistem</strong>
+                        <small>Canlı, bitki, ekipman</small>
+                    </div>
+                </button>
+
+                <button
+                    type="button"
+                    class="analysis-step-nav"
+                    data-analysis-step-nav="3"
+                >
+                    <span>03</span>
+
+                    <div>
+                        <strong>Bakım & Sorun</strong>
+                        <small>Rutin ve analiz hedefi</small>
+                    </div>
+                </button>
+
+
+                <div class="analysis-progress-note">
+
+                    <span>GÖRSEL GİZLİLİK</span>
+
+                    <p>
+                        Fotoğraf bu V1'de profilinde saklanmaz.
+                        Yalnızca analiz isteğinde kullanılır.
+                    </p>
+
+                </div>
+
+            </aside>
+
+
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                class="analysis-form"
+                id="analysisForm"
+                novalidate
+            >
+
+
+                <!-- STEP 1 -->
+                <section
+                    class="analysis-form-step active"
+                    data-analysis-step="1"
+                >
+
+                    <div class="analysis-step-head">
+
+                        <span>01 — TANKINI GÖSTER</span>
+
+                        <h2>
+                            Önce akvaryuma bakalım.
+                        </h2>
+
+                        <p>
+                            Fotoğraf zorunlu değil ama görsel analiz kalitesini ciddi biçimde artırır.
+                        </p>
+
+                    </div>
+
+
+                    <label
+                        class="analysis-upload"
+                        id="analysisUpload"
+                    >
+
+                        <input
+                            type="file"
+                            name="aquarium_photo"
+                            id="aquariumPhoto"
+                            accept="image/jpeg,image/png,image/webp"
+                        >
+
+                        <div
+                            class="analysis-upload-preview"
+                            id="analysisUploadPreview"
+                        >
+
+                            <div class="analysis-upload-icon">
+                                +
+                            </div>
+
+                            <strong>
+                                Akvaryum fotoğrafını bırak
+                            </strong>
+
+                            <p>
+                                veya bilgisayarından seç
+                            </p>
+
+                            <span>
+                                JPG · PNG · WEBP · Maks. 8 MB
+                            </span>
+
+                        </div>
+
+                        <img
+                            id="analysisPreviewImage"
+                            alt="Akvaryum önizlemesi"
+                        >
+
+                        <button
+                            type="button"
+                            class="analysis-remove-photo"
+                            id="analysisRemovePhoto"
+                        >
+                            Fotoğrafı kaldır
+                        </button>
+
+                    </label>
+
+
+                    <div class="analysis-dimensions">
+
+                        <label>
+                            <span>UZUNLUK</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="length"
+                                    value="{{ form_data.get('length', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="60"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <label>
+                            <span>GENİŞLİK</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="width"
+                                    value="{{ form_data.get('width', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="40"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <label>
+                            <span>YÜKSEKLİK</span>
+
+                            <div>
+                                <input
+                                    type="number"
+                                    name="height"
+                                    value="{{ form_data.get('height', '') }}"
+                                    min="10"
+                                    max="1000"
+                                    step="0.1"
+                                    placeholder="40"
+                                    required
+                                >
+
+                                <i>cm</i>
+                            </div>
+                        </label>
+
+
+                        <div class="analysis-volume-live">
+
+                            <span>BRÜT HACİM</span>
+
+                            <strong id="analysisVolume">
+                                — L
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analysis-step-actions analysis-step-actions-end">
+
+                        <button
+                            type="button"
+                            class="analysis-next"
+                            data-analysis-next
+                        >
+                            Devam Et
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- STEP 2 -->
+                <section
+                    class="analysis-form-step"
+                    data-analysis-step="2"
+                >
+
+                    <div class="analysis-step-head">
+
+                        <span>02 — İÇERİK & SİSTEM</span>
+
+                        <h2>
+                            Tankın içinde ne çalışıyor?
+                        </h2>
+
+                        <p>
+                            Marka şart değil. Model, adet ve teknik bilgiyi bildiğin kadar yaz.
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-fields-grid">
+
+                        <label class="analysis-field analysis-field-wide">
+
+                            <span>MEVCUT CANLILAR *</span>
+
+                            <textarea
+                                name="livestock"
+                                rows="4"
+                                placeholder="Örn: 1 çift Apistogramma cacatuoides, 15 neon tetra, 6 otocinclus..."
+                                required
+                            >{{ form_data.get('livestock', '') }}</textarea>
+
+                        </label>
+
+
+                        <label class="analysis-field analysis-field-wide">
+
+                            <span>BİTKİLER</span>
+
+                            <textarea
+                                name="plants"
+                                rows="3"
+                                placeholder="Örn: Anubias, Marsilea hirsuta, AR Mini, Staurogyne repens..."
+                            >{{ form_data.get('plants', '') }}</textarea>
+
+                        </label>
+
+
+                        <label class="analysis-field">
+
+                            <span>FİLTRE / FİLTRASYON *</span>
+
+                            <input
+                                type="text"
+                                name="filter"
+                                value="{{ form_data.get('filter', '') }}"
+                                placeholder="Örn: Sunsun HW-503B, 600 L/h"
+                                required
+                            >
+
+                        </label>
+
+
+                        <label class="analysis-field">
+
+                            <span>AYDINLATMA *</span>
+
+                            <input
+                                type="text"
+                                name="lighting"
+                                value="{{ form_data.get('lighting', '') }}"
+                                placeholder="Örn: OrionLED Plant E, 7 saat"
+                                required
+                            >
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="analysis-choice-block">
+
+                        <span class="analysis-choice-title">
+                            CO₂ KULLANIYOR MUSUN? *
+                        </span>
+
+                        <div class="analysis-choice-grid">
+
+                            {% set current_co2 = form_data.get('co2', '') %}
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="co2"
+                                    value="Var"
+                                    {% if current_co2 == "Var" %}checked{% endif %}
+                                    required
+                                >
+
+                                <span>
+                                    <strong>CO₂ Var</strong>
+                                    <small>Basınçlı / mayalı sistem</small>
+                                </span>
+                            </label>
+
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="co2"
+                                    value="Yok"
+                                    {% if current_co2 == "Yok" %}checked{% endif %}
+                                    required
+                                >
+
+                                <span>
+                                    <strong>CO₂ Yok</strong>
+                                    <small>Low-tech kurulum</small>
+                                </span>
+                            </label>
+
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="co2"
+                                    value="Emin değilim"
+                                    {% if current_co2 == "Emin değilim" %}checked{% endif %}
+                                    required
+                                >
+
+                                <span>
+                                    <strong>Emin Değilim</strong>
+                                    <small>AI mevcut bilgiyi yorumlasın</small>
+                                </span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analysis-step-actions">
+
+                        <button
+                            type="button"
+                            class="analysis-back"
+                            data-analysis-back
+                        >
+                            ← Geri
+                        </button>
+
+                        <button
+                            type="button"
+                            class="analysis-next"
+                            data-analysis-next
+                        >
+                            Devam Et
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- STEP 3 -->
+                <section
+                    class="analysis-form-step"
+                    data-analysis-step="3"
+                >
+
+                    <div class="analysis-step-head">
+
+                        <span>03 — BAKIM & SORUN</span>
+
+                        <h2>
+                            Şimdi tankın rutinini anlatalım.
+                        </h2>
+
+                        <p>
+                            AI'nın asıl fark yarattığı bölüm burada: görüntüyü bakım verileriyle birlikte okuyacak.
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-choice-block">
+
+                        <span class="analysis-choice-title">
+                            SU DEĞİŞİM RUTİNİN *
+                        </span>
+
+                        {% set current_wc = form_data.get('water_change', '') %}
+
+                        <div class="analysis-choice-grid analysis-choice-grid-four">
+
+                            {% for value, title, sub in [
+                                ("Haftada 1", "Haftada 1", "Düzenli rutin"),
+                                ("Haftada 2+", "Haftada 2+", "Yoğun bakım"),
+                                ("2 haftada 1", "2 haftada 1", "Daha seyrek"),
+                                ("Düzensiz", "Düzensiz", "Sabit rutin yok")
+                            ] %}
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="water_change"
+                                        value="{{ value }}"
+                                        {% if current_wc == value %}checked{% endif %}
+                                        required
+                                    >
+
+                                    <span>
+                                        <strong>{{ title }}</strong>
+                                        <small>{{ sub }}</small>
+                                    </span>
+                                </label>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="analysis-fields-grid analysis-last-grid">
+
+                        <label class="analysis-field analysis-field-wide">
+
+                            <span>SU DEĞERLERİN</span>
+
+                            <textarea
+                                name="water_values"
+                                rows="3"
+                                placeholder="Biliyorsan yaz: 25°C, pH 7.1, GH 8, KH 5, NO3 15 ppm... Bilmiyorsan boş bırak."
+                            >{{ form_data.get('water_values', '') }}</textarea>
+
+                        </label>
+
+
+                        <label class="analysis-field analysis-field-wide">
+
+                            <span>NEYİ ANALİZ ETMEMİZİ İSTİYORSUN? *</span>
+
+                            <textarea
+                                name="description"
+                                id="analysisDescription"
+                                rows="6"
+                                maxlength="1800"
+                                placeholder="Örn: Son haftalarda bitkilerde yosun arttı. Balıklar sağlıklı görünüyor ama filtrasyonun yeterli olup olmadığından ve canlı yükünden emin değilim..."
+                                required
+                            >{{ form_data.get('description', '') }}</textarea>
+
+                            <small class="analysis-char-count">
+                                <span id="analysisCharCount">0</span>
+                                / 1800
+                            </small>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="analysis-final-note">
+
+                        <span>✦</span>
+
+                        <p>
+                            AI fotoğraftan kesin su kimyası veya hastalık teşhisi üretmeyecek.
+                            Görsel bulguları, verdiğin teknik bilgilerle birlikte değerlendirecek.
+                        </p>
+
+                    </div>
+
+
+                    <div class="analysis-step-actions">
+
+                        <button
+                            type="button"
+                            class="analysis-back"
+                            data-analysis-back
+                        >
+                            ← Geri
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="analysis-submit"
+                        >
+                            <span>✦</span>
+                            Akvaryumumu Analiz Et
+                            <i>↗</i>
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="analysis-loading"
+        id="analysisLoading"
+        aria-hidden="true"
+    >
+
+        <div class="analysis-loading-orb">
+            <span>✦</span>
+        </div>
+
+        <span class="analysis-kicker">
+            SEMİH.AKVARYUM AI
+        </span>
+
+        <h2>
+            Tankın analiz ediliyor.
+        </h2>
+
+        <p id="analysisLoadingText">
+            Kurulum bilgilerini değerlendiriyoruz...
+        </p>
+
+        <div class="analysis-loading-line">
+            <span></span>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script
+    src="{{ url_for('static', filename='js/analysis.js', v='20260816-1') }}"
+></script>
+{% endblock %}

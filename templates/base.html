@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Semih Akvaryum
+        {% endblock %}
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/auth.css') }}"
+    >
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="logo"
+            >
+                <span class="logo-icon">◉</span>
+                SEMİH<span class="logo-dot">.</span>AKVARYUM
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a
+                    href="{{ url_for('home') }}"
+                    class="{% if request.endpoint == 'home' %}active{% endif %}"
+                >
+                    Ana Sayfa
+                </a>
+
+                <a
+                    href="{{ url_for('akvaryum_kur') }}"
+                    class="{% if request.endpoint == 'akvaryum_kur' %}active{% endif %}"
+                >
+                    Akvaryum Kur
+                </a>
+
+                <a
+                    href="{{ url_for('akvaryum_analiz') }}"
+                    class="{% if request.endpoint == 'akvaryum_analiz' %}active{% endif %}"
+                >
+                    Akvaryumumu Analiz Et
+                </a>
+
+                <a
+                    href="{{ url_for('canli_uyumu') }}"
+                    class="{% if request.endpoint == 'canli_uyumu' %}active{% endif %}"
+                >
+                    Canlı Uyumu
+                </a>
+
+                <a href="#">
+                    Topluluk
+                </a>
+
+                <a
+                    href="{{ url_for('aquariums') }}"
+                    class="{% if request.endpoint == 'aquariums' %}active{% endif %}"
+                >
+                    Akvaryumlarım
+                </a>
+
+            </nav>
+
+
+            <div class="nav-account">
+
+                {% if current_user.is_authenticated %}
+
+                    <a
+                        href="{{ url_for('aquariums') }}"
+                        class="nav-user-chip"
+                    >
+                        <span class="nav-user-avatar">
+                            {{ current_user.username[0]|upper }}
+                        </span>
+
+                        <span class="nav-user-name">
+                            {{ current_user.username }}
+                        </span>
+                    </a>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('logout') }}"
+                        class="nav-logout-form"
+                    >
+                        <button
+                            type="submit"
+                            class="nav-logout-button"
+                        >
+                            Çıkış
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('login') }}"
+                        class="login-button"
+                    >
+                        Giriş Yap
+                    </a>
+
+                    <a
+                        href="{{ url_for('register') }}"
+                        class="register-button"
+                    >
+                        Üye Ol
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="global-flashes">
+                {% for category, message in messages %}
+                    <div class="global-flash global-flash-{{ category }}">
+                        <span>
+                            {% if category == "success" %}
+                                ✓
+                            {% elif category == "error" %}
+                                !
+                            {% else %}
+                                i
+                            {% endif %}
+                        </span>
+
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+
+    <script
+        src="{{ url_for('static', filename='js/main.js') }}"
+    ></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+
+</html>

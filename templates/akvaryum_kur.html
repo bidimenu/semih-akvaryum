@@ -1,0 +1,1135 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akvaryum Kur · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/builder.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="builder-page" id="builderPage">
+
+    <div class="builder-ocean-light builder-ocean-light-1"></div>
+    <div class="builder-ocean-light builder-ocean-light-2"></div>
+
+    <div class="builder-shell">
+
+        <aside class="builder-sidebar">
+
+            <a href="{{ url_for('home') }}" class="builder-back">
+                <span>←</span>
+                Ana sayfaya dön
+            </a>
+
+            <div class="builder-sidebar-copy">
+
+                <span class="builder-eyebrow">
+                    AKVARYUM KUR
+                </span>
+
+                <h1>
+                    Hayalindeki tankı
+                    <span>birlikte kuralım.</span>
+                </h1>
+
+                <p>
+                    Birkaç kısa soruyu cevapla.
+                    Ölçülerine, bütçene ve tarzına göre sana özel
+                    kurulum planını hazırlayalım.
+                </p>
+
+            </div>
+
+
+            <div class="builder-progress-list">
+
+                <button type="button" class="progress-item active" data-progress-step="1">
+                    <span class="progress-number">01</span>
+
+                    <span class="progress-copy">
+                        <strong>Tankın</strong>
+                        <small>Ölçüler & bütçe</small>
+                    </span>
+
+                    <span class="progress-check">✓</span>
+                </button>
+
+
+                <button type="button" class="progress-item" data-progress-step="2">
+                    <span class="progress-number">02</span>
+
+                    <span class="progress-copy">
+                        <strong>Seni tanıyalım</strong>
+                        <small>Deneyim & bakım</small>
+                    </span>
+
+                    <span class="progress-check">✓</span>
+                </button>
+
+
+                <button type="button" class="progress-item" data-progress-step="3">
+                    <span class="progress-number">03</span>
+
+                    <span class="progress-copy">
+                        <strong>Tarzın</strong>
+                        <small>Görünüm & CO₂</small>
+                    </span>
+
+                    <span class="progress-check">✓</span>
+                </button>
+
+
+                <button type="button" class="progress-item" data-progress-step="4">
+                    <span class="progress-number">04</span>
+
+                    <span class="progress-copy">
+                        <strong>Canlıların</strong>
+                        <small>Özel tür tercihleri</small>
+                    </span>
+
+                    <span class="progress-check">✓</span>
+                </button>
+
+
+                <button type="button" class="progress-item" data-progress-step="5">
+                    <span class="progress-number">05</span>
+
+                    <span class="progress-copy">
+                        <strong>Hayalin</strong>
+                        <small>Son dokunuş</small>
+                    </span>
+
+                    <span class="progress-check">✓</span>
+                </button>
+
+            </div>
+
+
+            <div class="builder-sidebar-note">
+                <span class="builder-note-icon">✦</span>
+
+                <div>
+                    <strong>Kişisel danışman mantığı</strong>
+
+                    <p>
+                        Verdiğin tüm cevaplar birlikte değerlendirilir.
+                        Tek bir seçeneğe göre sonuç üretilmez.
+                    </p>
+                </div>
+            </div>
+
+        </aside>
+
+
+        <main class="builder-main">
+
+
+            {% if api_error %}
+            <div class="builder-api-error">
+                <div class="builder-api-error-icon">!</div>
+
+                <div>
+                    <strong>Kurulum oluşturulamadı</strong>
+                    <p>{{ api_error }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {% if submitted %}
+
+                <div class="builder-submitted">
+
+                    <div class="submitted-icon">
+                        ✓
+                    </div>
+
+                    <span class="builder-eyebrow">
+                        BİLGİLERİN HAZIR
+                    </span>
+
+                    <h2>
+                        Tankını tanıdık.
+                    </h2>
+
+                    <p>
+                        Wizard akışı başarıyla çalışıyor.
+                        Bir sonraki adımda bu verileri Gemini'ye gönderip
+                        kişisel kurulum sonucunu oluşturacağız.
+                    </p>
+
+                    <div class="submitted-summary">
+
+                        <div>
+                            <span>Tank</span>
+                            <strong>
+                                {{ form_data.length }} ×
+                                {{ form_data.width }} ×
+                                {{ form_data.height }} cm
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Bütçe</span>
+                            <strong>{{ form_data.budget }} TL</strong>
+                        </div>
+
+                        <div>
+                            <span>Deneyim</span>
+                            <strong>{{ form_data.experience }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Tarz</span>
+                            <strong>{{ form_data.style }}</strong>
+                        </div>
+
+                        <div>
+                            <span>Canlı</span>
+                            <strong>{{ form_data.livestock }}</strong>
+                        </div>
+
+                    </div>
+
+                    <a href="{{ url_for('akvaryum_kur') }}" class="builder-restart">
+                        Yeni kurulum oluştur
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <form method="POST" class="builder-form" id="builderForm" novalidate>
+
+                    <div class="builder-mobile-progress">
+                        <span id="mobileStepText">
+                            ADIM 1 / 5
+                        </span>
+
+                        <div class="mobile-progress-track">
+                            <i id="mobileProgressBar"></i>
+                        </div>
+                    </div>
+
+
+                    <!-- STEP 1 -->
+                    <section class="builder-step active" data-step="1">
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                01 / 05
+                            </span>
+
+                            <h2>
+                                Önce tankını tanıyalım.
+                            </h2>
+
+                            <p>
+                                Akvaryum ölçülerin ve bütçen,
+                                bütün kurulumun temelini oluşturacak.
+                            </p>
+
+                        </div>
+
+
+                        <div class="dimension-group">
+
+                            <div class="dimension-label">
+                                AKVARYUM ÖLÇÜLERİ
+                            </div>
+
+                            <div class="dimension-grid">
+
+                                <label class="builder-input-card">
+                                    <span>Uzunluk</span>
+
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="length"
+                                            id="length"
+                                            min="10"
+                                            max="500"
+                                            placeholder="60"
+                                            required
+                                        >
+
+                                        <small>cm</small>
+                                    </div>
+                                </label>
+
+
+                                <span class="dimension-x">×</span>
+
+
+                                <label class="builder-input-card">
+                                    <span>Genişlik</span>
+
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="width"
+                                            id="width"
+                                            min="10"
+                                            max="500"
+                                            placeholder="40"
+                                            required
+                                        >
+
+                                        <small>cm</small>
+                                    </div>
+                                </label>
+
+
+                                <span class="dimension-x">×</span>
+
+
+                                <label class="builder-input-card">
+                                    <span>Yükseklik</span>
+
+                                    <div>
+                                        <input
+                                            type="number"
+                                            name="height"
+                                            id="height"
+                                            min="10"
+                                            max="500"
+                                            placeholder="40"
+                                            required
+                                        >
+
+                                        <small>cm</small>
+                                    </div>
+                                </label>
+
+                            </div>
+
+
+                            <div class="volume-preview">
+                                <span class="volume-icon">
+                                    ◫
+                                </span>
+
+                                <div>
+                                    <small>BRÜT HACİM</small>
+
+                                    <strong id="volumeOutput">
+                                        Ölçüleri gir
+                                    </strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <label class="budget-field">
+
+                            <span class="field-label">
+                                TOPLAM BÜTÇEN
+                            </span>
+
+                            <div class="budget-input-wrap">
+                                <span>₺</span>
+
+                                <input
+                                    type="number"
+                                    name="budget"
+                                    min="0"
+                                    step="500"
+                                    placeholder="15.000"
+                                    required
+                                >
+
+                                <small>TL</small>
+                            </div>
+
+                            <p>
+                                Tank dahil tüm kurulum için ayırabileceğin yaklaşık bütçe.
+                            </p>
+
+                        </label>
+
+
+                        <div class="builder-navigation builder-navigation-end">
+
+                            <button
+                                type="button"
+                                class="builder-next"
+                                data-next
+                            >
+                                Devam Et
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- STEP 2 -->
+                    <section class="builder-step" data-step="2">
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                02 / 05
+                            </span>
+
+                            <h2>
+                                Akvaryum tecrüben nasıl?
+                            </h2>
+
+                            <p>
+                                Sana önereceğimiz ekipman ve bakım seviyesi
+                                deneyimine uygun olmalı.
+                            </p>
+
+                        </div>
+
+
+                        <div class="choice-block">
+
+                            <span class="field-label">
+                                DENEYİM SEVİYEN
+                            </span>
+
+                            <div class="choice-grid choice-grid-3">
+
+                                <label class="choice-card">
+                                    <input
+                                        type="radio"
+                                        name="experience"
+                                        value="Başlangıç"
+                                        required
+                                    >
+
+                                    <span class="choice-icon">
+                                        ○
+                                    </span>
+
+                                    <strong>
+                                        Başlangıç
+                                    </strong>
+
+                                    <small>
+                                        İlk tankım veya henüz çok yeniyim.
+                                    </small>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="choice-card">
+                                    <input
+                                        type="radio"
+                                        name="experience"
+                                        value="Orta"
+                                    >
+
+                                    <span class="choice-icon">
+                                        ◐
+                                    </span>
+
+                                    <strong>
+                                        Orta
+                                    </strong>
+
+                                    <small>
+                                        Temel bakım ve su değerlerine hakimim.
+                                    </small>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="choice-card">
+                                    <input
+                                        type="radio"
+                                        name="experience"
+                                        value="İleri"
+                                    >
+
+                                    <span class="choice-icon">
+                                        ●
+                                    </span>
+
+                                    <strong>
+                                        İleri
+                                    </strong>
+
+                                    <small>
+                                        Bitkili tank, CO₂ ve hassas türlerde deneyimliyim.
+                                    </small>
+
+                                    <i>✓</i>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="choice-block">
+
+                            <span class="field-label">
+                                BAKIM İÇİN NE KADAR ZAMAN AYIRABİLİRSİN?
+                            </span>
+
+                            <div class="choice-grid choice-grid-2">
+
+                                <label class="choice-card choice-card-row">
+                                    <input
+                                        type="radio"
+                                        name="maintenance"
+                                        value="Çok az"
+                                        required
+                                    >
+
+                                    <span class="choice-icon">
+                                        ◷
+                                    </span>
+
+                                    <div>
+                                        <strong>
+                                            Çok az
+                                        </strong>
+
+                                        <small>
+                                            Mümkün olduğunca zahmetsiz olsun.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="choice-card choice-card-row">
+                                    <input
+                                        type="radio"
+                                        name="maintenance"
+                                        value="Haftada 1 saat"
+                                    >
+
+                                    <span class="choice-icon">
+                                        ◴
+                                    </span>
+
+                                    <div>
+                                        <strong>
+                                            Haftada yaklaşık 1 saat
+                                        </strong>
+
+                                        <small>
+                                            Düzenli temel bakım yapabilirim.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="choice-card choice-card-row">
+                                    <input
+                                        type="radio"
+                                        name="maintenance"
+                                        value="Haftada birkaç saat"
+                                    >
+
+                                    <span class="choice-icon">
+                                        ◑
+                                    </span>
+
+                                    <div>
+                                        <strong>
+                                            Haftada birkaç saat
+                                        </strong>
+
+                                        <small>
+                                            Budama, test ve detaylı bakım sorun değil.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="choice-card choice-card-row">
+                                    <input
+                                        type="radio"
+                                        name="maintenance"
+                                        value="Bakım sorun değil"
+                                    >
+
+                                    <span class="choice-icon">
+                                        ✦
+                                    </span>
+
+                                    <div>
+                                        <strong>
+                                            Bakım sorun değil
+                                        </strong>
+
+                                        <small>
+                                            Görsellik için gereken zamanı ayırırım.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="builder-navigation">
+
+                            <button
+                                type="button"
+                                class="builder-prev"
+                                data-prev
+                            >
+                                ← Geri
+                            </button>
+
+                            <button
+                                type="button"
+                                class="builder-next"
+                                data-next
+                            >
+                                Devam Et
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- STEP 3 -->
+                    <section class="builder-step" data-step="3">
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                03 / 05
+                            </span>
+
+                            <h2>
+                                Nasıl bir dünya istiyorsun?
+                            </h2>
+
+                            <p>
+                                Tarz seçimi; bitkilerden ışığa,
+                                tabandan ekipmana kadar tüm önerileri değiştirir.
+                            </p>
+
+                        </div>
+
+
+                        <div class="choice-block">
+
+                            <span class="field-label">
+                                AKVARYUM TARZI
+                            </span>
+
+                            <div class="style-choice-grid">
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Bitkili / Aquascape"
+                                        required
+                                    >
+
+                                    <div class="style-preview style-preview-aqua">
+                                        <span></span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Bitkili / Aquascape
+                                        </strong>
+
+                                        <small>
+                                            Yoğun bitki, doğal hardscape ve güçlü görsellik.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Blackwater"
+                                    >
+
+                                    <div class="style-preview style-preview-blackwater">
+                                        <span></span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Blackwater
+                                        </strong>
+
+                                        <small>
+                                            Kökler, yapraklar ve doğal koyu su atmosferi.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Biyotop"
+                                    >
+
+                                    <div class="style-preview style-preview-biotope">
+                                        <span></span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Biyotop
+                                        </strong>
+
+                                        <small>
+                                            Belirli bir doğal habitatı mümkün olduğunca taklit et.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Low-tech"
+                                    >
+
+                                    <div class="style-preview style-preview-lowtech">
+                                        <span></span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Low-tech
+                                        </strong>
+
+                                        <small>
+                                            Daha sade ekipman, daha düşük bakım ihtiyacı.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Tuzlu su"
+                                    >
+
+                                    <div class="style-preview style-preview-marine">
+                                        <span></span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Tuzlu su
+                                        </strong>
+
+                                        <small>
+                                            Deniz canlıları ve marine ekosistem odaklı.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+
+                                <label class="style-choice-card">
+                                    <input
+                                        type="radio"
+                                        name="style"
+                                        value="Kararsızım"
+                                    >
+
+                                    <div class="style-preview style-preview-undecided">
+                                        <span>?</span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Kararsızım
+                                        </strong>
+
+                                        <small>
+                                            Bilgilerime göre bana en uygun tarzı sistem seçsin.
+                                        </small>
+                                    </div>
+
+                                    <i>✓</i>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="choice-block">
+
+                            <span class="field-label">
+                                CO₂ KULLANIMI
+                            </span>
+
+                            <div class="choice-grid choice-grid-4">
+
+                                <label class="choice-card choice-card-small">
+                                    <input
+                                        type="radio"
+                                        name="co2"
+                                        value="Var"
+                                        required
+                                    >
+
+                                    <strong>Var</strong>
+                                    <small>Sistemim hazır.</small>
+                                    <i>✓</i>
+                                </label>
+
+                                <label class="choice-card choice-card-small">
+                                    <input
+                                        type="radio"
+                                        name="co2"
+                                        value="Yok"
+                                    >
+
+                                    <strong>Yok</strong>
+                                    <small>Kullanmayacağım.</small>
+                                    <i>✓</i>
+                                </label>
+
+                                <label class="choice-card choice-card-small">
+                                    <input
+                                        type="radio"
+                                        name="co2"
+                                        value="Kullanabilirim"
+                                    >
+
+                                    <strong>Kullanabilirim</strong>
+                                    <small>Gerekirse eklerim.</small>
+                                    <i>✓</i>
+                                </label>
+
+                                <label class="choice-card choice-card-small">
+                                    <input
+                                        type="radio"
+                                        name="co2"
+                                        value="Emin değilim"
+                                    >
+
+                                    <strong>Emin değilim</strong>
+                                    <small>Bana uygun olanı öner.</small>
+                                    <i>✓</i>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="builder-navigation">
+
+                            <button
+                                type="button"
+                                class="builder-prev"
+                                data-prev
+                            >
+                                ← Geri
+                            </button>
+
+                            <button
+                                type="button"
+                                class="builder-next"
+                                data-next
+                            >
+                                Devam Et
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- STEP 4 -->
+                    <section class="builder-step" data-step="4">
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                04 / 05
+                            </span>
+
+                            <h2>
+                                Vazgeçemediğin bir canlı var mı?
+                            </h2>
+
+                            <p>
+                                İstediğin türü yaz.
+                                Geri kalan kurulumu bu canlının ihtiyaçlarına göre şekillendirebiliriz.
+                            </p>
+
+                        </div>
+
+
+                        <label class="livestock-field">
+
+                            <span class="field-label">
+                                İSTEDİĞİN CANLI
+                            </span>
+
+                            <div class="livestock-input">
+                                <span>⌕</span>
+
+                                <input
+                                    type="text"
+                                    name="livestock"
+                                    id="livestock"
+                                    placeholder="Örn. Apistogramma cacatuoides"
+                                    required
+                                >
+                            </div>
+
+                        </label>
+
+
+                        <div class="quick-species">
+
+                            <span class="field-label">
+                                POPÜLER SEÇİMLER
+                            </span>
+
+                            <div class="quick-species-list">
+
+                                <button type="button" data-species="Apistogramma cacatuoides">
+                                    Apistogramma
+                                </button>
+
+                                <button type="button" data-species="Ramirezi">
+                                    Ramirezi
+                                </button>
+
+                                <button type="button" data-species="Betta splendens">
+                                    Betta
+                                </button>
+
+                                <button type="button" data-species="Neocaridina karides">
+                                    Karides
+                                </button>
+
+                                <button type="button" data-species="Cardinal tetra">
+                                    Cardinal tetra
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="species-note">
+
+                            <span>i</span>
+
+                            <p>
+                                Birden fazla canlı istiyorsan hepsini yazabilirsin.
+                                Örn: “1 çift Kakadu + sürü balığı + Otocinclus”.
+                            </p>
+
+                        </div>
+
+
+                        <div class="builder-navigation">
+
+                            <button
+                                type="button"
+                                class="builder-prev"
+                                data-prev
+                            >
+                                ← Geri
+                            </button>
+
+                            <button
+                                type="button"
+                                class="builder-next"
+                                data-next
+                            >
+                                Devam Et
+                                <span>→</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- STEP 5 -->
+                    <section class="builder-step" data-step="5">
+
+                        <div class="step-heading">
+
+                            <span class="step-number">
+                                05 / 05
+                            </span>
+
+                            <h2>
+                                Son olarak hayalini anlat.
+                            </h2>
+
+                            <p>
+                                Burası tamamen sana ait.
+                                Nasıl görünmesini istediğini, önceliklerini
+                                ve istemediğin şeyleri özgürce yaz.
+                            </p>
+
+                        </div>
+
+
+                        <label class="dream-field">
+
+                            <span class="field-label">
+                                NASIL BİR AKVARYUM HAYAL EDİYORSUN?
+                            </span>
+
+                            <textarea
+                                name="dream"
+                                id="dream"
+                                rows="8"
+                                maxlength="1200"
+                                required
+                                placeholder="Örn. Apistogramma ana canlı olsun. Çok doğal ve yoğun bitkili görünsün ama bakımına haftada çok fazla vakit ayırmak istemiyorum. Yanına sakin bir sürü balığı istiyorum. Koyu renk taban ve kök ağırlıklı bir tasarım hoşuma gider..."
+                            ></textarea>
+
+                            <div class="dream-meta">
+
+                                <span>
+                                    Ne kadar detay verirsen sonuç o kadar kişisel olur.
+                                </span>
+
+                                <span id="dreamCounter">
+                                    0 / 1200
+                                </span>
+
+                            </div>
+
+                        </label>
+
+
+                        <div class="final-ready-card">
+
+                            <div class="final-ready-icon">
+                                ✦
+                            </div>
+
+                            <div>
+                                <span>HER ŞEY HAZIR</span>
+
+                                <strong>
+                                    Cevaplarını birlikte değerlendirip
+                                    sana özel kurulumu oluşturacağız.
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="builder-navigation">
+
+                            <button
+                                type="button"
+                                class="builder-prev"
+                                data-prev
+                            >
+                                ← Geri
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="builder-generate"
+                            >
+                                <span class="generate-spark">✦</span>
+                                Akvaryumumu Oluştur
+                                <span>↗</span>
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </form>
+
+            {% endif %}
+
+        </main>
+
+    </div>
+
+</section>
+
+
+<div class="builder-loading" id="builderLoading" aria-hidden="true">
+    <div class="builder-loading-card">
+
+        <div class="builder-loading-orbit">
+            <span></span>
+            <i>✦</i>
+        </div>
+
+        <span class="builder-loading-kicker">
+            SEMİH.AKVARYUM AI
+        </span>
+
+        <h3>
+            Akvaryumun hazırlanıyor.
+        </h3>
+
+        <p id="builderLoadingText">
+            Tank ölçülerini ve canlı tercihlerini değerlendiriyoruz...
+        </p>
+
+        <div class="builder-loading-track">
+            <i></i>
+        </div>
+
+        <small>
+            Genellikle birkaç saniye sürer.
+        </small>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/builder.js') }}"></script>
+{% endblock %}

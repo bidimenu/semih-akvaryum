@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ plan.title }} · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="result-page">
+
+    <div class="result-glow result-glow-one"></div>
+    <div class="result-glow result-glow-two"></div>
+
+    <div class="result-shell">
+
+        <header class="result-hero">
+
+            <div class="result-hero-copy">
+
+                <a href="{{ url_for('akvaryum_kur') }}" class="result-back">
+                    ← Yeni kurulum
+                </a>
+
+                <span class="result-kicker">
+                    SEMİH.AKVARYUM AI PLANI
+                </span>
+
+                <h1>
+                    {{ plan.title }}
+                </h1>
+
+                <p class="result-subtitle">
+                    {{ plan.subtitle }}
+                </p>
+
+                <p class="result-summary">
+                    {{ plan.summary }}
+                </p>
+
+                <div class="result-hero-meta">
+
+                    <div>
+                        <span>BRÜT HACİM</span>
+                        <strong>{{ plan.gross_volume_liters|round(1) }} L</strong>
+                    </div>
+
+                    <div>
+                        <span>TAHMİNİ NET HACİM</span>
+                        <strong>{{ plan.estimated_net_volume_liters|round(1) }} L</strong>
+                    </div>
+
+                    <div>
+                        <span>ZORLUK</span>
+                        <strong>{{ plan.difficulty }}</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-score-card">
+
+                <div class="result-score-top">
+                    <span class="result-score-dot"></span>
+                    KURULUM UYUM SKORU
+                </div>
+
+                <div
+                    class="result-score-ring"
+                    style="--score: {{ plan.fit_score }};"
+                >
+                    <div>
+                        <strong>{{ plan.fit_score }}</strong>
+                        <span>/100</span>
+                    </div>
+                </div>
+
+                <p>
+                    İsteklerin ile güvenli ve sürdürülebilir
+                    kurulumun eşleşme seviyesi.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        {% if plan.warnings %}
+        <section class="result-warning-panel">
+
+            <div class="result-warning-head">
+                <span>!</span>
+
+                <div>
+                    <strong>Dikkat etmen gerekenler</strong>
+                    <small>Plan oluşturulurken tespit edilen kritik noktalar</small>
+                </div>
+            </div>
+
+            <div class="result-warning-list">
+                {% for warning in plan.warnings %}
+                <p>{{ warning }}</p>
+                {% endfor %}
+            </div>
+
+        </section>
+        {% endif %}
+
+
+        <div class="result-section-heading">
+            <span>01</span>
+
+            <div>
+                <small>TASARIM</small>
+                <h2>Tankın nasıl görünmeli?</h2>
+            </div>
+        </div>
+
+        <section class="result-design-grid">
+
+            <article class="result-design-main">
+                <span>GENEL KONSEPT</span>
+                <h3>{{ plan.design_style }}</h3>
+                <p>{{ plan.layout_notes }}</p>
+            </article>
+
+            <article class="result-mini-card">
+                <span>TABAN</span>
+                <strong>{{ plan.substrate }}</strong>
+            </article>
+
+            <article class="result-mini-card">
+                <span>HARDSCAPE</span>
+                <strong>{{ plan.hardscape }}</strong>
+            </article>
+
+        </section>
+
+
+        <div class="result-section-heading">
+            <span>02</span>
+
+            <div>
+                <small>EKİPMAN</small>
+                <h2>Teknik altyapı</h2>
+            </div>
+        </div>
+
+        <section class="result-table-card">
+
+            {% for item in plan.equipment %}
+            <div class="result-equipment-row">
+
+                <div class="equipment-category">
+                    <span>{{ item.category }}</span>
+                    <small>{{ item.priority }}</small>
+                </div>
+
+                <div class="equipment-main">
+                    <strong>{{ item.recommendation }}</strong>
+                    <p>{{ item.reason }}</p>
+                </div>
+
+                <div class="equipment-spec">
+                    {{ item.target_spec }}
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </section>
+
+
+        <div class="result-section-heading">
+            <span>03</span>
+
+            <div>
+                <small>CANLILAR</small>
+                <h2>Canlı planı</h2>
+            </div>
+        </div>
+
+        <section class="result-livestock-grid">
+
+            {% for animal in plan.livestock %}
+            <article class="livestock-card">
+
+                <div class="livestock-card-top">
+                    <span>{{ animal.role }}</span>
+                    <strong>{{ animal.quantity }}</strong>
+                </div>
+
+                <h3>{{ animal.common_name }}</h3>
+
+                <em>{{ animal.scientific_name }}</em>
+
+                <p>{{ animal.compatibility_note }}</p>
+
+                <div class="livestock-period">
+                    <span>EKLEME ZAMANI</span>
+                    <strong>{{ animal.introduction_period }}</strong>
+                </div>
+
+            </article>
+            {% endfor %}
+
+        </section>
+
+
+        {% if plan.plants %}
+        <div class="result-section-heading">
+            <span>04</span>
+
+            <div>
+                <small>BİTKİLER</small>
+                <h2>Bitki paleti</h2>
+            </div>
+        </div>
+
+        <section class="result-plant-grid">
+
+            {% for plant in plan.plants %}
+            <article class="plant-card">
+
+                <span class="plant-dot"></span>
+
+                <h3>{{ plant.name }}</h3>
+
+                <p>{{ plant.placement }}</p>
+
+                <div>
+                    <span>{{ plant.difficulty }}</span>
+                    <span>CO₂: {{ plant.co2_need }}</span>
+                    <span>Işık: {{ plant.light_need }}</span>
+                </div>
+
+            </article>
+            {% endfor %}
+
+        </section>
+        {% endif %}
+
+
+        <div class="result-section-heading">
+            <span>05</span>
+
+            <div>
+                <small>SU & IŞIK</small>
+                <h2>Hedef çalışma aralığı</h2>
+            </div>
+        </div>
+
+        <section class="result-parameters">
+
+            <article>
+                <span>SICAKLIK</span>
+                <strong>{{ plan.water.temperature }}</strong>
+            </article>
+
+            <article>
+                <span>pH</span>
+                <strong>{{ plan.water.ph }}</strong>
+            </article>
+
+            <article>
+                <span>GH</span>
+                <strong>{{ plan.water.gh }}</strong>
+            </article>
+
+            <article>
+                <span>KH</span>
+                <strong>{{ plan.water.kh }}</strong>
+            </article>
+
+        </section>
+
+        <section class="result-two-column">
+
+            <article class="result-info-card">
+                <span>AYDINLATMA</span>
+                <h3>{{ plan.lighting.daily_duration }}</h3>
+                <strong>{{ plan.lighting.intensity }}</strong>
+                <p>{{ plan.lighting.notes }}</p>
+            </article>
+
+            <article class="result-info-card">
+                <span>CO₂</span>
+                <h3>{{ plan.co2.recommendation }}</h3>
+                <strong>{{ plan.co2.target }}</strong>
+                <p>{{ plan.co2.notes }}</p>
+            </article>
+
+        </section>
+
+        <p class="water-note">
+            {{ plan.water.notes }}
+        </p>
+
+
+        <div class="result-section-heading">
+            <span>06</span>
+
+            <div>
+                <small>BÜTÇE</small>
+                <h2>Bütçeyi nasıl dağıtalım?</h2>
+            </div>
+        </div>
+
+        <section class="result-budget-card">
+
+            {% set budget_total = namespace(value=0) %}
+
+            {% for item in plan.budget %}
+                {% set budget_total.value = budget_total.value + item.estimated_tl %}
+
+                <div class="budget-row">
+                    <div>
+                        <strong>{{ item.category }}</strong>
+                        <p>{{ item.note }}</p>
+                    </div>
+
+                    <span>
+                        {{ "{:,.0f}".format(item.estimated_tl).replace(",", ".") }} TL
+                    </span>
+                </div>
+            {% endfor %}
+
+            <div class="budget-total">
+                <span>PLANLANAN TOPLAM</span>
+
+                <strong>
+                    {{ "{:,.0f}".format(budget_total.value).replace(",", ".") }} TL
+                </strong>
+            </div>
+
+        </section>
+
+
+        <div class="result-section-heading">
+            <span>07</span>
+
+            <div>
+                <small>BAKIM</small>
+                <h2>Sürdürülebilir rutin</h2>
+            </div>
+        </div>
+
+        <section class="result-maintenance-list">
+
+            {% for item in plan.maintenance %}
+            <div>
+                <span>{{ item.frequency }}</span>
+                <p>{{ item.task }}</p>
+            </div>
+            {% endfor %}
+
+        </section>
+
+
+        <div class="result-section-heading">
+            <span>08</span>
+
+            <div>
+                <small>İLK DÖNEM</small>
+                <h2>Kurulum takvimi</h2>
+            </div>
+        </div>
+
+        <section class="result-timeline">
+
+            {% for stage in plan.timeline %}
+            <article>
+
+                <div class="timeline-marker">
+                    {{ loop.index }}
+                </div>
+
+                <div>
+                    <span>{{ stage.period }}</span>
+                    <h3>{{ stage.title }}</h3>
+
+                    <ul>
+                        {% for action in stage.actions %}
+                        <li>{{ action }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </article>
+            {% endfor %}
+
+        </section>
+
+
+        <section class="result-why">
+
+            <div>
+                <span class="result-kicker">
+                    NEDEN BU PLAN?
+                </span>
+
+                <h2>
+                    Seçimlerin rastgele değil.
+                </h2>
+            </div>
+
+            <div class="result-why-list">
+                {% for reason in plan.why_this_plan %}
+                <p>
+                    <span>✓</span>
+                    {{ reason }}
+                </p>
+                {% endfor %}
+            </div>
+
+        </section>
+
+
+        {% if plan.alternatives %}
+        <section class="result-alternatives">
+
+            <div class="result-alternatives-head">
+                <span>ALTERNATİFLER</span>
+                <h2>Biraz farklı gitmek istersen</h2>
+            </div>
+
+            <div class="result-alternative-grid">
+                {% for option in plan.alternatives %}
+                <article>
+                    <h3>{{ option.title }}</h3>
+                    <p>{{ option.description }}</p>
+                </article>
+                {% endfor %}
+            </div>
+
+        </section>
+        {% endif %}
+
+
+        
+<footer class="result-footer-cta result-save-footer">
+
+    <div>
+
+        <span class="result-kicker">
+            AKVARYUMUN HAZIR
+        </span>
+
+        <h2>
+            Bu planı profilinde sakla.
+        </h2>
+
+        <p>
+            Kaydettiğinde tank; Akvaryumlarım ekranında görünür
+            ve daha sonra detay sayfasından tekrar açılabilir.
+        </p>
+
+    </div>
+
+
+    {% if current_user.is_authenticated %}
+
+        <form
+            method="POST"
+            action="{{ url_for('save_aquarium') }}"
+            class="result-save-form"
+        >
+
+            <textarea
+                name="plan_json"
+                hidden
+            >{{ plan_json }}</textarea>
+
+            <textarea
+                name="form_json"
+                hidden
+            >{{ form_json }}</textarea>
+
+            <button
+                type="submit"
+                class="result-save-button"
+            >
+                <span>♡</span>
+                Profilime Kaydet
+                <i>→</i>
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <a
+            href="{{ url_for('login') }}"
+            class="result-login-save"
+        >
+            Giriş Yap ve Kaydet
+            <span>→</span>
+        </a>
+
+    {% endif %}
+
+</footer>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

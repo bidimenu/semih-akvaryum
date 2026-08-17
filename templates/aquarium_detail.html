@@ -1,0 +1,726 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ aquarium.title }} · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/aquarium_detail_v3.css', v='20260816-2') }}"
+>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="tank-detail-page">
+
+    <div class="tank-detail-orb tank-detail-orb-one"></div>
+    <div class="tank-detail-orb tank-detail-orb-two"></div>
+
+    <div class="tank-detail-shell">
+
+
+        <div class="tank-detail-topbar">
+
+            <a
+                href="{{ url_for('aquariums') }}"
+                class="tank-detail-back"
+            >
+                ← Akvaryumlarım
+            </a>
+
+            <span class="tank-detail-saved">
+                ✓ PROFİLİNDE KAYITLI
+            </span>
+
+        </div>
+
+
+        <header class="tank-detail-hero">
+
+            <div class="tank-detail-visual">
+
+                <div class="tank-detail-water-light"></div>
+                <div class="tank-detail-floor"></div>
+
+                {% if aquarium.fit_score is not none %}
+                    <span class="tank-detail-score">
+                        {{ aquarium.fit_score }}/100
+                    </span>
+                {% endif %}
+
+                <div class="tank-detail-visual-label">
+                    <span>
+                        {{ aquarium.gross_volume_liters|round(0)|int if aquarium.gross_volume_liters else "—" }} L
+                    </span>
+
+                    <strong>
+                        {{ aquarium.style or "Akvaryum" }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="tank-detail-copy">
+
+                <span class="tank-detail-kicker">
+                    KAYITLI AKVARYUM
+                </span>
+
+                <h1>
+                    {{ aquarium.title }}
+                </h1>
+
+                {% if aquarium.subtitle %}
+                    <p class="tank-detail-subtitle">
+                        {{ aquarium.subtitle }}
+                    </p>
+                {% endif %}
+
+                {% if plan %}
+                    <p class="tank-detail-summary">
+                        {{ plan.summary }}
+                    </p>
+                {% endif %}
+
+
+                <div class="tank-detail-meta">
+
+                    <div>
+                        <span>ÖLÇÜ</span>
+
+                        <strong>
+                            {% if aquarium.length_cm and aquarium.width_cm and aquarium.height_cm %}
+                                {{ aquarium.length_cm|round(0)|int }}
+                                ×
+                                {{ aquarium.width_cm|round(0)|int }}
+                                ×
+                                {{ aquarium.height_cm|round(0)|int }}
+                                cm
+                            {% else %}
+                                —
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>BRÜT HACİM</span>
+
+                        <strong>
+                            {% if aquarium.gross_volume_liters %}
+                                {{ aquarium.gross_volume_liters|round(1) }} L
+                            {% else %}
+                                —
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>CANLILAR</span>
+
+                        <strong>
+                            {{ aquarium.livestock_summary or "—" }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </header>
+
+
+        {% if plan %}
+
+            <section
+                class="tank-ai-section"
+                id="tank-ai"
+            >
+
+                <div class="tank-ai-head">
+
+                    <div>
+                        <span class="tank-detail-kicker">
+                            TANKA ÖZEL AI
+                        </span>
+
+                        <h2>
+                            Bu akvaryumu artık AI tanıyor.
+                        </h2>
+
+                        <p>
+                            Sorunu yaz. AI cevabı bu tankın kayıtlı canlıları,
+                            hacmi, ekipmanı, su değerleri ve planına göre versin.
+                        </p>
+                    </div>
+
+                    <span class="tank-ai-context-badge">
+                        ✦ FLASH-LITE · CANLI YANIT
+                    </span>
+
+                </div>
+
+
+                <div class="tank-ai-layout">
+
+                    <div class="tank-ai-chat-card">
+
+                        <div
+                            class="tank-ai-messages"
+                            id="tankAiMessages"
+                            data-user-initial="{{ current_user.username[0]|upper }}"
+                        >
+
+                            {% if chat_messages %}
+
+                                {% for message in chat_messages %}
+
+                                    <div class="tank-ai-message tank-ai-message-{{ message.role }}">
+
+                                        <div class="tank-ai-message-label">
+
+                                            {% if message.role == "assistant" %}
+                                                <span>✦</span>
+                                                SEMİH.AKVARYUM AI
+                                            {% else %}
+                                                <span>
+                                                    {{ current_user.username[0]|upper }}
+                                                </span>
+                                                SEN
+                                            {% endif %}
+
+                                        </div>
+
+                                        <p>
+                                            {{ message.content }}
+                                        </p>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <div class="tank-ai-empty">
+
+                                    <span>✦</span>
+
+                                    <div>
+                                        <strong>
+                                            Bu tank hakkında ilk sorunu sor.
+                                        </strong>
+
+                                        <p>
+                                            Örneğin canlı alternatifi, biyolojik yük,
+                                            bakım kolaylığı veya üreme planını konuşabiliriz.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="tank-ai-quick-prompts">
+
+                            <button
+                                type="button"
+                                data-tank-ai-prompt="Bu tankın mevcut canlı yükünü değerlendir. Sence sınırda olduğum bir nokta var mı?"
+                            >
+                                Canlı yükünü değerlendir
+                            </button>
+
+                            <button
+                                type="button"
+                                data-tank-ai-prompt="Bu tankı daha az bakım gerektirecek hale getirmek için neyi değiştirirdin?"
+                            >
+                                Bakımı kolaylaştır
+                            </button>
+
+                            <button
+                                type="button"
+                                data-tank-ai-prompt="Bu tankta mevcut ana balık yerine hangi güvenli alternatifleri düşünebilirim?"
+                            >
+                                Canlı alternatifi
+                            </button>
+
+                            <button
+                                type="button"
+                                data-tank-ai-prompt="Bu akvaryumu üreme odaklı hale getirmek istersem hangi değişiklikleri yapmalıyım?"
+                            >
+                                Üreme için optimize et
+                            </button>
+
+                        </div>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('ask_tank_ai', aquarium_id=aquarium.id) }}"
+                            class="tank-ai-form"
+                            id="tankAiForm"
+                            data-stream-url="{{ url_for('stream_tank_ai', aquarium_id=aquarium.id) }}"
+                        >
+
+                            <textarea
+                                name="question"
+                                id="tankAiQuestion"
+                                maxlength="1200"
+                                rows="3"
+                                placeholder="Örn: Bu tankta Cardinal tetra yerine ne koyabilirim?"
+                                required
+                            ></textarea>
+
+                            <div class="tank-ai-form-bottom">
+
+                                <small>
+                                    Flash-Lite · minimal thinking · cevap yazıldıkça ekrana akar.
+                                </small>
+
+                                <button
+                                    type="submit"
+                                    data-default-text="AI'ya Sor"
+                                    data-loading-text="Düşünüyor..."
+                                >
+                                    <span>✦</span>
+                                    <b>AI'ya Sor</b>
+                                    <i>→</i>
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                    <aside
+                        class="tank-ai-tools"
+                        id="plan-revision"
+                    >
+
+                        <article class="tank-revision-card">
+
+                            <span class="tank-tool-number">
+                                PLAN REVİZYONU
+                            </span>
+
+                            <h3>
+                                Planı tek cümleyle değiştir.
+                            </h3>
+
+                            <p>
+                                Örneğin “Cardinalleri çıkar, yerine uygun sayıda
+                                Ember tetra koy.” AI tüm planı yeniden kontrol eder.
+                            </p>
+
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('revise_tank_plan', aquarium_id=aquarium.id) }}"
+                                class="tank-revision-form"
+                                data-loading-form
+                            >
+
+                                <textarea
+                                    name="instruction"
+                                    maxlength="1200"
+                                    rows="5"
+                                    placeholder="Bu planda neyi değiştirelim?"
+                                    required
+                                ></textarea>
+
+                                <div class="tank-revision-meta">
+
+                                    <span>
+                                        {{ revision_count }} eski sürüm saklanıyor
+                                    </span>
+
+                                    <button
+                                        type="submit"
+                                        data-default-text="Planı Güncelle"
+                                        data-loading-text="Plan güncelleniyor..."
+                                    >
+                                        <b>Planı Güncelle</b>
+                                        <span>↗</span>
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </article>
+
+
+                        <article class="tank-danger-card">
+
+                            <span class="tank-tool-number">
+                                TANK YÖNETİMİ
+                            </span>
+
+                            <h3>
+                                Bu kaydı kaldır.
+                            </h3>
+
+                            <p>
+                                Tankla birlikte bu tanka ait AI konuşmaları ve
+                                revizyon geçmişi de silinir.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="tank-delete-open"
+                                id="tankDeleteOpen"
+                            >
+                                Akvaryumu Sil
+                            </button>
+
+                        </article>
+
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+            {% if plan.warnings %}
+
+                <section class="tank-detail-alert">
+
+                    <div>
+                        <span>!</span>
+
+                        <strong>
+                            Kritik notlar
+                        </strong>
+                    </div>
+
+                    <div>
+                        {% for warning in plan.warnings %}
+                            <p>
+                                {{ warning }}
+                            </p>
+                        {% endfor %}
+                    </div>
+
+                </section>
+
+            {% endif %}
+
+
+            <section class="tank-detail-section">
+
+                <div class="tank-detail-section-head">
+                    <span>01</span>
+
+                    <div>
+                        <small>TASARIM</small>
+                        <h2>Kurulum konsepti</h2>
+                    </div>
+                </div>
+
+
+                <div class="tank-detail-design-grid">
+
+                    <article class="tank-detail-large-card">
+
+                        <span>
+                            GENEL STİL
+                        </span>
+
+                        <h3>
+                            {{ plan.design_style }}
+                        </h3>
+
+                        <p>
+                            {{ plan.layout_notes }}
+                        </p>
+
+                    </article>
+
+
+                    <article class="tank-detail-small-card">
+
+                        <span>
+                            TABAN
+                        </span>
+
+                        <strong>
+                            {{ plan.substrate }}
+                        </strong>
+
+                    </article>
+
+
+                    <article class="tank-detail-small-card">
+
+                        <span>
+                            HARDSCAPE
+                        </span>
+
+                        <strong>
+                            {{ plan.hardscape }}
+                        </strong>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <section class="tank-detail-section">
+
+                <div class="tank-detail-section-head">
+                    <span>02</span>
+
+                    <div>
+                        <small>CANLILAR</small>
+                        <h2>Tank sakinleri</h2>
+                    </div>
+                </div>
+
+
+                <div class="tank-detail-livestock">
+
+                    {% for animal in plan.livestock %}
+
+                        <article>
+
+                            <div>
+                                <span>
+                                    {{ animal.role }}
+                                </span>
+
+                                <strong>
+                                    {{ animal.quantity }}
+                                </strong>
+                            </div>
+
+                            <h3>
+                                {{ animal.common_name }}
+                            </h3>
+
+                            <em>
+                                {{ animal.scientific_name }}
+                            </em>
+
+                            <p>
+                                {{ animal.compatibility_note }}
+                            </p>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <section class="tank-detail-section">
+
+                <div class="tank-detail-section-head">
+                    <span>03</span>
+
+                    <div>
+                        <small>SU DEĞERLERİ</small>
+                        <h2>Hedef aralıklar</h2>
+                    </div>
+                </div>
+
+
+                <div class="tank-detail-parameters">
+
+                    <article>
+                        <span>SICAKLIK</span>
+                        <strong>{{ plan.water.temperature }}</strong>
+                    </article>
+
+                    <article>
+                        <span>pH</span>
+                        <strong>{{ plan.water.ph }}</strong>
+                    </article>
+
+                    <article>
+                        <span>GH</span>
+                        <strong>{{ plan.water.gh }}</strong>
+                    </article>
+
+                    <article>
+                        <span>KH</span>
+                        <strong>{{ plan.water.kh }}</strong>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <section class="tank-detail-section">
+
+                <div class="tank-detail-section-head">
+                    <span>04</span>
+
+                    <div>
+                        <small>EKİPMAN</small>
+                        <h2>Teknik sistem</h2>
+                    </div>
+                </div>
+
+
+                <div class="tank-detail-equipment">
+
+                    {% for item in plan.equipment %}
+
+                        <article>
+
+                            <div class="tank-equipment-category">
+                                <span>
+                                    {{ item.category }}
+                                </span>
+
+                                <small>
+                                    {{ item.priority }}
+                                </small>
+                            </div>
+
+                            <div>
+                                <strong>
+                                    {{ item.recommendation }}
+                                </strong>
+
+                                <p>
+                                    {{ item.reason }}
+                                </p>
+                            </div>
+
+                            <span class="tank-equipment-spec">
+                                {{ item.target_spec }}
+                            </span>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+
+            <section class="tank-detail-actions">
+
+                <div>
+
+                    <span class="tank-detail-kicker">
+                        BU TANK ARTIK PROFİLİNDE
+                    </span>
+
+                    <h2>
+                        Buradan geliştirmeye devam edeceğiz.
+                    </h2>
+
+                    <p>
+                        Tanka özel AI ile soru sorabilir, canlı alternatiflerini
+                        değerlendirebilir ve kayıtlı planı revize edebilirsin.
+                    </p>
+
+                </div>
+
+                <a href="{{ url_for('akvaryum_kur') }}">
+                    Yeni Tank Kur
+                    <span>↗</span>
+                </a>
+
+            </section>
+
+        {% else %}
+
+            <div class="tank-detail-no-plan">
+                Bu tankın AI planı okunamadı.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div
+        class="tank-delete-modal"
+        id="tankDeleteModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="tank-delete-backdrop"
+            data-delete-close
+        ></div>
+
+        <div
+            class="tank-delete-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tankDeleteTitle"
+        >
+
+            <span class="tank-delete-icon">
+                !
+            </span>
+
+            <span class="tank-detail-kicker">
+                GERİ ALINAMAZ
+            </span>
+
+            <h2 id="tankDeleteTitle">
+                Bu akvaryumu silelim mi?
+            </h2>
+
+            <p>
+                <strong>{{ aquarium.title }}</strong> ve bu tanka ait
+                AI konuşmaları profilinden kaldırılacak.
+            </p>
+
+            <div class="tank-delete-actions">
+
+                <button
+                    type="button"
+                    data-delete-close
+                >
+                    Vazgeç
+                </button>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_aquarium', aquarium_id=aquarium.id) }}"
+                >
+                    <button
+                        type="submit"
+                        class="tank-delete-confirm"
+                    >
+                        Evet, Sil
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+{% block extra_js %}
+<script
+    src="{{ url_for('static', filename='js/aquarium_detail_v3.js', v='20260816-2') }}"
+></script>
+{% endblock %}
+
+{% endblock %}

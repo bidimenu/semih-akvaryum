@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}
+Giriş Yap · Semih Akvaryum
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+
+    <div class="auth-shell">
+
+        <aside class="auth-story">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="auth-back"
+            >
+                ← Ana sayfaya dön
+            </a>
+
+            <div class="auth-story-main">
+
+                <span class="auth-kicker">
+                    TEKRAR HOŞ GELDİN
+                </span>
+
+                <h1>
+                    Akvaryumların
+                    <span>seni bekliyor.</span>
+                </h1>
+
+                <p>
+                    Kayıtlı tanklarına, AI planlarına ve profilindeki
+                    tüm akvaryum geçmişine tek yerden ulaş.
+                </p>
+
+            </div>
+
+
+            <div class="auth-tank-preview">
+
+                <div class="auth-mini-water"></div>
+
+                <div class="auth-preview-content">
+
+                    <span>AKVARYUMLARIM</span>
+
+                    <strong>
+                        Kendi tank arşivini oluştur.
+                    </strong>
+
+                    <small>
+                        Her kurulum, tek profilde.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <div class="auth-panel">
+
+            <div class="auth-panel-head">
+
+                <span class="auth-kicker">
+                    HESABINA GİR
+                </span>
+
+                <h2>
+                    Devam edelim.
+                </h2>
+
+                <p>
+                    Kullanıcı adı veya e-posta ile giriş yapabilirsin.
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="auth-form"
+                novalidate
+            >
+
+                <label class="auth-field">
+
+                    <span>KULLANICI ADI VEYA E-POSTA</span>
+
+                    <div class="auth-input-wrap">
+                        <i>@</i>
+
+                        <input
+                            type="text"
+                            name="login"
+                            value="{{ login_value }}"
+                            autocomplete="username"
+                            placeholder="semih veya semih@example.com"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <label class="auth-field">
+
+                    <span>ŞİFRE</span>
+
+                    <div class="auth-input-wrap">
+                        <i>●</i>
+
+                        <input
+                            type="password"
+                            name="password"
+                            autocomplete="current-password"
+                            placeholder="Şifren"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <label class="auth-remember">
+
+                    <input
+                        type="checkbox"
+                        name="remember"
+                        value="1"
+                    >
+
+                    <span class="auth-checkbox">
+                        ✓
+                    </span>
+
+                    <p>
+                        Beni hatırla
+                    </p>
+
+                </label>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Giriş Yap
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="auth-switch">
+                Henüz hesabın yok mu?
+
+                <a href="{{ url_for('register') }}">
+                    Üye Ol
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

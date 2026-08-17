@@ -1,0 +1,22 @@
+SEMİH.AKVARYUM — DEPLOYMENT V1
+
+Bu paket mevcut çalışan projene deployment için gereken dosyaları ekler/günceller.
+
+ÜSTÜNE YAZ:
+- app.py
+- requirements.txt
+
+YENİ DOSYALAR:
+- .gitignore
+- render.yaml
+
+KENDİ .env DOSYANI SİLME / GITHUB'A YÜKLEME.
+
+Bu V1 deployment db.create_all() kullanır.
+Fresh Render PostgreSQL üzerinde users / aquariums / chat / revision tablolarını oluşturur.
+
+ÖNEMLİ:
+- Lokal SQLite içindeki test kullanıcıları otomatik olarak PostgreSQL'e taşınmaz.
+- Production PostgreSQL ilk deploy'da boş başlar.
+- İlk gerçek database schema değişikliğinden ÖNCE Flask-Migrate/Alembic'e geçilecek.
+- Render Free Postgres yalnızca test/staging içindir; production kullanıcı almadan önce paid DB önerilir.

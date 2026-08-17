@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akvaryumlarım · Semih Akvaryum
+{% endblock %}
+
+{% block content %}
+
+<section class="my-aquariums-page">
+
+    <div class="profile-orb profile-orb-one"></div>
+    <div class="profile-orb profile-orb-two"></div>
+
+    <div class="profile-shell">
+
+        <header class="profile-header">
+
+            <div class="profile-identity">
+
+                <div class="profile-avatar">
+                    {{ current_user.username[0]|upper }}
+                </div>
+
+                <div>
+
+                    <span class="profile-kicker">
+                        PROFİLİM
+                    </span>
+
+                    <h1>
+                        {{ current_user.username }}
+                    </h1>
+
+                    <p>
+                        {{ current_user.email }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{{ url_for('akvaryum_kur') }}"
+                class="profile-new-tank"
+            >
+                <span>＋</span>
+                Yeni Akvaryum Kur
+            </a>
+
+        </header>
+
+
+        <div class="profile-stats">
+
+            <div>
+                <span>AKVARYUM</span>
+
+                <strong>
+                    {{ aquariums|length }}
+                </strong>
+            </div>
+
+            <div>
+                <span>AI KURULUMU</span>
+
+                <strong>
+                    {{ aquariums|selectattr('plan_json')|list|length }}
+                </strong>
+            </div>
+
+            <div>
+                <span>TOPLULUK PAYLAŞIMI</span>
+
+                <strong>
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="profile-section-head">
+
+            <div>
+                <span class="profile-kicker">
+                    TANK ARŞİVİ
+                </span>
+
+                <h2>
+                    Akvaryumlarım
+                </h2>
+            </div>
+
+            <p>
+                Oluşturduğun ve profilinde sakladığın tüm tanklar burada yaşayacak.
+            </p>
+
+        </div>
+
+
+        {% if aquariums %}
+
+            <div class="aquarium-profile-grid">
+
+                {% for aquarium in aquariums %}
+
+                    <a
+                        href="{{ url_for('aquarium_detail', aquarium_id=aquarium.id) }}"
+                        class="profile-tank-card profile-tank-link"
+                    >
+
+                        <div class="profile-tank-visual">
+
+                            <div class="profile-tank-light"></div>
+
+                            <span class="profile-tank-score">
+                                {% if aquarium.fit_score is not none %}
+                                    {{ aquarium.fit_score }}/100
+                                {% else %}
+                                    PLAN
+                                {% endif %}
+                            </span>
+
+                        </div>
+
+
+                        <div class="profile-tank-content">
+
+                            <span>
+                                {% if aquarium.gross_volume_liters %}
+                                    {{ aquarium.gross_volume_liters|round(0)|int }} L
+                                {% else %}
+                                    AKVARYUM
+                                {% endif %}
+
+                                {% if aquarium.style %}
+                                    · {{ aquarium.style }}
+                                {% endif %}
+                            </span>
+
+                            <h3>
+                                {{ aquarium.title }}
+                            </h3>
+
+                            {% if aquarium.subtitle %}
+                                <p>
+                                    {{ aquarium.subtitle }}
+                                </p>
+                            {% endif %}
+
+                        </div>
+
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="profile-empty-state">
+
+                <div class="empty-tank-visual">
+
+                    <div class="empty-tank-water"></div>
+                    <div class="empty-tank-floor"></div>
+                    <div class="empty-tank-light"></div>
+
+                </div>
+
+
+                <span class="profile-kicker">
+                    HENÜZ TANK YOK
+                </span>
+
+                <h3>
+                    İlk akvaryumunu oluşturalım.
+                </h3>
+
+                <p>
+                    Bir sonraki adımda AI ile oluşturduğun planı
+                    tek tuşla buraya kaydedebileceksin.
+                </p>
+
+                <a
+                    href="{{ url_for('akvaryum_kur') }}"
+                    class="empty-create-button"
+                >
+                    Akvaryum Kur
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

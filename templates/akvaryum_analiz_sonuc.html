@@ -1,0 +1,574 @@
+{% extends "base.html" %}
+
+{% block title %}
+Akvaryum Analizi · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/analysis.css', v='20260816-3') }}"
+>
+{% endblock %}
+
+
+{% block content %}
+
+<section class="analysis-result-page">
+
+    <div class="analysis-orb analysis-orb-one"></div>
+    <div class="analysis-orb analysis-orb-two"></div>
+
+    <div class="analysis-result-shell">
+
+
+        <div class="analysis-result-topbar">
+
+            <a
+                href="{{ url_for('akvaryum_analiz') }}"
+            >
+                ← Yeni Analiz
+            </a>
+
+            <span>
+                ✦ GEMINI VISION REPORT
+            </span>
+
+        </div>
+
+
+        <header class="analysis-result-hero">
+
+            <div class="analysis-result-copy">
+
+                <span class="analysis-kicker">
+                    AKVARYUM ANALİZİ
+                </span>
+
+                <h1>
+                    {{ result.headline }}
+                </h1>
+
+                <p>
+                    {{ result.summary }}
+                </p>
+
+
+                <div class="analysis-result-meta">
+
+                    <div>
+                        <span>ÖLÇÜ</span>
+                        <strong>
+                            {{ form_data.length }}
+                            × {{ form_data.width }}
+                            × {{ form_data.height }} cm
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>BRÜT HACİM</span>
+                        <strong>
+                            {% if gross_volume %}
+                                {{ gross_volume }} L
+                            {% else %}
+                                —
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>GÖRSEL ANALİZ</span>
+                        <strong>
+                            {% if photo_used %}
+                                Kullanıldı
+                            {% else %}
+                                Fotoğraf yok
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="analysis-score-card">
+
+                <div
+                    class="analysis-score-ring"
+                    style="--analysis-score: {{ result.overall_score }};"
+                >
+
+                    <div>
+                        <strong>
+                            {{ result.overall_score }}
+                        </strong>
+
+                        <span>
+                            /100
+                        </span>
+                    </div>
+
+                </div>
+
+                <span>
+                    GENEL TANK SKORU
+                </span>
+
+                <p>
+                    Teknik + biyolojik değerlendirme
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="analysis-score-breakdown">
+
+            <article>
+                <span>CANLI UYUMU</span>
+                <strong>{{ result.score_breakdown.livestock_compatibility }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.livestock_compatibility }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>BİYOLOJİK YÜK</span>
+                <strong>{{ result.score_breakdown.bioload }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.bioload }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>FİLTRASYON</span>
+                <strong>{{ result.score_breakdown.filtration }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.filtration }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>BİTKİ & IŞIK</span>
+                <strong>{{ result.score_breakdown.plants_lighting }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.plants_lighting }}%;"></i></div>
+            </article>
+
+            <article>
+                <span>SU & BAKIM</span>
+                <strong>{{ result.score_breakdown.water_maintenance }}</strong>
+                <div><i style="--bar: {{ result.score_breakdown.water_maintenance }}%;"></i></div>
+            </article>
+
+        </section>
+
+
+        {% if result.critical_issues %}
+
+            <section class="analysis-result-section">
+
+                <div class="analysis-result-section-head">
+
+                    <span>01</span>
+
+                    <div>
+                        <small>DİKKAT GEREKTİREN NOKTALAR</small>
+                        <h2>Kritik bulgular</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-issues-grid">
+
+                    {% for issue in result.critical_issues %}
+
+                        <article class="analysis-issue analysis-issue-{{ issue.severity }}">
+
+                            <span>
+                                {{ issue.severity|upper }}
+                            </span>
+
+                            <h3>
+                                {{ issue.title }}
+                            </h3>
+
+                            <p>
+                                {{ issue.detail }}
+                            </p>
+
+                            <div>
+                                <strong>NE YAPMALI?</strong>
+                                <p>{{ issue.action }}</p>
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <section class="analysis-result-section">
+
+            <div class="analysis-result-section-head">
+
+                <span>02</span>
+
+                <div>
+                    <small>TEKNİK DEĞERLENDİRME</small>
+                    <h2>Tankın beş ana sistemi</h2>
+                </div>
+
+            </div>
+
+
+            {% set sections = [
+                ("Canlı Uyumu", result.livestock),
+                ("Biyolojik Yük", result.bioload),
+                ("Filtrasyon", result.filtration),
+                ("Bitki & Işık", result.plants_light),
+                ("Su & Bakım", result.water_maintenance)
+            ] %}
+
+            <div class="analysis-system-list">
+
+                {% for title, section in sections %}
+
+                    <article>
+
+                        <div class="analysis-system-title">
+                            <span>0{{ loop.index }}</span>
+                            <h3>{{ title }}</h3>
+                        </div>
+
+                        <div class="analysis-system-body">
+
+                            <strong>
+                                {{ section.verdict }}
+                            </strong>
+
+                            <p>
+                                {{ section.details }}
+                            </p>
+
+                            {% if section.recommendations %}
+
+                                <div class="analysis-system-recommendations">
+
+                                    {% for recommendation in section.recommendations %}
+                                        <span>
+                                            {{ recommendation }}
+                                        </span>
+                                    {% endfor %}
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        {% if photo_used and result.visual_findings %}
+
+            <section class="analysis-result-section">
+
+                <div class="analysis-result-section-head">
+
+                    <span>03</span>
+
+                    <div>
+                        <small>FOTOĞRAFTAN GÖRÜLENLER</small>
+                        <h2>Görsel bulgular</h2>
+                    </div>
+
+                </div>
+
+
+                <div class="analysis-visual-findings">
+
+                    {% for finding in result.visual_findings %}
+
+                        <article>
+
+                            <div>
+                                <span>
+                                    {{ finding.confidence|upper }} GÜVEN
+                                </span>
+
+                                <strong>
+                                    {{ finding.title }}
+                                </strong>
+                            </div>
+
+                            <p>
+                                {{ finding.detail }}
+                            </p>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <section class="analysis-result-section analysis-action-section">
+
+            <div class="analysis-result-section-head">
+
+                <span>04</span>
+
+                <div>
+                    <small>ÖNCELİK SIRASI</small>
+                    <h2>Şimdi ne yapmalısın?</h2>
+                </div>
+
+            </div>
+
+
+            <div class="analysis-top-actions">
+
+                {% for action in result.top_actions|sort(attribute='priority') %}
+
+                    <article>
+
+                        <span>
+                            0{{ action.priority }}
+                        </span>
+
+                        <div>
+                            <strong>
+                                {{ action.title }}
+                            </strong>
+
+                            <p>
+                                {{ action.detail }}
+                            </p>
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+
+<section
+    class="analysis-chat-section"
+    id="analysis-ai"
+>
+
+    <div class="analysis-chat-head">
+
+        <div>
+
+            <span class="analysis-kicker">
+                ✦ BU ANALİZ HAKKINDA AI'YA SOR
+            </span>
+
+            <h2>
+                Raporun devamını konuş.
+            </h2>
+
+            <p>
+                AI bu tankın verdiğin bilgilerini, skorlarını,
+                kritik bulgularını ve fotoğraftan çıkarılan rapor bulgularını biliyor.
+            </p>
+
+        </div>
+
+
+        <span class="analysis-chat-badge">
+            FLASH-LITE · CANLI YANIT
+        </span>
+
+    </div>
+
+
+    <div
+        class="analysis-chat-messages"
+        id="analysisChatMessages"
+    >
+
+        <div class="analysis-chat-empty">
+
+            <span>✦</span>
+
+            <div>
+
+                <strong>
+                    Analiz hakkında ilk sorunu sor.
+                </strong>
+
+                <p>
+                    Örneğin skorun neden düşük olduğunu,
+                    önce neyi düzeltmen gerektiğini veya
+                    bir değişikliğin tankı nasıl etkileyeceğini sorabilirsin.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="analysis-chat-prompts">
+
+        <button
+            type="button"
+            data-analysis-prompt="Bu tank neden {{ result.overall_score }} puan aldı? Skoru en çok düşüren iki nedeni açıkla."
+        >
+            Neden bu skoru aldım?
+        </button>
+
+        <button
+            type="button"
+            data-analysis-prompt="Bu analizdeki en kritik sorun hangisi ve neden önce onu çözmeliyim?"
+        >
+            En kritik sorun ne?
+        </button>
+
+        <button
+            type="button"
+            data-analysis-prompt="Bu tankı iyileştirmek için en düşük maliyetli ve en kolay değişiklik hangisi olur?"
+        >
+            En ucuz iyileştirme
+        </button>
+
+        <button
+            type="button"
+            data-analysis-prompt="Bu tankı yaklaşık 80 puan seviyesinde bir kuruluma yaklaştırmak için hangi değişiklikleri önceliklendirirdin?"
+        >
+            80'e nasıl yaklaşırım?
+        </button>
+
+    </div>
+
+
+    <form
+        class="analysis-chat-form"
+        id="analysisChatForm"
+        data-stream-url="{{ url_for('stream_analysis_chat') }}"
+    >
+
+        <textarea
+            id="analysisChatQuestion"
+            rows="3"
+            maxlength="1200"
+            placeholder="Örn: Filtreyi değiştirirsem tankta en çok hangi bölüm iyileşir?"
+            required
+        ></textarea>
+
+
+        <div class="analysis-chat-form-bottom">
+
+            <small>
+                Bu sohbet kaydedilmez · yeni analizde sıfırlanır.
+            </small>
+
+            <button
+                type="submit"
+            >
+                <span>✦</span>
+                <b>AI'ya Sor</b>
+                <i>→</i>
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <script
+        type="application/json"
+        id="analysisContextData"
+    >{{ analysis_payload|tojson }}</script>
+
+    <script
+        type="application/json"
+        id="analysisFormData"
+    >{{ form_payload|tojson }}</script>
+
+</section>
+
+
+        {% if result.positives %}
+
+            <section class="analysis-positive-section">
+
+                <span class="analysis-kicker">
+                    İYİ GİDENLER
+                </span>
+
+                <h2>
+                    Tankın güçlü tarafları
+                </h2>
+
+                <div>
+
+                    {% for positive in result.positives %}
+                        <span>✓ {{ positive }}</span>
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+
+        <footer class="analysis-result-footer">
+
+            <div>
+                <span class="analysis-kicker">
+                    ANALİZ TAMAMLANDI
+                </span>
+
+                <h2>
+                    Değişiklik yaptıktan sonra tekrar ölç.
+                </h2>
+
+                <p>
+                    {{ result.disclaimer }}
+                </p>
+            </div>
+
+            <a
+                href="{{ url_for('akvaryum_analiz') }}"
+            >
+                Yeni Analiz Yap
+                <span>↗</span>
+            </a>
+
+        </footer>
+
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+
+{% block extra_js %}
+<script
+    src="{{ url_for('static', filename='js/analysis_chat.js', v='20260816-1') }}"
+></script>
+{% endblock %}

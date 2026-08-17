@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}
+Üye Ol · Semih Akvaryum
+{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-orb auth-orb-one"></div>
+    <div class="auth-orb auth-orb-two"></div>
+
+    <div class="auth-shell">
+
+        <aside class="auth-story">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="auth-back"
+            >
+                ← Ana sayfaya dön
+            </a>
+
+            <div class="auth-story-main">
+
+                <span class="auth-kicker">
+                    SEMİH.AKVARYUM CLUB
+                </span>
+
+                <h1>
+                    Tankların artık
+                    <span>seninle kalacak.</span>
+                </h1>
+
+                <p>
+                    Profilini oluştur; AI ile hazırladığın akvaryumları
+                    kaydet, gelişimlerini takip et ve toplulukta paylaş.
+                </p>
+
+            </div>
+
+
+            <div class="auth-story-features">
+
+                <div>
+                    <span>01</span>
+
+                    <p>
+                        AI kurulumlarını profilinde sakla
+                    </p>
+                </div>
+
+                <div>
+                    <span>02</span>
+
+                    <p>
+                        Tank geçmişini ve gelişimini takip et
+                    </p>
+                </div>
+
+                <div>
+                    <span>03</span>
+
+                    <p>
+                        Toplulukta kendi akvaryum profilini oluştur
+                    </p>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <div class="auth-panel">
+
+            <div class="auth-panel-head">
+
+                <span class="auth-kicker">
+                    YENİ HESAP
+                </span>
+
+                <h2>
+                    Aramıza katıl.
+                </h2>
+
+                <p>
+                    Birkaç saniye içinde profilini oluştur.
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                class="auth-form"
+                novalidate
+            >
+
+                <label class="auth-field">
+
+                    <span>KULLANICI ADI</span>
+
+                    <div class="auth-input-wrap">
+                        <i>@</i>
+
+                        <input
+                            type="text"
+                            name="username"
+                            value="{{ username }}"
+                            minlength="3"
+                            maxlength="40"
+                            autocomplete="username"
+                            placeholder="semih"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <label class="auth-field">
+
+                    <span>E-POSTA</span>
+
+                    <div class="auth-input-wrap">
+                        <i>✉</i>
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ email }}"
+                            autocomplete="email"
+                            placeholder="semih@example.com"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <label class="auth-field">
+
+                    <span>ŞİFRE</span>
+
+                    <div class="auth-input-wrap">
+                        <i>●</i>
+
+                        <input
+                            type="password"
+                            name="password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            placeholder="En az 8 karakter"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <label class="auth-field">
+
+                    <span>ŞİFRE TEKRAR</span>
+
+                    <div class="auth-input-wrap">
+                        <i>●</i>
+
+                        <input
+                            type="password"
+                            name="password_confirm"
+                            minlength="8"
+                            autocomplete="new-password"
+                            placeholder="Şifreni tekrar gir"
+                            required
+                        >
+                    </div>
+
+                </label>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Hesabımı Oluştur
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <div class="auth-switch">
+                Zaten hesabın var mı?
+
+                <a href="{{ url_for('login') }}">
+                    Giriş Yap
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

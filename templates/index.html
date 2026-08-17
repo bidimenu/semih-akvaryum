@@ -1,0 +1,796 @@
+{% extends "base.html" %}
+
+{% block title %}
+Semih Akvaryum
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-ocean" id="heroOcean">
+
+    <div class="hero-video-wrap">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="{{ url_for('static', filename='videos/ocean.mp4') }}" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="hero-overlay"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-light hero-light-1"></div>
+    <div class="hero-light hero-light-2"></div>
+    <div class="hero-vignette"></div>
+
+    <canvas id="heroParticles"></canvas>
+
+    <div class="hero-inner">
+
+        <div class="hero-copy" id="heroCopy">
+
+            <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                SEMİH.AKVARYUM
+            </div>
+
+            <h1>
+                Akvaryumunu
+                <span>daha iyi yaşat.</span>
+            </h1>
+
+            <p>
+                Akvaryumunu kur, analiz et, doğru canlıları seç
+                ve tankını profesyonelce yönet.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#" class="hero-btn hero-btn-primary">
+                    Akvaryumumu Analiz Et
+                    <span>↗</span>
+                </a>
+
+                <a href="#" class="hero-btn hero-btn-secondary">
+                    Akvaryum Kur
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <strong>01</strong>
+                    <span>Tankını tanımla</span>
+                </div>
+
+                <div class="hero-stat">
+                    <strong>02</strong>
+                    <span>Kişisel analiz al</span>
+                </div>
+
+                <div class="hero-stat">
+                    <strong>03</strong>
+                    <span>Daha iyi yaşat</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hero-glass-card" id="heroGlassCard">
+            <div class="glass-card-top">
+                <span class="glass-status-dot"></span>
+                <span>AKVARYUM SKORU</span>
+            </div>
+
+            <div class="glass-score">
+                <strong>87</strong>
+                <span>/100</span>
+            </div>
+
+            <div class="glass-lines">
+                <div class="glass-line">
+                    <span>Canlı Yükü</span>
+                    <strong>18/20</strong>
+                </div>
+                <div class="glass-line">
+                    <span>Su Kalitesi</span>
+                    <strong>17/20</strong>
+                </div>
+                <div class="glass-line">
+                    <span>Filtrasyon</span>
+                    <strong>16/20</strong>
+                </div>
+                <div class="glass-line">
+                    <span>Bitkiler</span>
+                    <strong>19/20</strong>
+                </div>
+                <div class="glass-line">
+                    <span>Bakım</span>
+                    <strong>17/20</strong>
+                </div>
+            </div>
+
+            <div class="glass-note">
+                Bu hafta: %25 su değişimi yap, yeni canlı ekleme.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="hero-scroll">
+        <span>KEŞFET</span>
+        <div class="hero-scroll-line"></div>
+    </div>
+
+</section>
+
+
+<section class="features-section">
+
+    <div class="features-container">
+
+        <div class="features-heading">
+            <div>
+                <span class="section-kicker">AKILLI AKVARYUM ARAÇLARI</span>
+
+                <h2>
+                    Akvaryumun için
+                    <span>üç güçlü araç.</span>
+                </h2>
+            </div>
+
+            <p>
+                Tankını tahminlerle değil, doğru bilgilerle yönet.
+                Kurulumdan canlı seçimine kadar her adımda sana özel sonuçlar al.
+            </p>
+        </div>
+
+
+        <div class="feature-grid">
+
+            <a href="#" class="feature-card feature-card-builder">
+
+                <div class="feature-card-bg"></div>
+
+                <div class="feature-card-top">
+                    <span class="feature-index">01</span>
+                    <span class="feature-arrow">↗</span>
+                </div>
+
+                <div class="feature-visual feature-visual-builder">
+                    <div class="mini-tank">
+                        <div class="mini-tank-light"></div>
+
+                        <div class="mini-rock mini-rock-a"></div>
+                        <div class="mini-rock mini-rock-b"></div>
+
+                        <div class="mini-plant mini-plant-a"></div>
+                        <div class="mini-plant mini-plant-b"></div>
+                        <div class="mini-plant mini-plant-c"></div>
+
+                        <div class="mini-substrate"></div>
+                    </div>
+                </div>
+
+                <div class="feature-content">
+                    <span class="feature-label">KİŞİSEL KURULUM</span>
+
+                    <h3>Akvaryum Kur</h3>
+
+                    <p>
+                        Ölçülerine, bütçene, deneyimine ve istediğin canlılara
+                        göre sana özel akvaryum kurulumu oluştur.
+                    </p>
+
+                    <div class="feature-link">
+                        Kuruluma başla
+                        <span>→</span>
+                    </div>
+                </div>
+
+            </a>
+
+
+            <a href="#" class="feature-card feature-card-analysis">
+
+                <div class="feature-card-bg"></div>
+
+                <div class="feature-card-top">
+                    <span class="feature-index">02</span>
+                    <span class="feature-arrow">↗</span>
+                </div>
+
+                <div class="feature-visual feature-visual-score">
+
+                    <div class="mini-score-ring">
+                        <div>
+                            <strong>87</strong>
+                            <span>/100</span>
+                        </div>
+                    </div>
+
+                    <div class="mini-score-bars">
+                        <div>
+                            <span></span>
+                            <i style="--bar: 90%"></i>
+                        </div>
+
+                        <div>
+                            <span></span>
+                            <i style="--bar: 77%"></i>
+                        </div>
+
+                        <div>
+                            <span></span>
+                            <i style="--bar: 84%"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="feature-content">
+                    <span class="feature-label">AKVARYUM SKORU</span>
+
+                    <h3>Akvaryumumu Analiz Et</h3>
+
+                    <p>
+                        Tank bilgilerini ve fotoğrafını yükle.
+                        Güçlü noktalarını, risklerini ve yapman gerekenleri gör.
+                    </p>
+
+                    <div class="feature-link">
+                        Tankını analiz et
+                        <span>→</span>
+                    </div>
+                </div>
+
+            </a>
+
+
+            <a href="#" class="feature-card feature-card-compatibility">
+
+                <div class="feature-card-bg"></div>
+
+                <div class="feature-card-top">
+                    <span class="feature-index">03</span>
+                    <span class="feature-arrow">↗</span>
+                </div>
+
+                <div class="feature-visual feature-visual-fish">
+
+                    <div class="compat-fish compat-fish-one">
+                        <span class="compat-tail"></span>
+                    </div>
+
+                    <div class="compat-connection">
+                        <span class="compat-dot"></span>
+                        <span class="compat-line"></span>
+                        <span class="compat-check">✓</span>
+                        <span class="compat-line"></span>
+                        <span class="compat-dot"></span>
+                    </div>
+
+                    <div class="compat-fish compat-fish-two">
+                        <span class="compat-tail"></span>
+                    </div>
+
+                </div>
+
+                <div class="feature-content">
+                    <span class="feature-label">CANLI SEÇİMİ</span>
+
+                    <h3>Canlı Uyumu</h3>
+
+                    <p>
+                        İki veya daha fazla canlının aynı tankta
+                        gerçekten uyumlu olup olmadığını kontrol et.
+                    </p>
+
+                    <div class="feature-link">
+                        Uyumu kontrol et
+                        <span>→</span>
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="score-showcase-section">
+
+    <div class="score-showcase-container">
+
+        <div class="score-showcase-copy">
+
+            <span class="section-kicker">
+                SEMİH AKVARYUM SCORE
+            </span>
+
+            <h2>
+                Tankına sadece bakma.
+                <span>Onu gerçekten anla.</span>
+            </h2>
+
+            <p>
+                Canlı yükü, su değerleri, filtrasyon, bitki sağlığı ve bakım düzenini
+                tek bir skorda birleştir. Nelerin iyi gittiğini ve neyi değiştirmen
+                gerektiğini net şekilde gör.
+            </p>
+
+            <div class="score-benefits">
+
+                <div class="score-benefit">
+                    <span class="benefit-icon">✓</span>
+                    <div>
+                        <strong>Riskleri erkenden gör</strong>
+                        <p>Su değerleri ve bakım rutinindeki kritik noktaları fark et.</p>
+                    </div>
+                </div>
+
+                <div class="score-benefit">
+                    <span class="benefit-icon">↗</span>
+                    <div>
+                        <strong>Skorunu yükselt</strong>
+                        <p>En çok fayda sağlayacak aksiyonu sistem sana söylesin.</p>
+                    </div>
+                </div>
+
+                <div class="score-benefit">
+                    <span class="benefit-icon">◎</span>
+                    <div>
+                        <strong>Gelişimini takip et</strong>
+                        <p>Tankının zaman içindeki değişimini ve skor geçmişini gör.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <a href="#" class="score-cta">
+                Akvaryumunu analiz et
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        <div class="score-dashboard">
+
+            <div class="score-dashboard-glow"></div>
+
+            <div class="score-dashboard-head">
+                <div>
+                    <span class="dashboard-status-dot"></span>
+                    <span>AKVARYUM DURUMU</span>
+                </div>
+
+                <span class="dashboard-date">
+                    BUGÜN
+                </span>
+            </div>
+
+
+            <div class="score-dashboard-main">
+
+                <div class="score-big-ring">
+
+                    <div class="score-big-ring-inner">
+                        <strong>87</strong>
+                        <span>/100</span>
+
+                        <small>
+                            SAĞLIKLI
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="score-dashboard-summary">
+
+                    <span class="summary-label">
+                        GENEL DURUM
+                    </span>
+
+                    <h3>
+                        Tankın dengeli görünüyor.
+                    </h3>
+
+                    <p>
+                        Filtrasyon ve su değerleri iyi seviyede.
+                        Birkaç küçük iyileştirmeyle skorunu 90+ seviyesine taşıyabilirsin.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="score-metrics">
+
+                <div class="score-metric">
+
+                    <div class="metric-top">
+                        <span>Canlı Yükü</span>
+                        <strong>18/20</strong>
+                    </div>
+
+                    <div class="metric-track">
+                        <i style="--metric: 90%"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="score-metric">
+
+                    <div class="metric-top">
+                        <span>Su Kalitesi</span>
+                        <strong>17/20</strong>
+                    </div>
+
+                    <div class="metric-track">
+                        <i style="--metric: 85%"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="score-metric">
+
+                    <div class="metric-top">
+                        <span>Filtrasyon</span>
+                        <strong>16/20</strong>
+                    </div>
+
+                    <div class="metric-track">
+                        <i style="--metric: 80%"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="score-metric">
+
+                    <div class="metric-top">
+                        <span>Bitkiler</span>
+                        <strong>19/20</strong>
+                    </div>
+
+                    <div class="metric-track">
+                        <i style="--metric: 95%"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="score-metric">
+
+                    <div class="metric-top">
+                        <span>Bakım Rutini</span>
+                        <strong>17/20</strong>
+                    </div>
+
+                    <div class="metric-track">
+                        <i style="--metric: 85%"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="score-action-card">
+
+                <div class="score-action-icon">
+                    ↑
+                </div>
+
+                <div>
+                    <span>
+                        BU HAFTA EN FAZLA PUAN KAZANDIRACAK AKSİYON
+                    </span>
+
+                    <strong>
+                        Işık süresini 8 saatten 7 saate düşür.
+                    </strong>
+                </div>
+
+                <div class="score-action-points">
+                    +4
+                    <small>PUAN</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="community-section">
+
+    <div class="community-container">
+
+        <div class="community-heading">
+
+            <div>
+                <span class="section-kicker">
+                    SEMİH.AKVARYUM TOPLULUĞU
+                </span>
+
+                <h2>
+                    Tankını paylaş.
+                    <span>Deneyimini büyüt.</span>
+                </h2>
+            </div>
+
+            <div class="community-heading-side">
+                <p>
+                    Akvaryumunu profilinde sergile, fotoğraflarını paylaş,
+                    sorularını sor ve diğer akvaryum severlerin deneyimlerinden faydalan.
+                </p>
+
+                <a href="#" class="community-heading-link">
+                    Topluluğu keşfet
+                    <span>→</span>
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="community-layout">
+
+            <div class="community-tanks">
+
+                <article class="community-tank-card community-tank-card-large">
+
+                    <div class="community-tank-visual community-tank-visual-one">
+                        <div class="community-water-glow"></div>
+                        <span class="community-photo-label">
+                            FEATURED TANK
+                        </span>
+                    </div>
+
+                    <div class="community-tank-info">
+
+                        <div>
+                            <span class="community-tank-meta">
+                                96 L · APİSTOGRAMMA
+                            </span>
+
+                            <h3>
+                                Nature Aquascape
+                            </h3>
+
+                            <p>
+                                Yoğun bitkili, düşük akışlı ve Apistogramma odaklı
+                                doğal görünümlü bir kurulum.
+                            </p>
+                        </div>
+
+                        <div class="community-user">
+                            <div class="community-avatar">
+                                S
+                            </div>
+
+                            <div>
+                                <strong>@semih</strong>
+                                <span>12 fotoğraf</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="community-card-stats">
+                        <span>♡ 124</span>
+                        <span>◌ 18 yorum</span>
+                    </div>
+
+                </article>
+
+
+                <div class="community-small-grid">
+
+                    <article class="community-tank-card">
+
+                        <div class="community-tank-visual community-tank-visual-two">
+                            <div class="community-water-glow"></div>
+                        </div>
+
+                        <div class="community-tank-info compact">
+
+                            <div>
+                                <span class="community-tank-meta">
+                                    60 L · NATURE
+                                </span>
+
+                                <h3>
+                                    Green Valley
+                                </h3>
+                            </div>
+
+                            <span class="community-mini-user">
+                                @aquaworld
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="community-tank-card">
+
+                        <div class="community-tank-visual community-tank-visual-three">
+                            <div class="community-water-glow"></div>
+                        </div>
+
+                        <div class="community-tank-info compact">
+
+                            <div>
+                                <span class="community-tank-meta">
+                                    30 L · SHRIMP
+                                </span>
+
+                                <h3>
+                                    Nano Garden
+                                </h3>
+                            </div>
+
+                            <span class="community-mini-user">
+                                @nano.tank
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+
+            <aside class="community-feed">
+
+                <div class="community-feed-head">
+
+                    <div>
+                        <span class="feed-live-dot"></span>
+                        <span>SON SORULAR</span>
+                    </div>
+
+                    <a href="#">
+                        Tümünü gör
+                    </a>
+
+                </div>
+
+
+                <a href="#" class="community-question">
+
+                    <div class="question-avatar">
+                        M
+                    </div>
+
+                    <div class="question-content">
+
+                        <div class="question-meta">
+                            <span>@mert.aqua</span>
+                            <span>12 dk önce</span>
+                        </div>
+
+                        <h3>
+                            Ramirezi ile Kakadu aynı tankta yaşar mı?
+                        </h3>
+
+                        <div class="question-tags">
+                            <span>Canlı Uyumu</span>
+                            <span>60×40×40</span>
+                        </div>
+
+                    </div>
+
+                    <span class="question-replies">
+                        8
+                        <small>cevap</small>
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="community-question">
+
+                    <div class="question-avatar question-avatar-blue">
+                        A
+                    </div>
+
+                    <div class="question-content">
+
+                        <div class="question-meta">
+                            <span>@aquascape34</span>
+                            <span>31 dk önce</span>
+                        </div>
+
+                        <h3>
+                            NO₃ değerim 35 ppm çıktı, su değişimi yeterli olur mu?
+                        </h3>
+
+                        <div class="question-tags">
+                            <span>Su Değerleri</span>
+                            <span>Bitkili Tank</span>
+                        </div>
+
+                    </div>
+
+                    <span class="question-replies">
+                        14
+                        <small>cevap</small>
+                    </span>
+
+                </a>
+
+
+                <a href="#" class="community-question">
+
+                    <div class="question-avatar question-avatar-gold">
+                        E
+                    </div>
+
+                    <div class="question-content">
+
+                        <div class="question-meta">
+                            <span>@emre.nano</span>
+                            <span>1 saat önce</span>
+                        </div>
+
+                        <h3>
+                            Bu tankta ışığı kaç saat açık bırakmalıyım?
+                        </h3>
+
+                        <div class="question-tags">
+                            <span>Aquascape</span>
+                            <span>Işık</span>
+                        </div>
+
+                    </div>
+
+                    <span class="question-replies">
+                        6
+                        <small>cevap</small>
+                    </span>
+
+                </a>
+
+
+                <div class="community-join-card">
+
+                    <span class="community-join-kicker">
+                        SEMİH.AKVARYUM CLUB
+                    </span>
+
+                    <h3>
+                        Akvaryumunu topluluğa ekle.
+                    </h3>
+
+                    <p>
+                        Profilini oluştur, tanklarını paylaş ve diğer akvaryum severlerle bağlantı kur.
+                    </p>
+
+                    <a href="#" class="community-join-button">
+                        Profil Oluştur
+                        <span>↗</span>
+                    </a>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

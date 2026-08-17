@@ -1,0 +1,1631 @@
+.tank-detail-page {
+    position: relative;
+
+    min-height: calc(100vh - 76px);
+
+    overflow: hidden;
+
+    padding: 52px 0 120px;
+
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(45,132,197,.10),
+            transparent 27%
+        ),
+        linear-gradient(
+            #020a13,
+            #04111e 50%,
+            #020a13
+        );
+}
+
+.tank-detail-page::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+    opacity: .025;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.25) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.25) 1px,
+            transparent 1px
+        );
+
+    background-size: 70px 70px;
+}
+
+.tank-detail-orb {
+    position: absolute;
+
+    border-radius: 50%;
+    filter: blur(55px);
+
+    pointer-events: none;
+}
+
+.tank-detail-orb-one {
+    width: 520px;
+    height: 520px;
+
+    right: -290px;
+    top: 400px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(60,153,218,.08),
+            transparent 70%
+        );
+}
+
+.tank-detail-orb-two {
+    width: 470px;
+    height: 470px;
+
+    left: -330px;
+    top: 1100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(37,107,164,.07),
+            transparent 70%
+        );
+}
+
+.tank-detail-shell {
+    position: relative;
+    z-index: 2;
+
+    width: 92%;
+    max-width: 1380px;
+
+    margin: auto;
+}
+
+.tank-detail-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+}
+
+.tank-detail-back {
+    color: #657f92;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tank-detail-back:hover {
+    color: #bceaff;
+}
+
+.tank-detail-saved {
+    padding: 7px 9px;
+
+    border: 1px solid rgba(122,213,181,.10);
+    border-radius: 999px;
+
+    color: #8bd8bd;
+    background: rgba(103,196,164,.035);
+
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+
+/* HERO */
+
+.tank-detail-hero {
+    display: grid;
+    grid-template-columns: .95fr 1.05fr;
+    gap: 65px;
+    align-items: center;
+
+    padding-bottom: 65px;
+
+    border-bottom: 1px solid rgba(255,255,255,.065);
+}
+
+.tank-detail-visual {
+    position: relative;
+
+    min-height: 450px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(144,219,255,.10);
+    border-radius: 29px;
+
+    background:
+        radial-gradient(
+            circle at 25% 75%,
+            rgba(45,125,94,.47),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 72% 70%,
+            rgba(39,111,91,.40),
+            transparent 30%
+        ),
+        radial-gradient(
+            ellipse at 52% 0%,
+            rgba(171,226,255,.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            #16445d,
+            #0b2b39 55%,
+            #061821
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 35px 80px rgba(0,0,0,.18);
+}
+
+.tank-detail-visual::before {
+    content: "";
+
+    position: absolute;
+
+    width: 110px;
+    height: 190px;
+
+    left: 23%;
+    bottom: 28px;
+
+    clip-path:
+        polygon(
+            50% 0,
+            77% 28%,
+            100% 100%,
+            0 100%,
+            18% 31%
+        );
+
+    background:
+        linear-gradient(
+            145deg,
+            #59666a,
+            #222d30 62%,
+            #101718
+        );
+}
+
+.tank-detail-visual::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 135px;
+
+    right: 20%;
+    bottom: 30px;
+
+    clip-path:
+        polygon(
+            50% 0,
+            100% 100%,
+            0 100%,
+            18% 35%
+        );
+
+    background:
+        linear-gradient(
+            145deg,
+            #536065,
+            #1f292c 65%,
+            #101718
+        );
+}
+
+.tank-detail-floor {
+    position: absolute;
+    z-index: 2;
+
+    left: -10%;
+    right: -10%;
+    bottom: -45px;
+
+    height: 115px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #5b554c,
+            #26251f 65%
+        );
+}
+
+.tank-detail-water-light {
+    position: absolute;
+
+    top: -160px;
+    left: 48%;
+
+    width: 170px;
+    height: 650px;
+
+    transform: rotate(9deg);
+
+    background:
+        linear-gradient(
+            rgba(219,246,255,.16),
+            rgba(129,205,246,.02),
+            transparent 72%
+        );
+
+    filter: blur(28px);
+}
+
+.tank-detail-score {
+    position: absolute;
+    z-index: 5;
+
+    top: 20px;
+    right: 20px;
+
+    padding: 8px 10px;
+
+    border: 1px solid rgba(255,255,255,.11);
+    border-radius: 999px;
+
+    color: #b6e9ff;
+    background: rgba(3,14,23,.38);
+
+    backdrop-filter: blur(12px);
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.tank-detail-visual-label {
+    position: absolute;
+    z-index: 5;
+
+    left: 23px;
+    bottom: 22px;
+}
+
+.tank-detail-visual-label span {
+    display: block;
+
+    color: #86d6f8;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.tank-detail-visual-label strong {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #d7e7ee;
+    font-size: 12px;
+}
+
+.tank-detail-kicker {
+    display: block;
+
+    color: #72c8ef;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.tank-detail-copy h1 {
+    max-width: 650px;
+
+    margin: 10px 0 12px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(48px, 5vw, 74px);
+    line-height: 1;
+    letter-spacing: -4px;
+    font-weight: 650;
+}
+
+.tank-detail-subtitle {
+    color: #a1b6c4;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.tank-detail-summary {
+    max-width: 650px;
+
+    margin-top: 23px;
+
+    color: #758c9d;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+.tank-detail-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+
+    margin-top: 34px;
+}
+
+.tank-detail-meta > div {
+    min-height: 82px;
+
+    padding: 15px;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 15px;
+
+    background: rgba(255,255,255,.014);
+}
+
+.tank-detail-meta span {
+    display: block;
+
+    color: #557286;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.tank-detail-meta strong {
+    display: block;
+
+    margin-top: 9px;
+
+    color: #c7dae4;
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* ALERT */
+
+.tank-detail-alert {
+    margin-top: 35px;
+    padding: 20px;
+
+    border: 1px solid rgba(255,183,109,.10);
+    border-radius: 19px;
+
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 25px;
+
+    background: rgba(153,93,37,.025);
+}
+
+.tank-detail-alert > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tank-detail-alert > div:first-child span {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 10px;
+
+    display: grid;
+    place-items: center;
+
+    color: #d8a66f;
+    background: rgba(210,151,88,.06);
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.tank-detail-alert strong {
+    color: #ceb498;
+    font-size: 9px;
+}
+
+.tank-detail-alert > div:last-child {
+    display: grid;
+    gap: 7px;
+}
+
+.tank-detail-alert p {
+    color: #8e745d;
+    font-size: 8px;
+    line-height: 1.55;
+}
+
+
+/* SECTIONS */
+
+.tank-detail-section {
+    margin-top: 90px;
+}
+
+.tank-detail-section-head {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 13px;
+
+    margin-bottom: 23px;
+}
+
+.tank-detail-section-head > span {
+    padding-top: 6px;
+
+    color: #4d6d82;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.tank-detail-section-head small {
+    color: #69bfe7;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.tank-detail-section-head h2 {
+    margin-top: 4px;
+
+    font-family: "Manrope", sans-serif;
+    font-size: 29px;
+    letter-spacing: -1.5px;
+}
+
+
+/* DESIGN */
+
+.tank-detail-design-grid {
+    display: grid;
+    grid-template-columns: 1.5fr .75fr .75fr;
+    gap: 11px;
+}
+
+.tank-detail-large-card,
+.tank-detail-small-card {
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,34,51,.52),
+            rgba(6,18,30,.67)
+        );
+}
+
+.tank-detail-large-card {
+    min-height: 205px;
+
+    padding: 24px;
+}
+
+.tank-detail-large-card > span,
+.tank-detail-small-card > span {
+    color: #5d7f93;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.tank-detail-large-card h3 {
+    margin-top: 11px;
+
+    font: 600 25px "Manrope", sans-serif;
+    letter-spacing: -1px;
+}
+
+.tank-detail-large-card p {
+    max-width: 650px;
+
+    margin-top: 13px;
+
+    color: #708899;
+    font-size: 9px;
+    line-height: 1.7;
+}
+
+.tank-detail-small-card {
+    min-height: 205px;
+
+    padding: 21px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tank-detail-small-card strong {
+    color: #c2d5df;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* LIVESTOCK */
+
+.tank-detail-livestock {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 11px;
+}
+
+.tank-detail-livestock article {
+    min-height: 220px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 19px;
+
+    background: rgba(255,255,255,.014);
+}
+
+.tank-detail-livestock article > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: #59758a;
+    font-size: 7px;
+    font-weight: 800;
+}
+
+.tank-detail-livestock article > div strong {
+    color: #80d1f3;
+    font-size: 9px;
+}
+
+.tank-detail-livestock h3 {
+    margin-top: 25px;
+
+    color: #cfdee6;
+    font: 600 18px "Manrope", sans-serif;
+}
+
+.tank-detail-livestock em {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #567286;
+    font-size: 8px;
+}
+
+.tank-detail-livestock p {
+    margin-top: 15px;
+
+    color: #6a8294;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+
+/* PARAMETERS */
+
+.tank-detail-parameters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.tank-detail-parameters article {
+    min-height: 110px;
+
+    padding: 18px;
+
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.014);
+}
+
+.tank-detail-parameters span {
+    color: #557386;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.tank-detail-parameters strong {
+    display: block;
+
+    margin-top: 25px;
+
+    color: #d2e2ea;
+    font: 600 18px "Manrope", sans-serif;
+}
+
+
+/* EQUIPMENT */
+
+.tank-detail-equipment {
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.065);
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.012);
+}
+
+.tank-detail-equipment article {
+    min-height: 98px;
+
+    padding: 17px 20px;
+
+    display: grid;
+    grid-template-columns: 160px 1fr 190px;
+    gap: 22px;
+    align-items: center;
+
+    border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.tank-detail-equipment article:last-child {
+    border-bottom: 0;
+}
+
+.tank-equipment-category > span {
+    display: block;
+
+    color: #9eb5c4;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tank-equipment-category small {
+    display: block;
+
+    width: fit-content;
+
+    margin-top: 6px;
+    padding: 4px 6px;
+
+    border-radius: 999px;
+
+    color: #67bce5;
+    background: rgba(102,188,229,.05);
+
+    font-size: 6px;
+    font-weight: 800;
+}
+
+.tank-detail-equipment article > div:nth-child(2) strong {
+    color: #cadbe4;
+    font-size: 9px;
+}
+
+.tank-detail-equipment article > div:nth-child(2) p {
+    margin-top: 5px;
+
+    color: #61798b;
+    font-size: 8px;
+    line-height: 1.55;
+}
+
+.tank-equipment-spec {
+    color: #87ccea;
+    font-size: 9px;
+    line-height: 1.45;
+    text-align: right;
+}
+
+
+/* CTA */
+
+.tank-detail-actions {
+    margin-top: 105px;
+    padding-top: 50px;
+
+    border-top: 1px solid rgba(255,255,255,.065);
+
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.tank-detail-actions h2 {
+    max-width: 650px;
+
+    margin-top: 8px;
+
+    font: 600 34px/1.05 "Manrope", sans-serif;
+    letter-spacing: -2px;
+}
+
+.tank-detail-actions p {
+    max-width: 570px;
+
+    margin-top: 10px;
+
+    color: #677f91;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.tank-detail-actions > a {
+    min-height: 48px;
+
+    padding: 0 16px;
+
+    border-radius: 13px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+
+    white-space: nowrap;
+
+    color: #06131f;
+
+    background:
+        linear-gradient(
+            #bceaff,
+            #80d2fa
+        );
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.tank-detail-no-plan {
+    margin-top: 50px;
+    padding: 25px;
+
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 18px;
+
+    color: #71899b;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+    .tank-detail-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-detail-visual {
+        min-height: 390px;
+    }
+
+    .tank-detail-design-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tank-detail-large-card {
+        grid-column: 1 / -1;
+    }
+
+    .tank-detail-livestock {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tank-detail-equipment article {
+        grid-template-columns: 130px 1fr;
+    }
+
+    .tank-equipment-spec {
+        grid-column: 2;
+        text-align: left;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .tank-detail-alert {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-detail-meta,
+    .tank-detail-parameters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tank-detail-livestock {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-detail-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .tank-detail-visual {
+        min-height: 310px;
+    }
+
+    .tank-detail-copy h1 {
+        letter-spacing: -3px;
+    }
+
+    .tank-detail-design-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-detail-large-card {
+        grid-column: auto;
+    }
+
+    .tank-detail-equipment article {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .tank-equipment-spec {
+        grid-column: auto;
+    }
+
+}
+
+
+
+
+/* =====================================================
+   AI UI HARD RESET
+   Prevent browser/global default controls from leaking in.
+===================================================== */
+
+.tank-ai-section button,
+.tank-ai-section textarea,
+.tank-ai-section input {
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.tank-ai-section button {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.tank-ai-section textarea {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.tank-ai-section *,
+.tank-delete-modal * {
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   TANK-SPECIFIC AI
+===================================================== */
+
+.tank-ai-section {
+    margin-top: 42px;
+    padding: 32px;
+
+    scroll-margin-top: 105px;
+
+    border: 1px solid rgba(119, 208, 249, .10);
+    border-radius: 26px;
+
+    background:
+        radial-gradient(
+            circle at 88% 0%,
+            rgba(75, 173, 224, .08),
+            transparent 29%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(14, 34, 52, .66),
+            rgba(5, 17, 29, .74)
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.035),
+        0 30px 80px rgba(0,0,0,.12);
+}
+
+.tank-ai-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 35px;
+
+    padding-bottom: 26px;
+
+    border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.tank-ai-head h2 {
+    margin-top: 7px;
+
+    font: 600 31px/1.05 "Manrope", sans-serif;
+    letter-spacing: -1.8px;
+}
+
+.tank-ai-head p {
+    max-width: 660px;
+
+    margin-top: 9px;
+
+    color: #6c8496;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.tank-ai-context-badge {
+    flex: 0 0 auto;
+
+    padding: 8px 10px;
+
+    border: 1px solid rgba(117, 211, 250, .11);
+    border-radius: 999px;
+
+    color: #82d3f5;
+    background: rgba(99, 194, 237, .035);
+
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.tank-ai-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, .72fr);
+    gap: 14px;
+
+    margin-top: 19px;
+}
+
+
+/* CHAT */
+
+.tank-ai-chat-card,
+.tank-revision-card,
+.tank-danger-card {
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 20px;
+
+    background: rgba(255,255,255,.012);
+}
+
+.tank-ai-chat-card {
+    padding: 17px;
+}
+
+.tank-ai-messages {
+    max-height: 540px;
+
+    overflow-y: auto;
+
+    padding: 6px 5px 14px;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(116, 194, 230, .18)
+        transparent;
+}
+
+.tank-ai-message {
+    max-width: 86%;
+
+    margin-bottom: 12px;
+    padding: 14px 15px;
+
+    border-radius: 16px;
+}
+
+.tank-ai-message-user {
+    margin-left: auto;
+
+    border: 1px solid rgba(137, 214, 248, .10);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(46, 112, 145, .17),
+            rgba(16, 48, 67, .18)
+        );
+}
+
+.tank-ai-message-assistant {
+    margin-right: auto;
+
+    border: 1px solid rgba(255,255,255,.055);
+
+    background: rgba(255,255,255,.018);
+}
+
+.tank-ai-message-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #638297;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+}
+
+.tank-ai-message-label span {
+    width: 18px;
+    height: 18px;
+
+    border: 1px solid rgba(129, 211, 248, .10);
+    border-radius: 6px;
+
+    display: grid;
+    place-items: center;
+
+    color: #84d2f3;
+    background: rgba(101, 190, 232, .035);
+
+    font-size: 6px;
+}
+
+.tank-ai-message p {
+    margin-top: 9px;
+
+    color: #9db2bf;
+    font-size: 9px;
+    line-height: 1.72;
+    white-space: pre-line;
+}
+
+.tank-ai-message-user p {
+    color: #b8cfda;
+}
+
+.tank-ai-empty {
+    min-height: 175px;
+
+    padding: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    text-align: left;
+}
+
+.tank-ai-empty > span {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 auto;
+
+    border: 1px solid rgba(127, 214, 253, .12);
+    border-radius: 14px;
+
+    display: grid;
+    place-items: center;
+
+    color: #8bdcff;
+    background: rgba(98, 193, 237, .04);
+
+    font-size: 13px;
+}
+
+.tank-ai-empty strong {
+    color: #b7cbd6;
+    font-size: 10px;
+}
+
+.tank-ai-empty p {
+    max-width: 430px;
+
+    margin-top: 5px;
+
+    color: #607a8d;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+.tank-ai-quick-prompts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    padding: 13px 4px;
+
+    border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.tank-ai-quick-prompts button {
+    padding: 7px 9px;
+
+    border: 1px solid rgba(118, 198, 235, .08);
+    border-radius: 999px;
+
+    color: #7796a9;
+    background: rgba(90, 173, 213, .025);
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+}
+
+.tank-ai-quick-prompts button:hover {
+    color: #a8dff6;
+    border-color: rgba(126, 210, 249, .17);
+    background: rgba(89, 183, 226, .045);
+}
+
+.tank-ai-form {
+    padding: 13px;
+
+    border: 1px solid rgba(126, 211, 250, .085);
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9, 28, 43, .72),
+            rgba(5, 19, 31, .74)
+        );
+}
+
+.tank-ai-form textarea,
+.tank-revision-form textarea {
+    width: 100%;
+
+    resize: vertical;
+
+    border: 0;
+    outline: 0;
+
+    color: #d8e8ef;
+    background: transparent;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+.tank-ai-form textarea::placeholder,
+.tank-revision-form textarea::placeholder {
+    color: #405e72;
+}
+
+.tank-ai-form-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-top: 10px;
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(255,255,255,.045);
+}
+
+.tank-ai-form-bottom small {
+    color: #49697d;
+    font-size: 6px;
+}
+
+.tank-ai-form-bottom button,
+.tank-revision-form button {
+    min-height: 38px;
+
+    padding: 0 13px;
+
+    border: 0;
+    border-radius: 11px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    white-space: nowrap;
+
+    color: #06141f;
+
+    background:
+        linear-gradient(
+            135deg,
+            #bcecff,
+            #7dd1f8
+        );
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .2s ease;
+}
+
+.tank-ai-form-bottom button:hover,
+.tank-revision-form button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 13px 32px rgba(78, 172, 221, .15);
+}
+
+.tank-ai-form-bottom button i {
+    font-style: normal;
+}
+
+[data-loading-form].is-loading button[type="submit"] {
+    opacity: .62;
+    cursor: wait;
+}
+
+
+/* SIDE TOOLS */
+
+.tank-ai-tools {
+    display: grid;
+    align-content: start;
+    gap: 11px;
+}
+
+.tank-revision-card,
+.tank-danger-card {
+    padding: 20px;
+}
+
+.tank-tool-number {
+    color: #5b7b90;
+    font-size: 6px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.tank-revision-card h3,
+.tank-danger-card h3 {
+    margin-top: 11px;
+
+    color: #c7d8e1;
+    font: 600 19px/1.1 "Manrope", sans-serif;
+    letter-spacing: -.8px;
+}
+
+.tank-revision-card > p,
+.tank-danger-card > p {
+    margin-top: 8px;
+
+    color: #617a8c;
+    font-size: 8px;
+    line-height: 1.6;
+}
+
+.tank-revision-form {
+    margin-top: 17px;
+    padding: 13px;
+
+    border: 1px solid rgba(255,255,255,.055);
+    border-radius: 14px;
+
+    background: rgba(0,0,0,.08);
+}
+
+.tank-revision-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-top: 11px;
+    padding-top: 10px;
+
+    border-top: 1px solid rgba(255,255,255,.04);
+}
+
+.tank-revision-meta > span {
+    color: #526e81;
+    font-size: 6px;
+}
+
+.tank-danger-card {
+    border-color: rgba(226, 111, 111, .07);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(95, 35, 35, .025),
+            rgba(255,255,255,.01)
+        );
+}
+
+.tank-delete-open {
+    margin-top: 16px;
+    padding: 8px 0;
+
+    border: 0;
+    border-bottom: 1px solid rgba(236, 121, 121, .16);
+
+    color: #a46e6e;
+    background: transparent;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 7px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+
+/* DELETE MODAL */
+
+.tank-delete-modal {
+    position: fixed;
+    z-index: 7000;
+    inset: 0;
+
+    display: grid;
+    place-items: center;
+
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease;
+}
+
+.tank-delete-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tank-delete-backdrop {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 5, 10, .78);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.tank-delete-dialog {
+    position: relative;
+    z-index: 2;
+
+    width: min(92vw, 430px);
+
+    padding: 28px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0d1f2e,
+            #07131f
+        );
+
+    box-shadow:
+        0 45px 120px rgba(0,0,0,.45);
+}
+
+.tank-delete-icon {
+    width: 39px;
+    height: 39px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(233, 123, 123, .12);
+    border-radius: 13px;
+
+    display: grid;
+    place-items: center;
+
+    color: #d88686;
+    background: rgba(196, 85, 85, .05);
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.tank-delete-dialog h2 {
+    margin-top: 8px;
+
+    font: 600 25px/1.05 "Manrope", sans-serif;
+    letter-spacing: -1.3px;
+}
+
+.tank-delete-dialog > p {
+    margin-top: 11px;
+
+    color: #6d8393;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+.tank-delete-dialog > p strong {
+    color: #a6bac5;
+}
+
+.tank-delete-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    margin-top: 24px;
+}
+
+.tank-delete-actions button {
+    min-height: 40px;
+
+    padding: 0 13px;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 11px;
+
+    color: #8299a8;
+    background: rgba(255,255,255,.018);
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.tank-delete-actions .tank-delete-confirm {
+    border-color: rgba(222, 111, 111, .11);
+
+    color: #e3aaaa;
+    background: rgba(192, 77, 77, .055);
+}
+
+
+@media (max-width: 950px) {
+
+    .tank-ai-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-ai-tools {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .tank-ai-section {
+        padding: 20px;
+    }
+
+    .tank-ai-head {
+        flex-direction: column;
+    }
+
+    .tank-ai-tools {
+        grid-template-columns: 1fr;
+    }
+
+    .tank-ai-message {
+        max-width: 94%;
+    }
+
+    .tank-ai-form-bottom,
+    .tank-revision-meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}
+
+
+/* =====================================================
+   V3 · STREAMING CHAT
+===================================================== */
+
+.tank-ai-message-assistant.is-streaming {
+    border-color: rgba(126, 211, 249, .12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.tank-ai-message-assistant.is-streaming .tank-ai-message-label span {
+    animation: tankAiPulse 1.15s ease-in-out infinite;
+}
+
+@keyframes tankAiPulse {
+    0%, 100% {
+        opacity: .45;
+        transform: scale(.92);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tank-ai-thinking {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #67879b;
+}
+
+.tank-ai-thinking::after {
+    content: "";
+    width: 22px;
+    height: 5px;
+
+    background:
+        radial-gradient(
+            circle,
+            #79c9ed 1.4px,
+            transparent 1.6px
+        )
+        0 50% / 7px 7px repeat-x;
+
+    animation: tankAiDots 1s linear infinite;
+}
+
+@keyframes tankAiDots {
+    from {
+        opacity: .28;
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: .9;
+    }
+
+    to {
+        opacity: .28;
+        transform: translateX(3px);
+    }
+}
+
+.tank-ai-form.is-streaming {
+    border-color: rgba(126, 211, 250, .16);
+}
+
+.tank-ai-form.is-streaming button[type="submit"] {
+    opacity: .65;
+    cursor: wait;
+}
+
+.tank-ai-form.is-streaming textarea {
+    opacity: .72;
+}
+
+.tank-ai-stream-error {
+    color: #d99a9a !important;
+}

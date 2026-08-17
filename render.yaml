@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: semih-akvaryum
+    runtime: python
+    plan: free
+    region: frankfurt
+
+    buildCommand: pip install -r requirements.txt
+
+    # Threads help our SSE / Gemini streaming endpoints serve
+    # more than one request without changing the Flask app.
+    startCommand: gunicorn --workers ${WEB_CONCURRENCY:-1} --threads 4 --timeout 180 app:app
+
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: semih-akvaryum-db
+          property: connectionString
+
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: PRODUCTION
+        value: "1"
+
+      - key: GEMINI_API_KEY
+        sync: false
+
+      - key: GEMINI_PLAN_MODEL
+        value: gemini-3.7-flash
+
+      - key: GEMINI_CHAT_MODEL
+        value: gemini-3.5-flash-lite
+
+      - key: GEMINI_ANALYSIS_MODEL
+        value: gemini-3.7-flash
+
+      - key: GEMINI_COMPATIBILITY_MODEL
+        value: gemini-3.7-flash
+
+
+databases:
+  - name: semih-akvaryum-db
+    plan: free
+    region: frankfurt
+    databaseName: semih_akvaryum
+
+    # Web service same-region private URL üzerinden bağlanır.
+    # PostgreSQL'ü doğrudan internete açmıyoruz.
+    ipAllowList: []
