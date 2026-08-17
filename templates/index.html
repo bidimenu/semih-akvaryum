@@ -42,12 +42,12 @@ Semih Akvaryum
             </p>
 
             <div class="hero-actions">
-                <a href="#" class="hero-btn hero-btn-primary">
+                <a href="{{ url_for('akvaryum_analiz') }}" class="hero-btn hero-btn-primary">
                     Akvaryumumu Analiz Et
                     <span>↗</span>
                 </a>
 
-                <a href="#" class="hero-btn hero-btn-secondary">
+                <a href="{{ url_for('akvaryum_kur') }}" class="hero-btn hero-btn-secondary">
                     Akvaryum Kur
                 </a>
             </div>
@@ -143,7 +143,7 @@ Semih Akvaryum
 
         <div class="feature-grid">
 
-            <a href="#" class="feature-card feature-card-builder">
+            <a href="{{ url_for('akvaryum_kur') }}" class="feature-card feature-card-builder">
 
                 <div class="feature-card-bg"></div>
 
@@ -186,7 +186,7 @@ Semih Akvaryum
             </a>
 
 
-            <a href="#" class="feature-card feature-card-analysis">
+            <a href="{{ url_for('akvaryum_analiz') }}" class="feature-card feature-card-analysis">
 
                 <div class="feature-card-bg"></div>
 
@@ -242,7 +242,7 @@ Semih Akvaryum
             </a>
 
 
-            <a href="#" class="feature-card feature-card-compatibility">
+            <a href="{{ url_for('canli_uyumu') }}" class="feature-card feature-card-compatibility">
 
                 <div class="feature-card-bg"></div>
 
@@ -345,7 +345,7 @@ Semih Akvaryum
 
             </div>
 
-            <a href="#" class="score-cta">
+            <a href="{{ url_for('akvaryum_analiz') }}" class="score-cta">
                 Akvaryumunu analiz et
                 <span>→</span>
             </a>
