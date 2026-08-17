@@ -793,7 +793,7 @@
 
     overflow: hidden;
 
-    min-height: 232px;
+    min-height: 198px;
 
     border-radius: 19px;
 }
@@ -810,7 +810,7 @@
 .style-preview {
     position: relative;
 
-    height: 128px;
+    height: 104px;
 
     overflow: hidden;
 
@@ -945,7 +945,7 @@
 }
 
 .style-choice-card > div:nth-of-type(2) {
-    padding: 15px 16px 17px;
+    padding: 13px 14px 14px;
 }
 
 .style-choice-card strong {
@@ -958,7 +958,7 @@
 .style-choice-card small {
     display: block;
 
-    margin-top: 5px;
+    margin-top: 4px;
 
     color: #627a8d;
     font-size: 8px;
@@ -988,14 +988,29 @@
 
     .style-choice-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .style-choice-card {
-        min-height: 215px;
+        min-height: 168px;
+        border-radius: 17px;
     }
 
     .style-preview {
-        height: 132px;
+        height: 88px;
+    }
+
+    .style-choice-card > div:nth-of-type(2) {
+        padding: 12px 13px 13px;
+    }
+
+    .style-choice-card strong {
+        font-size: 10px;
+    }
+
+    .style-choice-card small {
+        font-size: 7.4px;
+        line-height: 1.45;
     }
 
 }
@@ -2040,4 +2055,21 @@
 
     color: #526d80;
     font-size: 8px;
+}
+
+
+@media (max-width: 390px) {
+
+    .style-preview {
+        height: 80px;
+    }
+
+    .style-choice-card {
+        min-height: 158px;
+    }
+
+    .style-choice-card small {
+        font-size: 7.1px;
+    }
+
 }
