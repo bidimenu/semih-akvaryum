@@ -782,141 +782,126 @@
 
 .style-choice-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 12px;
 }
 
 .style-choice-card {
+    position: relative;
+
+    grid-column: span 2;
+
     overflow: hidden;
 
-    min-height: 210px;
+    min-height: 232px;
 
     border-radius: 19px;
+}
+
+/* Five cards: center the final row on desktop. */
+.style-choice-card:nth-child(4) {
+    grid-column: 2 / span 2;
+}
+
+.style-choice-card:nth-child(5) {
+    grid-column: 4 / span 2;
 }
 
 .style-preview {
     position: relative;
 
-    height: 103px;
+    height: 128px;
 
     overflow: hidden;
 
-    border-bottom: 1px solid rgba(255,255,255,.045);
+    border-bottom:
+        1px solid rgba(255,255,255,.045);
+
+    background:
+        #081824;
+}
+
+.style-preview img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transform: scale(1.01);
+
+    transition:
+        transform .35s ease,
+        filter .35s ease;
 }
 
 .style-preview::before {
     content: "";
+
     position: absolute;
+    z-index: 2;
+
     inset: 0;
 
+    pointer-events: none;
+
     background:
-        radial-gradient(
-            ellipse at 50% 0%,
-            rgba(210, 242, 255, .16),
-            transparent 38%
+        linear-gradient(
+            180deg,
+            rgba(3, 13, 21, .02) 0%,
+            rgba(3, 13, 21, .04) 48%,
+            rgba(3, 13, 21, .54) 100%
         );
 }
 
 .style-preview::after {
     content: "";
+
     position: absolute;
+    z-index: 3;
 
-    left: -10%;
-    right: -10%;
-    bottom: -28px;
+    inset: 0;
 
-    height: 65px;
+    pointer-events: none;
 
-    border-radius: 50%;
-
-    background: rgba(17, 29, 34, .88);
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.015);
 }
 
-.style-preview-aqua {
-    background:
-        radial-gradient(
-            circle at 25% 75%,
-            rgba(48, 121, 92, .55),
-            transparent 32%
-        ),
-        radial-gradient(
-            circle at 70% 67%,
-            rgba(41, 111, 93, .50),
-            transparent 29%
-        ),
-        linear-gradient(
-            #16435a,
-            #0a2836 57%,
-            #071721
-        );
+.style-choice-card:hover .style-preview img {
+    transform: scale(1.055);
+
+    filter:
+        saturate(1.06)
+        brightness(1.04);
 }
 
-.style-preview-blackwater {
-    background:
-        radial-gradient(
-            circle at 70% 75%,
-            rgba(124, 74, 34, .30),
-            transparent 30%
-        ),
-        linear-gradient(
-            #3b2617,
-            #23170e 55%,
-            #100c09
-        );
+.style-choice-card:has(input:checked) .style-preview img {
+    transform: scale(1.035);
+
+    filter:
+        saturate(1.10)
+        brightness(1.06);
 }
 
-.style-preview-biotope {
-    background:
-        radial-gradient(
-            circle at 30% 70%,
-            rgba(86, 91, 65, .28),
-            transparent 28%
-        ),
-        linear-gradient(
-            #29444c,
-            #202f31 50%,
-            #151b18
-        );
-}
 
-.style-preview-lowtech {
-    background:
-        radial-gradient(
-            circle at 55% 70%,
-            rgba(60, 117, 75, .37),
-            transparent 32%
-        ),
-        linear-gradient(
-            #294850,
-            #182e32 55%,
-            #0d1718
-        );
-}
-
-.style-preview-marine {
-    background:
-        radial-gradient(
-            circle at 35% 70%,
-            rgba(70, 133, 181, .47),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 70% 78%,
-            rgba(140, 81, 118, .24),
-            transparent 24%
-        ),
-        linear-gradient(
-            #15537c,
-            #0b3556 55%,
-            #071b2e
-        );
-}
-
+/* Keep the existing no-photo visual for "Kararsızım". */
 .style-preview-undecided {
     display: grid;
     place-items: center;
 
     background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(91, 187, 232, .12),
+            transparent 42%
+        ),
         linear-gradient(
             135deg,
             #172d42,
@@ -924,12 +909,39 @@
         );
 }
 
+.style-preview-undecided::before {
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(121, 211, 251, .08),
+            transparent 43%
+        );
+}
+
 .style-preview-undecided span {
     position: relative;
-    z-index: 2;
+    z-index: 4;
+
+    width: 48px;
+    height: 48px;
+
+    border:
+        1px solid rgba(131, 213, 251, .16);
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
 
     color: #83d5fb;
-    font: 500 28px "Manrope", sans-serif;
+
+    background:
+        rgba(80, 177, 221, .045);
+
+    box-shadow:
+        0 0 35px rgba(68, 170, 220, .07);
+
+    font:
+        500 27px "Manrope", sans-serif;
 }
 
 .style-choice-card > div:nth-of-type(2) {
@@ -951,6 +963,41 @@
     color: #627a8d;
     font-size: 8px;
     line-height: 1.5;
+}
+
+
+/* Tablet: two cards per row. */
+@media (max-width: 1150px) {
+
+    .style-choice-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .style-choice-card,
+    .style-choice-card:nth-child(4),
+    .style-choice-card:nth-child(5) {
+        grid-column: auto;
+    }
+
+}
+
+
+/* Mobile: one large visual card per row. */
+@media (max-width: 620px) {
+
+    .style-choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .style-choice-card {
+        min-height: 215px;
+    }
+
+    .style-preview {
+        height: 132px;
+    }
+
 }
 
 
@@ -1444,10 +1491,6 @@
         padding-right: 10px;
     }
 
-    .style-choice-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .choice-grid-4 {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1560,8 +1603,7 @@
     }
 
     .choice-grid-2,
-    .choice-grid-4,
-    .style-choice-grid {
+    .choice-grid-4 {
         grid-template-columns: 1fr;
     }
 

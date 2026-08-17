@@ -644,17 +644,21 @@ Akvaryum Kur · Semih Akvaryum
                                     <input
                                         type="radio"
                                         name="style"
-                                        value="Bitkili / Aquascape"
+                                        value="Bitkili"
                                         required
                                     >
 
-                                    <div class="style-preview style-preview-aqua">
-                                        <span></span>
+                                    <div class="style-preview">
+                                        <img
+                                            src="{{ url_for('static', filename='images/planted.png') }}"
+                                            alt="Bitkili akvaryum"
+                                            loading="lazy"
+                                        >
                                     </div>
 
                                     <div>
                                         <strong>
-                                            Bitkili / Aquascape
+                                            Bitkili
                                         </strong>
 
                                         <small>
@@ -673,8 +677,12 @@ Akvaryum Kur · Semih Akvaryum
                                         value="Blackwater"
                                     >
 
-                                    <div class="style-preview style-preview-blackwater">
-                                        <span></span>
+                                    <div class="style-preview">
+                                        <img
+                                            src="{{ url_for('static', filename='images/blackwater.png') }}"
+                                            alt="Blackwater akvaryum"
+                                            loading="lazy"
+                                        >
                                     </div>
 
                                     <div>
@@ -695,36 +703,15 @@ Akvaryum Kur · Semih Akvaryum
                                     <input
                                         type="radio"
                                         name="style"
-                                        value="Biyotop"
-                                    >
-
-                                    <div class="style-preview style-preview-biotope">
-                                        <span></span>
-                                    </div>
-
-                                    <div>
-                                        <strong>
-                                            Biyotop
-                                        </strong>
-
-                                        <small>
-                                            Belirli bir doğal habitatı mümkün olduğunca taklit et.
-                                        </small>
-                                    </div>
-
-                                    <i>✓</i>
-                                </label>
-
-
-                                <label class="style-choice-card">
-                                    <input
-                                        type="radio"
-                                        name="style"
                                         value="Low-tech"
                                     >
 
-                                    <div class="style-preview style-preview-lowtech">
-                                        <span></span>
+                                    <div class="style-preview">
+                                        <img
+                                            src="{{ url_for('static', filename='images/lowtech.png') }}"
+                                            alt="Low-tech akvaryum"
+                                            loading="lazy"
+                                        >
                                     </div>
 
                                     <div>
@@ -733,7 +720,7 @@ Akvaryum Kur · Semih Akvaryum
                                         </strong>
 
                                         <small>
-                                            Daha sade ekipman, daha düşük bakım ihtiyacı.
+                                            Sade ekipman, kolay bitkiler ve daha düşük bakım ihtiyacı.
                                         </small>
                                     </div>
 
@@ -748,8 +735,12 @@ Akvaryum Kur · Semih Akvaryum
                                         value="Tuzlu su"
                                     >
 
-                                    <div class="style-preview style-preview-marine">
-                                        <span></span>
+                                    <div class="style-preview">
+                                        <img
+                                            src="{{ url_for('static', filename='images/marinee.png') }}"
+                                            alt="Tuzlu su akvaryumu"
+                                            loading="lazy"
+                                        >
                                     </div>
 
                                     <div>
@@ -758,7 +749,7 @@ Akvaryum Kur · Semih Akvaryum
                                         </strong>
 
                                         <small>
-                                            Deniz canlıları ve marine ekosistem odaklı.
+                                            Deniz canlıları, mercanlar ve marine ekosistem odaklı.
                                         </small>
                                     </div>
 
@@ -766,7 +757,7 @@ Akvaryum Kur · Semih Akvaryum
                                 </label>
 
 
-                                <label class="style-choice-card">
+                                <label class="style-choice-card style-choice-card-undecided">
                                     <input
                                         type="radio"
                                         name="style"
