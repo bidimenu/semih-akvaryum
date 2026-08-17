@@ -2123,3 +2123,98 @@
     }
 
 }
+
+
+/* =====================================================
+   STYLE CARD LAYOUT REFINEMENT V4
+   - görsel daha küçük
+   - crop daha az
+   - başlık/açıklama daha aşağıda
+===================================================== */
+
+.style-choice-card {
+    min-height: 172px !important;
+}
+
+.style-preview {
+    height: 68px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px 6px !important;
+    background: linear-gradient(180deg, rgba(7,24,38,.92), rgba(5,19,31,.98)) !important;
+}
+
+.style-preview img {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+.style-choice-card:hover .style-preview img,
+.style-choice-card:has(input:checked) .style-preview img {
+    transform: none !important;
+    filter: none !important;
+}
+
+.style-preview::before {
+    background: linear-gradient(
+        180deg,
+        rgba(3, 13, 21, .00) 0%,
+        rgba(3, 13, 21, .06) 70%,
+        rgba(3, 13, 21, .18) 100%
+    ) !important;
+}
+
+.style-choice-card > div:nth-of-type(2) {
+    padding: 15px 14px 16px !important;
+}
+
+.style-choice-card strong {
+    display: block;
+    margin-top: 2px;
+}
+
+.style-choice-card small {
+    display: block;
+    margin-top: 6px !important;
+    line-height: 1.48 !important;
+}
+
+.style-preview-undecided {
+    min-height: 68px;
+}
+
+@media (max-width: 620px) {
+
+    .style-choice-card {
+        min-height: 162px !important;
+    }
+
+    .style-preview {
+        height: 62px !important;
+        padding: 8px 10px 5px !important;
+    }
+
+    .style-choice-card > div:nth-of-type(2) {
+        padding: 14px 13px 14px !important;
+    }
+
+}
+
+@media (max-width: 390px) {
+
+    .style-choice-card {
+        min-height: 154px !important;
+    }
+
+    .style-preview {
+        height: 58px !important;
+    }
+
+}
