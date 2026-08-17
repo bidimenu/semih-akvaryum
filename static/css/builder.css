@@ -2218,3 +2218,111 @@
     }
 
 }
+
+
+/* =====================================================
+   STYLE CARD PROPORTION FIX V5
+   Görsel kartın ana alanı, metin ise kompakt alt bölüm.
+===================================================== */
+
+.style-choice-card {
+    min-height: 206px !important;
+}
+
+.style-preview {
+    height: 136px !important;
+    padding: 6px 10px 4px !important;
+}
+
+.style-preview img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center center !important;
+}
+
+.style-choice-card > div:nth-of-type(2) {
+    min-height: 64px !important;
+
+    padding: 10px 14px 11px !important;
+}
+
+.style-choice-card strong {
+    margin: 0 !important;
+
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+}
+
+.style-choice-card small {
+    margin-top: 4px !important;
+
+    font-size: 7.4px !important;
+    line-height: 1.4 !important;
+}
+
+.style-preview-undecided {
+    height: 136px !important;
+}
+
+
+/* Tablet */
+@media (max-width: 1150px) {
+
+    .style-choice-card {
+        min-height: 196px !important;
+    }
+
+    .style-preview,
+    .style-preview-undecided {
+        height: 126px !important;
+    }
+
+}
+
+
+/* Mobile */
+@media (max-width: 620px) {
+
+    .style-choice-card {
+        min-height: 188px !important;
+    }
+
+    .style-preview,
+    .style-preview-undecided {
+        height: 122px !important;
+        padding: 5px 8px 3px !important;
+    }
+
+    .style-choice-card > div:nth-of-type(2) {
+        min-height: 58px !important;
+
+        padding: 9px 12px 10px !important;
+    }
+
+    .style-choice-card strong {
+        font-size: 10px !important;
+    }
+
+    .style-choice-card small {
+        margin-top: 3px !important;
+        font-size: 7.4px !important;
+    }
+
+}
+
+
+/* Very small phones */
+@media (max-width: 390px) {
+
+    .style-choice-card {
+        min-height: 178px !important;
+    }
+
+    .style-preview,
+    .style-preview-undecided {
+        height: 114px !important;
+    }
+
+}
