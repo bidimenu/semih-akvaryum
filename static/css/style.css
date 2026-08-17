@@ -3106,7 +3106,7 @@ a {
     main {
         padding-bottom:
             calc(
-                78px
+                86px
                 + env(safe-area-inset-bottom)
             );
     }
@@ -3127,7 +3127,7 @@ a {
                 env(safe-area-inset-bottom)
             );
 
-        min-height: 66px;
+        min-height: 72px;
 
         padding: 7px 6px;
 
@@ -3184,7 +3184,7 @@ a {
         position: relative;
 
         min-width: 0;
-        min-height: 52px;
+        min-height: 58px;
 
         padding: 5px 2px;
 
@@ -3238,8 +3238,8 @@ a {
     }
 
     .mobile-bottom-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
 
         display: grid;
         place-items: center;
@@ -3250,8 +3250,8 @@ a {
     }
 
     .mobile-bottom-icon svg {
-        width: 20px;
-        height: 20px;
+        width: 23px;
+        height: 23px;
 
         overflow: visible;
 
@@ -3275,7 +3275,7 @@ a {
         text-align: center;
 
         font:
-            700 6.4px/1
+            700 7.6px/1
             "DM Sans", sans-serif;
 
         letter-spacing: -.08px;
@@ -3348,12 +3348,12 @@ a {
     }
 
     .mobile-bottom-icon svg {
-        width: 19px;
-        height: 19px;
+        width: 21px;
+        height: 21px;
     }
 
     .mobile-bottom-item strong {
-        font-size: 5.9px;
+        font-size: 6.9px;
     }
 
 }

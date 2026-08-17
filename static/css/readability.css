@@ -1,0 +1,553 @@
+/* =====================================================
+   SEMİH.AKVARYUM — READABILITY PASS V1
+   Başlık boyutlarına dokunmaz.
+   Küçük UI metinlerini ve body copy'yi okunabilir yapar.
+===================================================== */
+
+
+/* -----------------------------------------------------
+   GENERAL BODY COPY
+----------------------------------------------------- */
+
+body p {
+    font-size: 11px !important;
+    line-height: 1.72 !important;
+}
+
+body small {
+    font-size: 8px !important;
+    line-height: 1.45;
+}
+
+
+/* Normal UI actions — hero / page titles unaffected. */
+body button,
+body input,
+body textarea,
+body select {
+    font-size: 10px;
+}
+
+
+/* -----------------------------------------------------
+   MICRO LABELS / METADATA
+   These were frequently 5–7px in the original visual system.
+----------------------------------------------------- */
+
+.analysis-kicker,
+.compat-kicker,
+.result-kicker,
+.auth-kicker,
+.profile-kicker,
+.tank-detail-kicker,
+.builder-eyebrow,
+.community-join-kicker,
+
+.analysis-progress-head span,
+.analysis-progress-head strong,
+.analysis-step-nav > span,
+.analysis-step-nav small,
+.analysis-progress-note span,
+.analysis-step-head > span,
+.analysis-upload-preview > span,
+.analysis-dimensions label > span,
+.analysis-volume-live > span,
+.analysis-field > span,
+.analysis-choice-title,
+.analysis-char-count,
+.analysis-choice-grid small,
+.analysis-result-topbar > span,
+.analysis-result-meta span,
+.analysis-score-card > span,
+.analysis-score-breakdown article > span,
+.analysis-result-section-head > span,
+.analysis-result-section-head small,
+.analysis-issue > span,
+.analysis-issue > div strong,
+.analysis-system-recommendations span,
+.analysis-visual-findings article > div span,
+.analysis-chat-badge,
+.analysis-chat-label,
+.analysis-chat-label > span,
+.analysis-chat-form-bottom small,
+
+.compat-progress-head span,
+.compat-progress-head strong,
+.compat-step-nav > span,
+.compat-step-nav small,
+.compat-progress-note span,
+.compat-step-head > span,
+.compat-dimensions label > span,
+.compat-volume-live > span,
+.compat-field > span,
+.compat-candidate-card label > span,
+.compat-field small,
+.compat-popular > span,
+.compat-result-topbar > span,
+.compat-result-meta span,
+.compat-score-card > span,
+.compat-score-breakdown article > span,
+.compat-result-section-head > span,
+.compat-result-section-head small,
+.compat-species-main > span,
+.compat-recommended-count span,
+.compat-species-facts span,
+.compat-conflict > span,
+.compat-top-recommendation > span,
+.compat-conditions > span,
+.compat-alternatives article > span,
+
+.field-label,
+.dimension-label,
+.volume-preview small,
+.dream-meta,
+.final-ready-card span,
+.submitted-summary span,
+.builder-mobile-progress > span,
+.builder-loading-kicker,
+
+.result-hero-meta span,
+.result-score-top,
+.result-warning-head small,
+.result-section-heading > span,
+.result-section-heading small,
+.result-design-main > span,
+.result-mini-card > span,
+.result-info-card > span,
+.equipment-category small,
+.livestock-card-top,
+.livestock-period span,
+.plant-card > div span,
+.result-parameters span,
+.budget-total span,
+.result-maintenance-list span,
+.timeline-marker,
+.result-timeline article > div:nth-child(2) > span,
+.result-why-list p span,
+.result-alternatives-head > span,
+
+.auth-story-features span,
+.auth-preview-content span,
+.auth-field > span,
+.auth-checkbox,
+.profile-stats span,
+.profile-tank-score,
+.profile-tank-content > span,
+
+.tank-detail-saved,
+.tank-detail-score,
+.tank-detail-visual-label span,
+.tank-detail-meta span,
+.tank-detail-section-head small,
+.tank-detail-large-card > span,
+.tank-detail-small-card > span,
+.tank-detail-livestock article > div,
+.tank-detail-parameters span,
+.tank-equipment-category small,
+.tank-ai-context-badge,
+.tank-ai-message-label,
+.tank-ai-message-label span,
+.tank-ai-form-bottom small,
+.tank-tool-number,
+.tank-revision-meta > span,
+
+.feature-label,
+.summary-label,
+.community-photo-label,
+.community-tank-meta,
+.question-meta,
+.question-tags span {
+    font-size: 7.8px !important;
+    line-height: 1.35;
+}
+
+
+/* -----------------------------------------------------
+   SMALL BODY / CARD COPY
+----------------------------------------------------- */
+
+.analysis-error p,
+.analysis-progress-note p,
+.analysis-step-head p,
+.analysis-upload-preview p,
+.analysis-final-note p,
+.analysis-system-body > p,
+.analysis-issue > p,
+.analysis-issue > div p,
+.analysis-visual-findings article > p,
+.analysis-top-actions p,
+.analysis-result-footer p,
+.analysis-chat-head p,
+.analysis-chat-empty p,
+.analysis-chat-message p,
+
+.compat-error p,
+.compat-progress-note p,
+.compat-step-head p,
+.compat-final-note p,
+.compat-conflict p,
+.compat-assessment-list article > p,
+.compat-conditions > div p,
+.compat-no-condition,
+.compat-alternatives p,
+.compat-result-footer p,
+
+.builder-sidebar-note p,
+.budget-field > p,
+.species-note p,
+.builder-api-error p,
+
+.equipment-main p,
+.livestock-card > p,
+.plant-card > p,
+.result-info-card p,
+.water-note,
+.budget-row p,
+.result-maintenance-list p,
+.result-alternative-grid p,
+
+.auth-story-features p,
+.auth-panel-head p,
+.auth-remember p,
+.profile-identity p,
+.profile-tank-content p,
+
+.tank-detail-alert p,
+.tank-detail-large-card p,
+.tank-detail-livestock p,
+.tank-detail-equipment article > div:nth-child(2) p,
+.tank-detail-actions p,
+.tank-ai-head p,
+.tank-ai-message p,
+.tank-ai-empty p,
+.tank-revision-card > p,
+.tank-danger-card > p,
+.tank-delete-dialog > p {
+    font-size: 10.5px !important;
+    line-height: 1.68 !important;
+}
+
+
+/* -----------------------------------------------------
+   BUTTONS / CHIPS / SMALL ACTIONS
+----------------------------------------------------- */
+
+.analysis-next,
+.analysis-submit,
+.analysis-back,
+.analysis-result-topbar a,
+.analysis-result-footer > a,
+.analysis-chat-prompts button,
+.analysis-chat-form-bottom button,
+
+.compat-next,
+.compat-submit,
+.compat-back,
+.compat-result-topbar a,
+.compat-popular button,
+.compat-result-footer > a,
+
+.quick-species-list button,
+.builder-validation-message,
+
+.profile-new-tank,
+.empty-create-button,
+.nav-logout-button,
+.auth-back,
+.auth-switch,
+
+.tank-detail-back,
+.tank-detail-actions > a,
+.tank-ai-quick-prompts button,
+.tank-ai-form-bottom button,
+.tank-revision-form button,
+.tank-delete-open,
+.tank-delete-actions button {
+    font-size: 9px !important;
+}
+
+
+/* -----------------------------------------------------
+   FORMS
+----------------------------------------------------- */
+
+.analysis-field input,
+.analysis-field textarea,
+.compat-field input,
+.compat-field textarea,
+.compat-candidate-card input {
+    font-size: 11px !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    opacity: .92;
+}
+
+
+/* =====================================================
+   MOBILE READABILITY
+===================================================== */
+
+@media (max-width: 900px) {
+
+    body p {
+        font-size: 12px !important;
+        line-height: 1.72 !important;
+    }
+
+    body small {
+        font-size: 9px !important;
+    }
+
+
+    /*
+       16px prevents Safari/iOS from zooming the page when
+       focusing an input. It also makes forms much easier to read.
+    */
+    body input,
+    body textarea,
+    body select {
+        font-size: 16px !important;
+        line-height: 1.5;
+    }
+
+
+    body button {
+        font-size: 10px;
+    }
+
+
+    .analysis-kicker,
+    .compat-kicker,
+    .result-kicker,
+    .auth-kicker,
+    .profile-kicker,
+    .tank-detail-kicker,
+    .builder-eyebrow,
+    .community-join-kicker,
+
+    .analysis-progress-head span,
+    .analysis-progress-head strong,
+    .analysis-step-nav > span,
+    .analysis-step-nav small,
+    .analysis-progress-note span,
+    .analysis-step-head > span,
+    .analysis-upload-preview > span,
+    .analysis-dimensions label > span,
+    .analysis-volume-live > span,
+    .analysis-field > span,
+    .analysis-choice-title,
+    .analysis-char-count,
+    .analysis-choice-grid small,
+    .analysis-result-topbar > span,
+    .analysis-result-meta span,
+    .analysis-score-card > span,
+    .analysis-score-breakdown article > span,
+    .analysis-result-section-head > span,
+    .analysis-result-section-head small,
+    .analysis-issue > span,
+    .analysis-issue > div strong,
+    .analysis-system-recommendations span,
+    .analysis-visual-findings article > div span,
+    .analysis-chat-badge,
+    .analysis-chat-label,
+    .analysis-chat-label > span,
+    .analysis-chat-form-bottom small,
+
+    .compat-progress-head span,
+    .compat-progress-head strong,
+    .compat-step-nav > span,
+    .compat-step-nav small,
+    .compat-progress-note span,
+    .compat-step-head > span,
+    .compat-dimensions label > span,
+    .compat-volume-live > span,
+    .compat-field > span,
+    .compat-candidate-card label > span,
+    .compat-field small,
+    .compat-popular > span,
+    .compat-result-topbar > span,
+    .compat-result-meta span,
+    .compat-score-card > span,
+    .compat-score-breakdown article > span,
+    .compat-result-section-head > span,
+    .compat-result-section-head small,
+    .compat-species-main > span,
+    .compat-recommended-count span,
+    .compat-species-facts span,
+    .compat-conflict > span,
+    .compat-top-recommendation > span,
+    .compat-conditions > span,
+    .compat-alternatives article > span,
+
+    .field-label,
+    .dimension-label,
+    .volume-preview small,
+    .dream-meta,
+    .final-ready-card span,
+    .submitted-summary span,
+    .builder-mobile-progress > span,
+    .builder-loading-kicker,
+
+    .result-hero-meta span,
+    .result-score-top,
+    .result-warning-head small,
+    .result-section-heading > span,
+    .result-section-heading small,
+    .result-design-main > span,
+    .result-mini-card > span,
+    .result-info-card > span,
+    .equipment-category small,
+    .livestock-card-top,
+    .livestock-period span,
+    .plant-card > div span,
+    .result-parameters span,
+    .budget-total span,
+    .result-maintenance-list span,
+    .timeline-marker,
+    .result-timeline article > div:nth-child(2) > span,
+    .result-why-list p span,
+    .result-alternatives-head > span,
+
+    .auth-story-features span,
+    .auth-preview-content span,
+    .auth-field > span,
+    .auth-checkbox,
+    .profile-stats span,
+    .profile-tank-score,
+    .profile-tank-content > span,
+
+    .tank-detail-saved,
+    .tank-detail-score,
+    .tank-detail-visual-label span,
+    .tank-detail-meta span,
+    .tank-detail-section-head small,
+    .tank-detail-large-card > span,
+    .tank-detail-small-card > span,
+    .tank-detail-livestock article > div,
+    .tank-detail-parameters span,
+    .tank-equipment-category small,
+    .tank-ai-context-badge,
+    .tank-ai-message-label,
+    .tank-ai-message-label span,
+    .tank-ai-form-bottom small,
+    .tank-tool-number,
+    .tank-revision-meta > span,
+
+    .feature-label,
+    .summary-label,
+    .community-photo-label,
+    .community-tank-meta,
+    .question-meta,
+    .question-tags span {
+        font-size: 8.6px !important;
+    }
+
+
+    .analysis-error p,
+    .analysis-progress-note p,
+    .analysis-step-head p,
+    .analysis-upload-preview p,
+    .analysis-final-note p,
+    .analysis-system-body > p,
+    .analysis-issue > p,
+    .analysis-issue > div p,
+    .analysis-visual-findings article > p,
+    .analysis-top-actions p,
+    .analysis-result-footer p,
+    .analysis-chat-head p,
+    .analysis-chat-empty p,
+    .analysis-chat-message p,
+
+    .compat-error p,
+    .compat-progress-note p,
+    .compat-step-head p,
+    .compat-final-note p,
+    .compat-conflict p,
+    .compat-assessment-list article > p,
+    .compat-conditions > div p,
+    .compat-no-condition,
+    .compat-alternatives p,
+    .compat-result-footer p,
+
+    .builder-sidebar-note p,
+    .budget-field > p,
+    .species-note p,
+    .builder-api-error p,
+
+    .equipment-main p,
+    .livestock-card > p,
+    .plant-card > p,
+    .result-info-card p,
+    .water-note,
+    .budget-row p,
+    .result-maintenance-list p,
+    .result-alternative-grid p,
+
+    .auth-story-features p,
+    .auth-panel-head p,
+    .auth-remember p,
+    .profile-identity p,
+    .profile-tank-content p,
+
+    .tank-detail-alert p,
+    .tank-detail-large-card p,
+    .tank-detail-livestock p,
+    .tank-detail-equipment article > div:nth-child(2) p,
+    .tank-detail-actions p,
+    .tank-ai-head p,
+    .tank-ai-message p,
+    .tank-ai-empty p,
+    .tank-revision-card > p,
+    .tank-danger-card > p,
+    .tank-delete-dialog > p {
+        font-size: 11.5px !important;
+    }
+
+
+    .analysis-next,
+    .analysis-submit,
+    .analysis-back,
+    .analysis-result-topbar a,
+    .analysis-result-footer > a,
+    .analysis-chat-prompts button,
+    .analysis-chat-form-bottom button,
+
+    .compat-next,
+    .compat-submit,
+    .compat-back,
+    .compat-result-topbar a,
+    .compat-popular button,
+    .compat-result-footer > a,
+
+    .quick-species-list button,
+    .builder-validation-message,
+
+    .profile-new-tank,
+    .empty-create-button,
+    .nav-logout-button,
+    .auth-back,
+    .auth-switch,
+
+    .tank-detail-back,
+    .tank-detail-actions > a,
+    .tank-ai-quick-prompts button,
+    .tank-ai-form-bottom button,
+    .tank-revision-form button,
+    .tank-delete-open,
+    .tank-delete-actions button {
+        font-size: 10px !important;
+    }
+
+}
+
+
+/* Very narrow phones: keep nav labels readable without clipping. */
+@media (max-width: 390px) {
+
+    .mobile-bottom-item strong {
+        font-size: 7px !important;
+    }
+
+}

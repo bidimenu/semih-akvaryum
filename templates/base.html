@@ -21,7 +21,7 @@
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css', v='20260817-2') }}"
+        href="{{ url_for('static', filename='css/style.css', v='20260817-3') }}"
     >
 
     <link
@@ -30,6 +30,11 @@
     >
 
     {% block extra_css %}{% endblock %}
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/readability.css', v='20260817-1') }}"
+    >
 </head>
 
 <body>
