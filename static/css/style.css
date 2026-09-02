@@ -3138,8 +3138,8 @@ a {
 
         display: grid;
         grid-template-columns:
-            repeat(5, minmax(0, 1fr));
-        gap: 2px;
+            repeat(6, minmax(0, 1fr));
+        gap: 1px;
 
         background:
             radial-gradient(
@@ -3186,7 +3186,7 @@ a {
         min-width: 0;
         min-height: 58px;
 
-        padding: 5px 2px;
+        padding: 5px 1px;
 
         border-radius: 14px;
 
@@ -3353,7 +3353,8 @@ a {
     }
 
     .mobile-bottom-item strong {
-        font-size: 6.9px;
+        font-size: 6.7px;
+        letter-spacing: -.16px;
     }
 
 }

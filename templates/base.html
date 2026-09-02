@@ -367,6 +367,24 @@
         <strong>Tanklarım</strong>
     </a>
 
+
+    <a
+        href="{{ url_for('consulting') }}"
+        class="mobile-bottom-item {% if request.endpoint in ['consulting', 'consulting_buy', 'consulting_whatsapp'] %}active{% endif %}"
+    >
+        <span class="mobile-bottom-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+                <path d="M5 12a7 7 0 0 1 14 0v4"></path>
+                <path d="M5 12v4a2 2 0 0 0 2 2h1v-7H7a2 2 0 0 0-2 1"></path>
+                <path d="M19 12v4a2 2 0 0 1-2 2h-1v-7h1a2 2 0 0 1 2 1"></path>
+                <path d="M16 18c0 1.7-1.3 3-3 3h-2"></path>
+                <circle cx="10.5" cy="21" r=".7"></circle>
+            </svg>
+        </span>
+
+        <strong>Danışmanlık</strong>
+    </a>
+
 </nav>
 
 
