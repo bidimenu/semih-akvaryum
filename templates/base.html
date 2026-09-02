@@ -100,8 +100,11 @@
                     Canlı Uyumu
                 </a>
 
-                <a href="#">
-                    Topluluk
+                <a
+                    href="{{ url_for('consulting') }}"
+                    class="{% if request.endpoint in ['consulting', 'consulting_buy', 'consulting_whatsapp'] %}active{% endif %}"
+                >
+                    Danışmanlık
                 </a>
 
                 <a
@@ -173,9 +176,12 @@
 
 <nav class="mobile-nav-links mobile-nav-secondary-links">
 
-    <a href="#">
-        <span>◌</span>
-        <strong>Topluluk</strong>
+    <a
+        href="{{ url_for('consulting') }}"
+        class="{% if request.endpoint in ['consulting', 'consulting_buy', 'consulting_whatsapp'] %}active{% endif %}"
+    >
+        <span>✦</span>
+        <strong>Danışmanlık</strong>
         <i>→</i>
     </a>
 

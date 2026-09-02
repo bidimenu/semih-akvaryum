@@ -1,5 +1,6 @@
 import json
 import os
+from urllib.parse import quote, urlparse
 
 from dotenv import load_dotenv
 from flask import (
@@ -55,6 +56,19 @@ from services.compatibility_service import (
 load_dotenv()
 
 app = Flask(__name__)
+
+# Danışmanlık V1
+# Shopier ürün linkini ve WhatsApp numaranı Render Environment'tan gir.
+app.config["SHOPIER_CONSULTING_URL"] = os.getenv(
+    "SHOPIER_CONSULTING_URL",
+    "",
+).strip()
+
+app.config["CONSULTING_WHATSAPP_NUMBER"] = os.getenv(
+    "CONSULTING_WHATSAPP_NUMBER",
+    "",
+).strip()
+
 
 app.config["SECRET_KEY"] = os.getenv(
     "SECRET_KEY",
@@ -162,6 +176,191 @@ def health():
 @app.route("/")
 def home():
     return render_template("index.html")
+
+
+def _shopier_consulting_url():
+    """
+    Sadece Shopier domainine yönlendirmeye izin ver.
+    Environment yanlış ayarlanırsa açık redirect oluşmasın.
+    """
+    value = app.config.get(
+        "SHOPIER_CONSULTING_URL",
+        "",
+    ).strip()
+
+    if not value:
+        return None
+
+    try:
+        parsed = urlparse(value)
+
+    except ValueError:
+        return None
+
+    host = (
+        parsed.hostname
+        or ""
+    ).lower()
+
+    if (
+        parsed.scheme not in {
+            "http",
+            "https",
+        }
+        or not (
+            host == "shopier.com"
+            or host.endswith(".shopier.com")
+        )
+    ):
+        return None
+
+    return value
+
+
+def _consulting_whatsapp_number():
+    """
+    wa.me yalnızca ülke koduyla birlikte rakam bekler.
+    Örn: 90555XXXXXXX
+    """
+    raw = app.config.get(
+        "CONSULTING_WHATSAPP_NUMBER",
+        "",
+    )
+
+    digits = "".join(
+        char
+        for char in raw
+        if char.isdigit()
+    )
+
+    if len(digits) < 10:
+        return None
+
+    return digits
+
+
+@app.get("/danismanlik")
+def consulting():
+    return render_template(
+        "danismanlik.html",
+        shopier_ready=bool(
+            _shopier_consulting_url()
+        ),
+        whatsapp_ready=bool(
+            _consulting_whatsapp_number()
+        ),
+    )
+
+
+@app.get("/danismanlik/satin-al")
+def consulting_buy():
+    shopier_url = (
+        _shopier_consulting_url()
+    )
+
+    if not shopier_url:
+        flash(
+            "Shopier ödeme bağlantısı henüz tanımlanmadı.",
+            "error",
+        )
+
+        return redirect(
+            url_for("consulting")
+        )
+
+    return redirect(
+        shopier_url,
+        code=302,
+    )
+
+
+@app.get("/danismanlik/whatsapp")
+def consulting_whatsapp():
+    order_no = request.args.get(
+        "order_no",
+        "",
+    ).strip()
+
+    issue = request.args.get(
+        "issue",
+        "Genel danışmanlık",
+    ).strip()
+
+    allowed_issues = {
+        "Balık sağlığı / problem",
+        "Yeni akvaryum kurulumu",
+        "Bitkili akvaryum",
+        "Ürün / ekipman önerisi",
+        "Canlı seçimi / uyumu",
+        "Mevcut tankı geliştirme",
+        "Genel danışmanlık",
+    }
+
+    if issue not in allowed_issues:
+        issue = "Genel danışmanlık"
+
+    if (
+        len(order_no) < 3
+        or len(order_no) > 64
+        or not all(
+            char.isalnum()
+            or char in "-_./"
+            for char in order_no
+        )
+    ):
+        flash(
+            "Geçerli Shopier sipariş numaranı gir.",
+            "error",
+        )
+
+        return redirect(
+            url_for(
+                "consulting",
+                order="eksik",
+            )
+        )
+
+    phone = (
+        _consulting_whatsapp_number()
+    )
+
+    if not phone:
+        flash(
+            "WhatsApp danışmanlık numarası henüz tanımlanmadı.",
+            "error",
+        )
+
+        return redirect(
+            url_for("consulting")
+        )
+
+    message = (
+        "Merhaba Semih, "
+        "1 Aylık Akvaryum Danışmanlığı paketini "
+        "Shopier üzerinden satın aldım.%0A%0A"
+        f"Shopier Sipariş No: {order_no}%0A"
+        f"Danışmanlık Konusu: {issue}%0A%0A"
+        "Danışmanlığımı başlatmak istiyorum."
+    )
+
+    # quote() ile Türkçe ve özel karakterler güvenli taşınır.
+    message = quote(
+        message.replace(
+            "%0A",
+            "\n",
+        ),
+        safe="",
+    )
+
+    whatsapp_url = (
+        f"https://wa.me/{phone}"
+        f"?text={message}"
+    )
+
+    return redirect(
+        whatsapp_url,
+        code=302,
+    )
 
 
 @app.route("/uye-ol", methods=["GET", "POST"])

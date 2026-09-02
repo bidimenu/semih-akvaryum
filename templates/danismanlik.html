@@ -1,0 +1,564 @@
+{% extends "base.html" %}
+
+{% block title %}
+Birebir Akvaryum Danışmanlığı · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/consulting.css', v='20260902-1') }}"
+>
+{% endblock %}
+
+{% block content %}
+
+<div class="consulting-page">
+
+    <section class="consulting-hero">
+
+        <div class="consulting-ambient consulting-ambient-one"></div>
+        <div class="consulting-ambient consulting-ambient-two"></div>
+
+        <div class="consulting-shell consulting-hero-grid">
+
+            <div class="consulting-hero-copy">
+
+                <div class="consulting-kicker">
+                    <span></span>
+                    SEMİH.AKVARYUM · BİREBİR DANIŞMANLIK
+                </div>
+
+                <h1>
+                    Akvaryumunda bir sorun varsa
+                    <em>birlikte çözelim.</em>
+                </h1>
+
+                <p class="consulting-lead">
+                    Balık problemlerinden yeni tank kurulumuna,
+                    bitkili akvaryumdan ürün ve canlı seçimine kadar
+                    1 ay boyunca WhatsApp üzerinden birebir destek.
+                </p>
+
+                <div class="consulting-hero-points">
+
+                    <div>
+                        <span>01</span>
+                        <p>
+                            Tankına ve canlılarına özel değerlendirme
+                        </p>
+                    </div>
+
+                    <div>
+                        <span>02</span>
+                        <p>
+                            Fotoğraf, video ve su değerleri üzerinden destek
+                        </p>
+                    </div>
+
+                    <div>
+                        <span>03</span>
+                        <p>
+                            1 ay boyunca sorularına devam eden danışmanlık
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="consulting-hero-actions">
+
+                    <a
+                        href="{{ url_for('consulting_buy') }}"
+                        class="consulting-primary-button {% if not shopier_ready %}is-disabled{% endif %}"
+                        {% if not shopier_ready %}aria-disabled="true"{% endif %}
+                    >
+                        199 TL'YE DANIŞMANLIĞI BAŞLAT
+                        <span>↗</span>
+                    </a>
+
+                    <a
+                        href="#nasil-calisir"
+                        class="consulting-secondary-button"
+                    >
+                        Nasıl çalışıyor?
+                    </a>
+
+                </div>
+
+                <p class="consulting-mini-note">
+                    Shopier ile güvenli ödeme · WhatsApp üzerinden birebir iletişim
+                </p>
+
+            </div>
+
+
+            <aside class="consulting-offer-card">
+
+                <div class="consulting-offer-top">
+
+                    <div>
+                        <span class="consulting-offer-label">
+                            1 AYLIK PAKET
+                        </span>
+
+                        <strong>
+                            Birebir Akvaryum Danışmanlığı
+                        </strong>
+                    </div>
+
+                    <span class="consulting-live-badge">
+                        <i></i>
+                        LANSMA
+                    </span>
+
+                </div>
+
+                <div class="consulting-price">
+
+                    <div class="consulting-old-price">
+                        299 TL
+                    </div>
+
+                    <div class="consulting-current-price">
+                        <strong>199</strong>
+                        <span>TL</span>
+                    </div>
+
+                    <p>
+                        İlk 20 danışan için lansman fiyatı
+                    </p>
+
+                </div>
+
+                <div class="consulting-divider"></div>
+
+                <div class="consulting-includes">
+
+                    <div>
+                        <span>✓</span>
+                        <p>Balık sağlığı ve davranış sorunları</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Yeni akvaryum kurulum planı</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Bitki, ışık, CO₂ ve yosun desteği</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Filtre, ekipman ve ürün önerisi</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Canlı seçimi ve uyumluluk</p>
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        <p>Mevcut tankı geliştirme önerileri</p>
+                    </div>
+
+                </div>
+
+                <a
+                    href="{{ url_for('consulting_buy') }}"
+                    class="consulting-card-cta {% if not shopier_ready %}is-disabled{% endif %}"
+                    {% if not shopier_ready %}aria-disabled="true"{% endif %}
+                >
+                    Shopier ile satın al
+                    <span>→</span>
+                </a>
+
+                <small>
+                    Paket, danışmanlığın WhatsApp üzerinden başlatıldığı tarihten
+                    itibaren 30 gün geçerlidir.
+                </small>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+
+    <section class="consulting-problems">
+
+        <div class="consulting-shell">
+
+            <div class="consulting-section-heading">
+
+                <span>
+                    NE İÇİN DANIŞABİLİRSİN?
+                </span>
+
+                <h2>
+                    Akvaryumunla ilgili
+                    <em>tek bir konuya bağlı değilsin.</em>
+                </h2>
+
+                <p>
+                    Paket tek bir probleme yönelik değil. 30 günlük süre içinde
+                    tankınla ilgili farklı konuları birlikte değerlendirebiliriz.
+                </p>
+
+            </div>
+
+
+            <div class="consulting-problem-grid">
+
+                <article>
+                    <div class="consulting-icon consulting-icon-fish">
+                        <span></span>
+                    </div>
+                    <strong>Balığın mı sorun yaşıyor?</strong>
+                    <p>
+                        Davranış, iştah, yüzme, dış görünüm ve tank koşullarını birlikte inceleyelim.
+                    </p>
+                </article>
+
+                <article>
+                    <div class="consulting-icon consulting-icon-plant">
+                        <span></span>
+                    </div>
+                    <strong>Bitkili tank mı kuruyorsun?</strong>
+                    <p>
+                        Bitki, ışık, taban, gübre, CO₂ ve bakım düzenini tankına göre planlayalım.
+                    </p>
+                </article>
+
+                <article>
+                    <div class="consulting-icon consulting-icon-tank">
+                        <span></span>
+                    </div>
+                    <strong>Sıfırdan akvaryum mu kuracaksın?</strong>
+                    <p>
+                        Ölçüden filtreye, hardscape'ten canlı seçimine kadar beraber ilerleyelim.
+                    </p>
+                </article>
+
+                <article>
+                    <div class="consulting-icon consulting-icon-box">
+                        <span></span>
+                    </div>
+                    <strong>Hangi ürünü alacağını mı bilmiyorsun?</strong>
+                    <p>
+                        Bütçene göre gerçekten ihtiyacın olan ekipmanı ve alternatifleri seçelim.
+                    </p>
+                </article>
+
+                <article>
+                    <div class="consulting-icon consulting-icon-pair">
+                        <span></span>
+                    </div>
+                    <strong>Canlı seçimi mi yapıyorsun?</strong>
+                    <p>
+                        Tank hacmi, davranış, su değerleri ve biyolojik yükü beraber değerlendirelim.
+                    </p>
+                </article>
+
+                <article>
+                    <div class="consulting-icon consulting-icon-up">
+                        <span></span>
+                    </div>
+                    <strong>Tankını geliştirmek mi istiyorsun?</strong>
+                    <p>
+                        Mevcut kurulumunu inceleyip en fazla fark yaratacak değişiklikleri sıralayalım.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="consulting-process"
+        id="nasil-calisir"
+    >
+
+        <div class="consulting-shell">
+
+            <div class="consulting-section-heading consulting-section-heading-center">
+
+                <span>
+                    NASIL ÇALIŞIYOR?
+                </span>
+
+                <h2>
+                    Üç adımda
+                    <em>danışmanlığa başla.</em>
+                </h2>
+
+            </div>
+
+
+            <div class="consulting-process-grid">
+
+                <article>
+
+                    <span class="consulting-step-number">
+                        01
+                    </span>
+
+                    <div class="consulting-step-line"></div>
+
+                    <strong>
+                        Shopier'dan paketi satın al
+                    </strong>
+
+                    <p>
+                        199 TL lansman fiyatıyla danışmanlık paketinin ödemesini
+                        güvenli şekilde tamamla.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span class="consulting-step-number">
+                        02
+                    </span>
+
+                    <div class="consulting-step-line"></div>
+
+                    <strong>
+                        Sipariş numaranla WhatsApp'a geç
+                    </strong>
+
+                    <p>
+                        Shopier sipariş numaranı aşağıdaki alana gir.
+                        WhatsApp mesajın hazır şekilde açılsın.
+                    </p>
+
+                </article>
+
+
+                <article>
+
+                    <span class="consulting-step-number">
+                        03
+                    </span>
+
+                    <div class="consulting-step-line"></div>
+
+                    <strong>
+                        Tankını ve sorununu gönder
+                    </strong>
+
+                    <p>
+                        Fotoğraf, video, su değerleri ve kullandığın ekipmanlarla
+                        beraber danışmanlığı başlatalım.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="consulting-order">
+
+        <div class="consulting-shell">
+
+            <div class="consulting-order-card">
+
+                <div class="consulting-order-copy">
+
+                    <span>
+                        ÖDEMEYİ TAMAMLADIN MI?
+                    </span>
+
+                    <h2>
+                        Sipariş numaranla
+                        <em>WhatsApp danışmanlığını başlat.</em>
+                    </h2>
+
+                    <p>
+                        Shopier ödeme ekranında oluşan sipariş numaranı gir.
+                        Mesajı senin için hazırlayıp WhatsApp'a yönlendireceğiz.
+                    </p>
+
+                </div>
+
+
+                <form
+                    action="{{ url_for('consulting_whatsapp') }}"
+                    method="GET"
+                    class="consulting-order-form"
+                >
+
+                    <label>
+                        <span>SHOPIER SİPARİŞ NO</span>
+
+                        <input
+                            type="text"
+                            name="order_no"
+                            maxlength="64"
+                            placeholder="Örn. 123456789"
+                            required
+                            autocomplete="off"
+                        >
+                    </label>
+
+
+                    <label>
+                        <span>DANIŞMANLIK KONUSU</span>
+
+                        <select name="issue">
+                            <option>Balık sağlığı / problem</option>
+                            <option>Yeni akvaryum kurulumu</option>
+                            <option>Bitkili akvaryum</option>
+                            <option>Ürün / ekipman önerisi</option>
+                            <option>Canlı seçimi / uyumu</option>
+                            <option>Mevcut tankı geliştirme</option>
+                            <option>Genel danışmanlık</option>
+                        </select>
+                    </label>
+
+
+                    <button
+                        type="submit"
+                        {% if not whatsapp_ready %}disabled{% endif %}
+                    >
+                        WHATSAPP'TAN BAŞLAT
+                        <span>↗</span>
+                    </button>
+
+                    <small>
+                        Mesaj WhatsApp'ta hazır açılır; göndermeden önce kontrol edebilirsin.
+                    </small>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="consulting-faq">
+
+        <div class="consulting-shell consulting-faq-grid">
+
+            <div class="consulting-section-heading">
+
+                <span>
+                    KISA CEVAPLAR
+                </span>
+
+                <h2>
+                    Aklında
+                    <em>soru kalmasın.</em>
+                </h2>
+
+            </div>
+
+
+            <div class="consulting-faq-list">
+
+                <details open>
+                    <summary>
+                        Danışmanlık tam olarak ne kadar sürüyor?
+                        <span>+</span>
+                    </summary>
+
+                    <p>
+                        WhatsApp üzerinden ilk mesajını gönderip danışmanlığını
+                        başlattığın tarihten itibaren 30 gün.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        Tek bir konu için mi kullanabilirim?
+                        <span>+</span>
+                    </summary>
+
+                    <p>
+                        Hayır. Süre içinde balık, bitki, ekipman, yeni kurulum veya
+                        mevcut tankınla ilgili farklı sorular sorabilirsin.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        Fotoğraf ve video gönderebilir miyim?
+                        <span>+</span>
+                    </summary>
+
+                    <p>
+                        Evet. Özellikle tank, canlı veya bitki problemi değerlendirirken
+                        fotoğraf ve kısa videolar süreci çok daha verimli hale getirir.
+                    </p>
+                </details>
+
+                <details>
+                    <summary>
+                        Bu bir veterinerlik hizmeti mi?
+                        <span>+</span>
+                    </summary>
+
+                    <p>
+                        Hayır. Danışmanlık akvaryum bakımı, koşulları ve hobi deneyimi
+                        üzerinden yönlendirme sağlar; veteriner tanısı veya tedavisinin
+                        yerine geçmez.
+                    </p>
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="consulting-final">
+
+        <div class="consulting-shell">
+
+            <div class="consulting-final-card">
+
+                <span>
+                    İLK 20 KİŞİYE ÖZEL
+                </span>
+
+                <h2>
+                    299 TL yerine
+                    <em>199 TL.</em>
+                </h2>
+
+                <p>
+                    Akvaryumunu tek başına çözmeye çalışma.
+                    1 ay boyunca beraber ilerleyelim.
+                </p>
+
+                <a
+                    href="{{ url_for('consulting_buy') }}"
+                    class="{% if not shopier_ready %}is-disabled{% endif %}"
+                >
+                    DANIŞMANLIĞI BAŞLAT
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
