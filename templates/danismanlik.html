@@ -7,7 +7,7 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
 {% block extra_css %}
 <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/consulting.css', v='20260902-1') }}"
+    href="{{ url_for('static', filename='css/consulting.css', v='20260903-3') }}"
 >
 {% endblock %}
 
@@ -21,76 +21,6 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
         <div class="consulting-ambient consulting-ambient-two"></div>
 
         <div class="consulting-shell consulting-hero-grid">
-
-            <div class="consulting-hero-copy">
-
-                <div class="consulting-kicker">
-                    <span></span>
-                    SEMİH.AKVARYUM · BİREBİR DANIŞMANLIK
-                </div>
-
-                <h1>
-                    Akvaryumunda bir sorun varsa
-                    <em>birlikte çözelim.</em>
-                </h1>
-
-                <p class="consulting-lead">
-                    Balık problemlerinden yeni tank kurulumuna,
-                    bitkili akvaryumdan ürün ve canlı seçimine kadar
-                    1 ay boyunca WhatsApp üzerinden birebir destek.
-                </p>
-
-                <div class="consulting-hero-points">
-
-                    <div>
-                        <span>01</span>
-                        <p>
-                            Tankına ve canlılarına özel değerlendirme
-                        </p>
-                    </div>
-
-                    <div>
-                        <span>02</span>
-                        <p>
-                            Fotoğraf, video ve su değerleri üzerinden destek
-                        </p>
-                    </div>
-
-                    <div>
-                        <span>03</span>
-                        <p>
-                            1 ay boyunca sorularına devam eden danışmanlık
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="consulting-hero-actions">
-
-                    <a
-                        href="{{ url_for('consulting_buy') }}"
-                        class="consulting-primary-button {% if not shopier_ready %}is-disabled{% endif %}"
-                        {% if not shopier_ready %}aria-disabled="true"{% endif %}
-                    >
-                        199 TL'YE DANIŞMANLIĞI BAŞLAT
-                        <span>↗</span>
-                    </a>
-
-                    <a
-                        href="#nasil-calisir"
-                        class="consulting-secondary-button"
-                    >
-                        Nasıl çalışıyor?
-                    </a>
-
-                </div>
-
-                <p class="consulting-mini-note">
-                    Shopier ile güvenli ödeme · WhatsApp üzerinden birebir iletişim
-                </p>
-
-            </div>
-
 
             <aside class="consulting-offer-card">
 
@@ -181,6 +111,76 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
                 </small>
 
             </aside>
+
+
+            <div class="consulting-hero-copy">
+
+                <div class="consulting-kicker">
+                    <span></span>
+                    SEMİH.AKVARYUM · BİREBİR DANIŞMANLIK
+                </div>
+
+                <h1>
+                    Akvaryumunda bir sorun varsa
+                    <em>birlikte çözelim.</em>
+                </h1>
+
+                <p class="consulting-lead">
+                    Balık problemlerinden yeni tank kurulumuna,
+                    bitkili akvaryumdan ürün ve canlı seçimine kadar
+                    1 ay boyunca WhatsApp üzerinden birebir destek.
+                </p>
+
+                <div class="consulting-hero-points">
+
+                    <div>
+                        <span>01</span>
+                        <p>
+                            Tankına ve canlılarına özel değerlendirme
+                        </p>
+                    </div>
+
+                    <div>
+                        <span>02</span>
+                        <p>
+                            Fotoğraf, video ve su değerleri üzerinden destek
+                        </p>
+                    </div>
+
+                    <div>
+                        <span>03</span>
+                        <p>
+                            1 ay boyunca sorularına devam eden danışmanlık
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="consulting-hero-actions">
+
+                    <a
+                        href="{{ url_for('consulting_buy') }}"
+                        class="consulting-primary-button {% if not shopier_ready %}is-disabled{% endif %}"
+                        {% if not shopier_ready %}aria-disabled="true"{% endif %}
+                    >
+                        199 TL'YE DANIŞMANLIĞI BAŞLAT
+                        <span>↗</span>
+                    </a>
+
+                    <a
+                        href="#nasil-calisir"
+                        class="consulting-secondary-button"
+                    >
+                        Nasıl çalışıyor?
+                    </a>
+
+                </div>
+
+                <p class="consulting-mini-note">
+                    Shopier ile güvenli ödeme · WhatsApp üzerinden birebir iletişim
+                </p>
+
+            </div>
 
         </div>
 
