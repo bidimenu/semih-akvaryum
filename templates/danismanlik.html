@@ -7,8 +7,143 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
 {% block extra_css %}
 <link
     rel="stylesheet"
-    href="{{ url_for('static', filename='css/consulting.css', v='20260903-4') }}"
+    href="{{ url_for('static', filename='css/consulting.css', v='20260903-5') }}"
 >
+
+<style>
+@media (max-width: 900px) {
+
+    .consulting-hero {
+        padding: 0 0 34px !important;
+    }
+
+    .consulting-hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+
+    .consulting-offer-card {
+        order: 1 !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin:
+            -26px 0 0 !important;
+
+        padding:
+            17px 16px 14px !important;
+
+        border-radius: 22px !important;
+
+        transform: none !important;
+    }
+
+    .consulting-hero-copy {
+        order: 2 !important;
+    }
+
+    .consulting-offer-label {
+        margin-bottom: 5px !important;
+    }
+
+    .consulting-offer-top strong {
+        max-width: 245px !important;
+
+        font-size: 18px !important;
+        line-height: 1.18 !important;
+    }
+
+    .consulting-live-badge {
+        min-height: 25px !important;
+
+        padding: 0 9px !important;
+    }
+
+    .consulting-price {
+        margin-top: 15px !important;
+    }
+
+    .consulting-old-price {
+        font-size: 14px !important;
+    }
+
+    .consulting-current-price {
+        margin-top: 1px !important;
+    }
+
+    .consulting-current-price strong {
+        font-size: 58px !important;
+        line-height: .92 !important;
+        letter-spacing: -3px !important;
+    }
+
+    .consulting-current-price span {
+        font-size: 17px !important;
+    }
+
+    body .consulting-price p {
+        margin-top: 6px !important;
+
+        font-size: 9.5px !important;
+        line-height: 1.35 !important;
+    }
+
+    .consulting-divider {
+        margin:
+            14px 0 !important;
+    }
+
+    .consulting-includes {
+        gap: 7px !important;
+    }
+
+    .consulting-includes > div {
+        grid-template-columns:
+            20px 1fr !important;
+
+        gap: 8px !important;
+    }
+
+    .consulting-includes span {
+        width: 20px !important;
+        height: 20px !important;
+
+        font-size: 8px !important;
+    }
+
+    body .consulting-includes p {
+        font-size: 9.8px !important;
+        line-height: 1.28 !important;
+    }
+
+    .consulting-card-cta {
+        min-height: 49px !important;
+
+        margin-top: 15px !important;
+
+        font-size: 10px !important;
+    }
+
+    .consulting-offer-card > small {
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .consulting-shell {
+        width: 92% !important;
+    }
+
+    .consulting-offer-card {
+        margin-top: -24px !important;
+    }
+
+}
+</style>
+
 {% endblock %}
 
 {% block content %}
