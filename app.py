@@ -276,11 +276,6 @@ def consulting_buy():
 
 @app.get("/danismanlik/whatsapp")
 def consulting_whatsapp():
-    order_no = request.args.get(
-        "order_no",
-        "",
-    ).strip()
-
     issue = request.args.get(
         "issue",
         "Genel danışmanlık",
@@ -299,30 +294,7 @@ def consulting_whatsapp():
     if issue not in allowed_issues:
         issue = "Genel danışmanlık"
 
-    if (
-        len(order_no) < 3
-        or len(order_no) > 64
-        or not all(
-            char.isalnum()
-            or char in "-_./"
-            for char in order_no
-        )
-    ):
-        flash(
-            "Geçerli Shopier sipariş numaranı gir.",
-            "error",
-        )
-
-        return redirect(
-            url_for(
-                "consulting",
-                order="eksik",
-            )
-        )
-
-    phone = (
-        _consulting_whatsapp_number()
-    )
+    phone = _consulting_whatsapp_number()
 
     if not phone:
         flash(
@@ -337,24 +309,14 @@ def consulting_whatsapp():
     message = (
         "Merhaba Semih, "
         "1 Aylık Akvaryum Danışmanlığı paketini "
-        "Shopier üzerinden satın aldım.%0A%0A"
-        f"Shopier Sipariş No: {order_no}%0A"
-        f"Danışmanlık Konusu: {issue}%0A%0A"
+        "Shopier üzerinden satın aldım.\n\n"
+        f"Danışmanlık Konusu: {issue}\n\n"
         "Danışmanlığımı başlatmak istiyorum."
-    )
-
-    # quote() ile Türkçe ve özel karakterler güvenli taşınır.
-    message = quote(
-        message.replace(
-            "%0A",
-            "\n",
-        ),
-        safe="",
     )
 
     whatsapp_url = (
         f"https://wa.me/{phone}"
-        f"?text={message}"
+        f"?text={quote(message, safe='')}"
     )
 
     return redirect(

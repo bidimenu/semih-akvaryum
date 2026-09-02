@@ -331,12 +331,12 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
                     <div class="consulting-step-line"></div>
 
                     <strong>
-                        Sipariş numaranla WhatsApp'a geç
+                        WhatsApp'a geç
                     </strong>
 
                     <p>
-                        Shopier sipariş numaranı aşağıdaki alana gir.
-                        WhatsApp mesajın hazır şekilde açılsın.
+                        Ödemeni tamamladıktan sonra WhatsApp'a geç.
+                        Mesajın hazır şekilde açılsın.
                     </p>
 
                 </article>
@@ -381,13 +381,13 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
                     </span>
 
                     <h2>
-                        Sipariş numaranla
+                        Ödemeni tamamladıysan
                         <em>WhatsApp danışmanlığını başlat.</em>
                     </h2>
 
                     <p>
-                        Shopier ödeme ekranında oluşan sipariş numaranı gir.
-                        Mesajı senin için hazırlayıp WhatsApp'a yönlendireceğiz.
+                        Shopier ödemen tamamlandıysa danışmanlık konunu seç.
+                        Seni hazır mesajla doğrudan WhatsApp'a yönlendireceğiz.
                     </p>
 
                 </div>
@@ -398,20 +398,6 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
                     method="GET"
                     class="consulting-order-form"
                 >
-
-                    <label>
-                        <span>SHOPIER SİPARİŞ NO</span>
-
-                        <input
-                            type="text"
-                            name="order_no"
-                            maxlength="64"
-                            placeholder="Örn. 123456789"
-                            required
-                            autocomplete="off"
-                        >
-                    </label>
-
 
                     <label>
                         <span>DANIŞMANLIK KONUSU</span>
@@ -432,12 +418,12 @@ Birebir Akvaryum Danışmanlığı · Semih Akvaryum
                         type="submit"
                         {% if not whatsapp_ready %}disabled{% endif %}
                     >
-                        WHATSAPP'TAN BAŞLAT
+                        WHATSAPP'TAN DANIŞMANLIĞI BAŞLAT
                         <span>↗</span>
                     </button>
 
                     <small>
-                        Mesaj WhatsApp'ta hazır açılır; göndermeden önce kontrol edebilirsin.
+                        Shopier siparişindeki telefon numarası ile WhatsApp numaran eşleştirilerek ödeme kontrol edilir.
                     </small>
 
                 </form>
