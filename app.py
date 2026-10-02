@@ -25,6 +25,7 @@ from sqlalchemy.exc import IntegrityError
 from pydantic import ValidationError
 
 from extensions import db, login_manager
+from shop_admin import shop_admin_bp
 from models import (
     Aquarium,
     AquariumChatMessage,
@@ -52,6 +53,13 @@ from services.compatibility_service import (
     generate_compatibility_result,
 )
 
+from models import (
+    Aquarium,
+    AquariumChatMessage,
+    AquariumPlanRevision,
+    Product,
+    User,
+)
 
 load_dotenv()
 
@@ -157,6 +165,7 @@ app.config[
 
 db.init_app(app)
 login_manager.init_app(app)
+app.register_blueprint(shop_admin_bp)
 
 # V1 deployment:
 # Yeni PostgreSQL veritabanında mevcut tabloları otomatik oluşturur.
@@ -177,6 +186,183 @@ def health():
 def home():
     return render_template("index.html")
 
+
+
+'''yeni'''
+
+def _safe_shopier_url(value):
+    """
+    Ürün satın alma yönlendirmelerinde yalnızca
+    Shopier domainine izin verir.
+    """
+
+    value = (value or "").strip()
+
+    if not value:
+        return None
+
+    try:
+        parsed = urlparse(value)
+
+    except ValueError:
+        return None
+
+    host = (
+        parsed.hostname
+        or ""
+    ).lower()
+
+    if parsed.scheme not in {
+        "http",
+        "https",
+    }:
+        return None
+
+    if not (
+        host == "shopier.com"
+        or host.endswith(".shopier.com")
+    ):
+        return None
+
+    return value
+
+
+@app.get("/magaza")
+def shop():
+    category = request.args.get(
+        "kategori",
+        "",
+    ).strip()
+
+    search = request.args.get(
+        "q",
+        "",
+    ).strip()
+
+    statement = (
+        db.select(Product)
+        .where(
+            Product.is_active.is_(True)
+        )
+    )
+
+    if category:
+        statement = statement.where(
+            Product.category == category
+        )
+
+    if search:
+        pattern = f"%{search}%"
+
+        statement = statement.where(
+            or_(
+                Product.name.ilike(pattern),
+                Product.short_description.ilike(
+                    pattern
+                ),
+                Product.description.ilike(
+                    pattern
+                ),
+            )
+        )
+
+    statement = statement.order_by(
+        Product.is_featured.desc(),
+        Product.created_at.desc(),
+    )
+
+    products = db.session.scalars(
+        statement
+    ).all()
+
+    categories = db.session.scalars(
+        db.select(Product.category)
+        .where(
+            Product.is_active.is_(True),
+            Product.category.is_not(None),
+            Product.category != "",
+        )
+        .distinct()
+        .order_by(
+            Product.category.asc()
+        )
+    ).all()
+
+    return render_template(
+        "shop.html",
+        products=products,
+        categories=categories,
+        selected_category=category,
+        search=search,
+    )
+
+
+@app.get("/urun/<string:slug>")
+def product_detail(slug):
+    product = db.session.scalar(
+        db.select(Product).where(
+            Product.slug == slug,
+            Product.is_active.is_(True),
+        )
+    )
+
+    if product is None:
+        abort(404)
+
+    return render_template(
+        "product_detail.html",
+        product=product,
+    )
+
+
+@app.get(
+    "/urun/<string:slug>/satin-al"
+)
+def product_buy(slug):
+    product = db.session.scalar(
+        db.select(Product).where(
+            Product.slug == slug,
+            Product.is_active.is_(True),
+        )
+    )
+
+    if product is None:
+        abort(404)
+
+    if not product.in_stock:
+        flash(
+            "Bu ürün şu anda stokta bulunmuyor.",
+            "error",
+        )
+
+        return redirect(
+            url_for(
+                "product_detail",
+                slug=product.slug,
+            )
+        )
+
+    shopier_url = _safe_shopier_url(
+        product.shopier_url
+    )
+
+    if not shopier_url:
+        flash(
+            "Bu ürünün ödeme bağlantısı henüz hazır değil.",
+            "error",
+        )
+
+        return redirect(
+            url_for(
+                "product_detail",
+                slug=product.slug,
+            )
+        )
+
+    return redirect(
+        shopier_url,
+        code=302,
+    )
 
 def _shopier_consulting_url():
     """

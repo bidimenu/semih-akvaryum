@@ -100,6 +100,14 @@
                     Canlı Uyumu
                 </a>
 
+
+                <a
+                    href="{{ url_for('shop') }}"
+                    class="{% if request.endpoint in ['shop', 'product_detail', 'product_buy'] %}active{% endif %}"
+                >
+                    Mağaza
+                </a>
+
                 <a
                     href="{{ url_for('consulting') }}"
                     class="{% if request.endpoint in ['consulting', 'consulting_buy', 'consulting_whatsapp'] %}active{% endif %}"

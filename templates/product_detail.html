@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ product.name }} · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/shop.css', v='20261003-1') }}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="product-detail-page">
+
+    <div class="shop-glow shop-glow-one"></div>
+
+    <div class="shop-shell">
+
+        <a
+            href="{{ url_for('shop') }}"
+            class="product-back"
+        >
+            ← Mağazaya dön
+        </a>
+
+
+        <div class="product-detail-grid">
+
+            <div class="product-detail-media">
+
+                {% if product.image_url %}
+
+                    <img
+                        src="{{ product.image_url }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% else %}
+
+                    <div class="product-detail-placeholder">
+                        SEMİH.AKVARYUM
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="product-detail-content">
+
+                {% if product.category %}
+
+                    <span class="product-detail-category">
+                        {{ product.category }}
+                    </span>
+
+                {% endif %}
+
+
+                <h1>
+                    {{ product.name }}
+                </h1>
+
+
+                {% if product.short_description %}
+
+                    <p class="product-detail-lead">
+                        {{ product.short_description }}
+                    </p>
+
+                {% endif %}
+
+
+                <div class="product-detail-price">
+                    {{ product.display_price }}
+                    <span>TL</span>
+                </div>
+
+
+                {% if product.in_stock %}
+
+                    <div class="product-stock-card available">
+
+                        <span>●</span>
+
+                        <div>
+                            <strong>Stokta</strong>
+                            <small>
+                                {{ product.stock }} adet mevcut
+                            </small>
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="product-stock-card unavailable">
+
+                        <span>●</span>
+
+                        <div>
+                            <strong>Şu anda tükendi</strong>
+                            <small>
+                                Yakında tekrar stokta.
+                            </small>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if product.in_stock %}
+
+                    <a
+                        href="{{ url_for(
+                            'product_buy',
+                            slug=product.slug
+                        ) }}"
+                        class="product-buy-button"
+                    >
+                        Shopier ile Güvenli Satın Al
+                        <span>↗</span>
+                    </a>
+
+                {% else %}
+
+                    <button
+                        type="button"
+                        class="product-buy-button disabled"
+                        disabled
+                    >
+                        Ürün Tükendi
+                    </button>
+
+                {% endif %}
+
+
+                <div class="product-payment-note">
+
+                    <span>🔒</span>
+
+                    <p>
+                        Ödeme Shopier'in güvenli ödeme
+                        altyapısı üzerinden gerçekleştirilir.
+                        Kart bilgileriniz Semih Akvaryum
+                        sunucularına gönderilmez.
+                    </p>
+
+                </div>
+
+
+                {% if product.description %}
+
+                    <div class="product-description">
+
+                        <span class="product-description-label">
+                            ÜRÜN DETAYLARI
+                        </span>
+
+                        <p>
+                            {{ product.description }}
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

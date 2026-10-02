@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}
+Mağaza · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/shop.css', v='20261003-1') }}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="shop-page">
+
+    <div class="shop-glow shop-glow-one"></div>
+    <div class="shop-glow shop-glow-two"></div>
+
+    <div class="shop-shell">
+
+        <header class="shop-hero">
+
+            <div class="shop-eyebrow">
+                SEMİH.AKVARYUM STORE
+            </div>
+
+            <h1>
+                Akvaryumun için
+                <span>seçilmiş ürünler.</span>
+            </h1>
+
+            <p>
+                Kendi kullandığımız, test ettiğimiz ve
+                akvaryum kurulumlarında tercih ettiğimiz
+                ürünleri burada bulabilirsin.
+            </p>
+
+        </header>
+
+
+        <div class="shop-toolbar">
+
+            <form
+                action="{{ url_for('shop') }}"
+                method="GET"
+                class="shop-search"
+            >
+
+                {% if selected_category %}
+                    <input
+                        type="hidden"
+                        name="kategori"
+                        value="{{ selected_category }}"
+                    >
+                {% endif %}
+
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ search }}"
+                    placeholder="Ürün ara..."
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Ara
+                </button>
+
+            </form>
+
+
+            <div class="shop-categories">
+
+                <a
+                    href="{{ url_for('shop', q=search) }}"
+                    class="{% if not selected_category %}active{% endif %}"
+                >
+                    Tümü
+                </a>
+
+                {% for category in categories %}
+
+                    <a
+                        href="{{ url_for(
+                            'shop',
+                            kategori=category,
+                            q=search
+                        ) }}"
+                        class="{% if selected_category == category %}active{% endif %}"
+                    >
+                        {{ category }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        {% if products %}
+
+            <div class="shop-product-grid">
+
+                {% for product in products %}
+
+                    <article class="product-card">
+
+                        <a
+                            href="{{ url_for(
+                                'product_detail',
+                                slug=product.slug
+                            ) }}"
+                            class="product-card-image"
+                        >
+
+                            {% if product.image_url %}
+
+                                <img
+                                    src="{{ product.image_url }}"
+                                    alt="{{ product.name }}"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="product-placeholder">
+                                    <span>SEMİH.AKVARYUM</span>
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if product.is_featured %}
+
+                                <span class="product-badge">
+                                    ÖNERİLEN
+                                </span>
+
+                            {% endif %}
+
+                        </a>
+
+
+                        <div class="product-card-body">
+
+                            {% if product.category %}
+
+                                <span class="product-category">
+                                    {{ product.category }}
+                                </span>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{{ url_for(
+                                    'product_detail',
+                                    slug=product.slug
+                                ) }}"
+                                class="product-title"
+                            >
+                                {{ product.name }}
+                            </a>
+
+
+                            {% if product.short_description %}
+
+                                <p>
+                                    {{ product.short_description }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <div class="product-card-footer">
+
+                                <div>
+
+                                    <strong class="product-price">
+                                        {{ product.display_price }}
+                                        <small>TL</small>
+                                    </strong>
+
+                                    {% if product.in_stock %}
+
+                                        <span class="stock stock-ok">
+                                            ● Stokta
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="stock stock-out">
+                                            ● Tükendi
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <a
+                                    href="{{ url_for(
+                                        'product_detail',
+                                        slug=product.slug
+                                    ) }}"
+                                    class="product-arrow"
+                                    aria-label="{{ product.name }}"
+                                >
+                                    →
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="shop-empty">
+
+                <span>◎</span>
+
+                <h2>
+                    Ürün bulunamadı.
+                </h2>
+
+                <p>
+                    Arama veya kategori filtresini değiştirerek
+                    tekrar deneyebilirsin.
+                </p>
+
+                <a href="{{ url_for('shop') }}">
+                    Tüm ürünleri göster
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

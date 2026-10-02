@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if mode == "create" %}Yeni Ürün{% else %}Ürün Düzenle{% endif %} · Semih Akvaryum
+{% endblock %}
+
+{% block extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/shop_admin.css', v='20261003-2') }}"
+>
+{% endblock %}
+
+{% block content %}
+
+<section class="shop-admin-page">
+
+    <div class="shop-admin-shell shop-admin-form-shell">
+
+        <a
+            href="{{ url_for('shop_admin.product_list') }}"
+            class="shop-admin-back"
+        >
+            ← Ürün yönetimine dön
+        </a>
+
+        <header class="shop-admin-form-header">
+
+            <span class="shop-admin-eyebrow">
+                SEMİH.AKVARYUM · STORE
+            </span>
+
+            <h1>
+                {% if mode == "create" %}
+                    Yeni ürün ekle
+                {% else %}
+                    Ürünü düzenle
+                {% endif %}
+            </h1>
+
+            <p>
+                Shopier'deki ürün bilgileriyle aynı olacak şekilde doldur.
+            </p>
+
+        </header>
+
+        <form
+            method="POST"
+            class="shop-admin-form"
+        >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ shop_admin_csrf_token() }}"
+            >
+
+            <div class="shop-admin-form-grid">
+
+                <label class="shop-admin-field shop-admin-field-wide">
+                    <span>Ürün adı *</span>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ form.name }}"
+                        maxlength="220"
+                        required
+                        placeholder="Örn. WaterBear SD-01 Pipo Filtre"
+                    >
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Slug</span>
+
+                    <input
+                        type="text"
+                        name="slug"
+                        value="{{ form.slug }}"
+                        maxlength="160"
+                        placeholder="Boş bırakırsan otomatik oluşur"
+                    >
+
+                    <small>
+                        semihakvaryum.com/urun/...
+                    </small>
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Kategori</span>
+
+                    <input
+                        type="text"
+                        name="category"
+                        value="{{ form.category }}"
+                        maxlength="100"
+                        placeholder="Filtre, Bitki, Dekor..."
+                    >
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Fiyat (TL) *</span>
+
+                    <input
+                        type="text"
+                        name="price"
+                        value="{{ form.price }}"
+                        inputmode="decimal"
+                        required
+                        placeholder="349,90"
+                    >
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Stok *</span>
+
+                    <input
+                        type="number"
+                        name="stock"
+                        value="{{ form.stock }}"
+                        min="0"
+                        step="1"
+                        required
+                    >
+                </label>
+
+                <label class="shop-admin-field shop-admin-field-wide">
+                    <span>Kısa açıklama</span>
+
+                    <textarea
+                        name="short_description"
+                        maxlength="500"
+                        rows="3"
+                        placeholder="Ürün kartında görünecek kısa açıklama."
+                    >{{ form.short_description }}</textarea>
+                </label>
+
+                <label class="shop-admin-field shop-admin-field-wide">
+                    <span>Uzun açıklama</span>
+
+                    <textarea
+                        name="description"
+                        rows="9"
+                        placeholder="Ürün detay sayfasında görünecek açıklama."
+                    >{{ form.description }}</textarea>
+                </label>
+
+                <label class="shop-admin-field shop-admin-field-wide">
+                    <span>Ürün görsel URL'si</span>
+
+                    <input
+                        type="url"
+                        name="image_url"
+                        value="{{ form.image_url }}"
+                        placeholder="https://..."
+                    >
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Shopier Product ID</span>
+
+                    <input
+                        type="text"
+                        name="shopier_product_id"
+                        value="{{ form.shopier_product_id }}"
+                        maxlength="100"
+                        placeholder="Örn. 50488190"
+                    >
+                </label>
+
+                <label class="shop-admin-field">
+                    <span>Shopier satın alma linki *</span>
+
+                    <input
+                        type="url"
+                        name="shopier_url"
+                        value="{{ form.shopier_url }}"
+                        required
+                        placeholder="https://www.shopier.com/..."
+                    >
+                </label>
+
+            </div>
+
+            <div class="shop-admin-switches">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        name="is_active"
+                        value="1"
+                        {% if form.is_active %}checked{% endif %}
+                    >
+
+                    <span>
+                        <strong>Mağazada yayınla</strong>
+                        <small>
+                            Kapalıysa ürün ziyaretçilere görünmez.
+                        </small>
+                    </span>
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        name="is_featured"
+                        value="1"
+                        {% if form.is_featured %}checked{% endif %}
+                    >
+
+                    <span>
+                        <strong>Önerilen ürün</strong>
+                        <small>
+                            Mağazada önce gösterilir.
+                        </small>
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="shop-admin-form-actions">
+
+                <a
+                    href="{{ url_for('shop_admin.product_list') }}"
+                >
+                    Vazgeç
+                </a>
+
+                <button type="submit">
+                    {% if mode == "create" %}
+                        Ürünü ekle
+                    {% else %}
+                        Değişiklikleri kaydet
+                    {% endif %}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

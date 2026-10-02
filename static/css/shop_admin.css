@@ -1,0 +1,403 @@
+.shop-admin-page {
+    min-height: calc(100vh - 76px);
+    padding: 72px 0 120px;
+    color: #ecf7f6;
+    background:
+        radial-gradient(circle at 12% 5%, rgba(58, 211, 192, .08), transparent 28%),
+        #061112;
+}
+
+.shop-admin-shell {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+}
+
+.shop-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 28px;
+    margin-bottom: 25px;
+}
+
+.shop-admin-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    color: #63dacb;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2.1px;
+}
+
+.shop-admin-header h1,
+.shop-admin-form-header h1 {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1;
+    letter-spacing: -2.4px;
+}
+
+.shop-admin-header p,
+.shop-admin-form-header p {
+    margin: 14px 0 0;
+    color: #829a98;
+    line-height: 1.6;
+}
+
+.shop-admin-primary {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 18px;
+    border-radius: 14px;
+    color: #041311;
+    background: #66dccc;
+    font-size: 12px;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.shop-admin-top-links {
+    margin-bottom: 28px;
+}
+
+.shop-admin-top-links a,
+.shop-admin-back {
+    color: #789491;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.shop-admin-list {
+    display: grid;
+    gap: 13px;
+}
+
+.shop-admin-product {
+    display: grid;
+    grid-template-columns: 126px minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 20px;
+    background: rgba(255,255,255,.032);
+}
+
+.shop-admin-image {
+    display: grid;
+    min-height: 145px;
+    place-items: center;
+    overflow: hidden;
+    color: #53716e;
+    font-size: 14px;
+    font-weight: 900;
+    background: #0a1918;
+}
+
+.shop-admin-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.shop-admin-product-main {
+    padding: 20px 22px;
+}
+
+.shop-admin-product-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.shop-admin-product-top small {
+    color: #5ccfbf;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.shop-admin-product-top h2 {
+    margin: 5px 0 0;
+    font-size: 18px;
+}
+
+.shop-admin-status {
+    height: fit-content;
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.shop-admin-status.is-live {
+    color: #65d7a1;
+    background: rgba(65,200,139,.08);
+}
+
+.shop-admin-status.is-hidden {
+    color: #a4aaa9;
+    background: rgba(255,255,255,.05);
+}
+
+.shop-admin-metrics {
+    display: flex;
+    gap: 42px;
+    margin-top: 21px;
+}
+
+.shop-admin-metrics small,
+.shop-admin-metrics strong {
+    display: block;
+}
+
+.shop-admin-metrics small {
+    color: #55706d;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.shop-admin-metrics strong {
+    margin-top: 4px;
+    color: #e9f5f4;
+    font-size: 13px;
+}
+
+.shop-admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 18px;
+}
+
+.shop-admin-actions a,
+.shop-admin-actions button {
+    min-height: 34px;
+    padding: 0 11px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 10px;
+    color: #8da7a4;
+    background: rgba(255,255,255,.025);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.shop-admin-actions a.edit {
+    color: #74dfd1;
+}
+
+.shop-admin-empty {
+    padding: 90px 24px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 22px;
+    text-align: center;
+    background: rgba(255,255,255,.025);
+}
+
+.shop-admin-empty > span {
+    color: #63d8c9;
+    font-size: 42px;
+}
+
+.shop-admin-empty h2 {
+    margin: 15px 0 5px;
+}
+
+.shop-admin-empty p {
+    margin: 0 0 24px;
+    color: #78918e;
+}
+
+.shop-admin-form-shell {
+    max-width: 920px;
+}
+
+.shop-admin-form-header {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.shop-admin-form {
+    padding: 26px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 24px;
+    background: rgba(255,255,255,.027);
+}
+
+.shop-admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.shop-admin-field {
+    display: block;
+}
+
+.shop-admin-field-wide {
+    grid-column: 1 / -1;
+}
+
+.shop-admin-field > span {
+    display: block;
+    margin-bottom: 7px;
+    color: #a4b9b6;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.shop-admin-field input,
+.shop-admin-field textarea {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 13px;
+    outline: none;
+    padding: 13px 14px;
+    color: #f0f8f7;
+    background: #081817;
+    font-family: inherit;
+}
+
+.shop-admin-field textarea {
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.shop-admin-field input:focus,
+.shop-admin-field textarea:focus {
+    border-color: rgba(93,218,203,.46);
+}
+
+.shop-admin-field small {
+    display: block;
+    margin-top: 6px;
+    color: #55706d;
+    font-size: 9px;
+}
+
+.shop-admin-switches {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.shop-admin-switches label {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 14px;
+    background: rgba(255,255,255,.02);
+}
+
+.shop-admin-switches input {
+    margin-top: 2px;
+}
+
+.shop-admin-switches strong,
+.shop-admin-switches small {
+    display: block;
+}
+
+.shop-admin-switches strong {
+    color: #dce9e7;
+    font-size: 11px;
+}
+
+.shop-admin-switches small {
+    margin-top: 3px;
+    color: #66807d;
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+.shop-admin-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.shop-admin-form-actions a {
+    padding: 12px 14px;
+    color: #78918e;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.shop-admin-form-actions button {
+    min-height: 46px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 13px;
+    color: #051311;
+    background: #65dbcc;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .shop-admin-page {
+        padding: 48px 0 80px;
+    }
+
+    .shop-admin-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .shop-admin-primary {
+        width: 100%;
+    }
+
+    .shop-admin-product {
+        grid-template-columns: 90px minmax(0, 1fr);
+    }
+
+    .shop-admin-image {
+        min-height: 100%;
+    }
+
+    .shop-admin-product-main {
+        padding: 16px;
+    }
+
+    .shop-admin-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 13px;
+    }
+
+    .shop-admin-actions {
+        flex-wrap: wrap;
+    }
+
+    .shop-admin-form {
+        padding: 17px;
+    }
+
+    .shop-admin-form-grid,
+    .shop-admin-switches {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-admin-field-wide {
+        grid-column: auto;
+    }
+}

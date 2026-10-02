@@ -242,3 +242,112 @@ def load_user(user_id: str):
         )
     except (TypeError, ValueError):
         return None
+
+
+''' yeni '''
+class Product(db.Model):
+    __tablename__ = "shop_products"
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True,
+    )
+
+    slug = db.Column(
+        db.String(160),
+        unique=True,
+        nullable=False,
+        index=True,
+    )
+
+    name = db.Column(
+        db.String(220),
+        nullable=False,
+    )
+
+    short_description = db.Column(
+        db.String(500),
+        nullable=True,
+    )
+
+    description = db.Column(
+        db.Text,
+        nullable=True,
+    )
+
+    category = db.Column(
+        db.String(100),
+        nullable=True,
+        index=True,
+    )
+
+    price = db.Column(
+        db.Numeric(12, 2),
+        nullable=False,
+    )
+
+    stock = db.Column(
+        db.Integer,
+        nullable=False,
+        default=0,
+    )
+
+    image_url = db.Column(
+        db.String(1000),
+        nullable=True,
+    )
+
+    shopier_product_id = db.Column(
+        db.String(100),
+        nullable=True,
+        index=True,
+    )
+
+    shopier_url = db.Column(
+        db.String(1000),
+        nullable=False,
+    )
+
+    is_active = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=True,
+        index=True,
+    )
+
+    is_featured = db.Column(
+        db.Boolean,
+        nullable=False,
+        default=False,
+    )
+
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        nullable=False,
+        server_default=db.func.now(),
+    )
+
+    updated_at = db.Column(
+        db.DateTime(timezone=True),
+        nullable=False,
+        server_default=db.func.now(),
+        onupdate=db.func.now(),
+    )
+
+    @property
+    def in_stock(self):
+        return self.stock > 0
+
+    @property
+    def display_price(self):
+        if self.price is None:
+            return "0,00"
+
+        formatted = f"{self.price:,.2f}"
+
+        return (
+            formatted
+            .replace(",", "_")
+            .replace(".", ",")
+            .replace("_", ".")
+        )
