@@ -193,6 +193,15 @@
         <i>→</i>
     </a>
 
+    <a
+        href="{{ url_for('shop') }}"
+        class="{% if request.endpoint in ['shop', 'product_detail', 'product_buy'] %}active{% endif %}"
+    >
+        <span>◈</span>
+        <strong>Mağaza</strong>
+        <i>→</i>
+    </a>
+
 </nav>
 
 
